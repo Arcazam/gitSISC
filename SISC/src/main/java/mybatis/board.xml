@@ -56,6 +56,15 @@
 			select count(*) from board where b_cate = 'Grad' and re_level = 0
 		</select>
 		
+		<insert id="insertBoard">
+			insert into edit
+			values(#{txt})
+		</insert>
+		
+		<select id="getAllBoard">
+			select * from edit
+		</select>
+		
 	</mapper>
 	
 	<!-- 

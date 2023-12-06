@@ -1,5 +1,6 @@
 package board.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -62,4 +63,14 @@ public class BoardDao {
 		return gradBoardCount;
 	}
 
+	public void insertBoard(String editorTxt) {
+		sqlSessionTemplate.insert(namespace+".insertBoard", editorTxt);
+	}
+
+	public List<BoardBean> getAllBoard() {
+		List<BoardBean> list = new ArrayList<BoardBean>();
+		
+		list = sqlSessionTemplate.selectList(namespace+".getAllBoard"); 
+		return list;
+	}
 }

@@ -70,6 +70,7 @@ public class CommunityBean {
 		return reg_date;
 	}
 
+
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
