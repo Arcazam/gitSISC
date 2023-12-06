@@ -4,4 +4,63 @@
 	
 	<mapper namespace="board">
 		
+		<select id="getAllFreeBoard" resultType="SiscBoard">
+			select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from board where b_cate = 'Free' and re_level = 0
+			order by ref desc, re_step asc ))
+			where rank between 1 and 5
+		</select>
+		
+		<select id="getAllKnowBoard" resultType="SiscBoard">
+			select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from board where b_cate = 'Know' and re_level = 0
+			order by ref desc, re_step asc ))
+			where rank between 1 and 5
+		</select>
+		
+		<select id="getAllQnABoard" resultType="SiscBoard">
+			select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from board where b_cate = 'QnA' and re_level = 0
+			order by ref desc, re_step asc ))
+			where rank between 1 and 5
+		</select>
+		
+		<select id="getAllGradBoard" resultType="SiscBoard">
+			select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from board where b_cate = 'Grad' and re_level = 0
+			order by ref desc, re_step asc ))
+			where rank between 1 and 5
+		</select>
+		
+		<select id="getCountFree" resultType="int">
+			select count(*) from board where b_cate = 'Free' and re_level = 0
+		</select>
+		
+		<select id="getCountKnow" resultType="int">
+			select count(*) from board where b_cate = 'Know' and re_level = 0
+		</select>
+		
+		<select id="getCountQnA" resultType="int">
+			select count(*) from board where b_cate = 'QnA' and re_level = 0
+		</select>
+		
+		<select id="getCountGrad" resultType="int">
+			select count(*) from board where b_cate = 'Grad' and re_level = 0
+		</select>
+		
 	</mapper>
+	
+	<!-- 
+	
+		getAll [A] Board : ... where b_cate = A and re_level = 0 ... 
+		A게시판의 원글에 대한 레코드 5개 가져오기
+		
+	-->

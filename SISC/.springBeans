@@ -15,6 +15,7 @@
 		<config>src/main/webapp/WEB-INF/spring/appServlet/board-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/community-servlet.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/survey-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/view-servlet.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
