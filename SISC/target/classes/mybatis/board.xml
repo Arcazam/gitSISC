@@ -55,7 +55,6 @@
 		<select id="getCountGrad" resultType="int">
 			select count(*) from board where b_cate = 'Grad' and re_level = 0
 		</select>
-		
 	</mapper>
 	
 	<!-- 

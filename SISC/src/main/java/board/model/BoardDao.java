@@ -1,5 +1,6 @@
 package board.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -61,5 +62,4 @@ public class BoardDao {
 		int gradBoardCount = sqlSessionTemplate.selectOne(namespace+"getCountGrad");
 		return gradBoardCount;
 	}
-
 }
