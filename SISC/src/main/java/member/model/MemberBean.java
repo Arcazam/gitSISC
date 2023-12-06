@@ -3,10 +3,10 @@ package member.model;
 public class MemberBean {
 
 	private String id;
-	private String password;
+	private String password;	
 	private String name;
 	private String birth;
-	private String gender;
+	private String gender;	
 	private String address;
 	private String phone;
 	private int point;
