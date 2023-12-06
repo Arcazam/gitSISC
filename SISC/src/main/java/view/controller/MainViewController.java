@@ -25,7 +25,7 @@ public class MainViewController {
 	@Autowired
 	private MemberDao mem_dao;
 	
-	// 책 리스트형식 출력
+	// 책 리스트형식 출력 
 	@Autowired
 	private BookDao bok_dao;
 	
