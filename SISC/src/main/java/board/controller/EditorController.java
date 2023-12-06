@@ -35,7 +35,6 @@ public class EditorController {
 
 	@RequestMapping(value = command, method = RequestMethod.GET)
 	public String editor() {
-		
 		return viewPage;
 	}
 

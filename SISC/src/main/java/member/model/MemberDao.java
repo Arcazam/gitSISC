@@ -11,5 +11,10 @@ public class MemberDao {
 	SqlSessionTemplate sqlSessionTemplate;
 	
 	private String namespace="member.";
+
+	public MemberBean getAllMember(String userId) {
+		MemberBean mb = sqlSessionTemplate.selectOne(namespace+"getAllMember",userId);
+		return mb;
+	}
 	
 }

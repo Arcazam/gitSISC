@@ -7,11 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import board.model.BoardBean;
 import board.model.BoardDao;
 import book.model.BookBean;
 import book.model.BookDao;
+import member.model.MemberBean;
 import member.model.MemberDao;
 
 @Controller
@@ -20,20 +22,21 @@ public class MainViewController {
 	// 게시판 리스트형식 출력
 	@Autowired
 	private BoardDao bor_dao;
-	
+
 	// 회원 빈 형식 출력
 	@Autowired
 	private MemberDao mem_dao;
-	
+
 	// 책 리스트형식 출력
 	@Autowired
 	private BookDao bok_dao;
-	
+
 	public final String command = "/list.vw";
 	public final String viewPage = "siscMain";
-	
+
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String siscMainjsp(
+				@RequestParam(value="userId",required = false) String userId,
 				Model model
 			) {
 	
@@ -82,8 +85,14 @@ public class MainViewController {
 		model.addAttribute(book_list);
 		model.addAttribute(bookCount);
 		
+		// 로그인 한 사람에 한해서 사용자 정보 넘기기
+		if(userId != null) {
+			MemberBean mb = mem_dao.getAllMember(userId);
+			model.addAttribute("mb",mb);
+		}
+		
 		return viewPage;
 		
 	}
-	
+
 }

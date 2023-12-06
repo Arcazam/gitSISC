@@ -4,4 +4,8 @@
 	
 	<mapper namespace="member">
 		
+		<select id="getAllMember" resultType="SiscMember">
+			select * from member where id = #{userId}
+		</select>
+		
 	</mapper>
