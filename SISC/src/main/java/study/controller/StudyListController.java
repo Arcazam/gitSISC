@@ -15,8 +15,8 @@ import study.model.StudyDao;
 @Controller
 public class StudyListController {
 	
-	private final String command = "SmartEditorList.st";
-	private final String viewPage = "SmartEditorList";
+	private final String command = "SelectAllStudy.st";
+	private final String viewPage = "SelectAllStudy";
 	
 	@Autowired
 	private StudyDao sdao;
@@ -24,7 +24,7 @@ public class StudyListController {
 	@RequestMapping(command)
 	public String list(Model model) {
 		
-		List<StudyBean> lists = sdao.getAllMemo();
+		List<StudyBean> lists = sdao.getAllStudy();
 		model.addAttribute("list",lists);
 		return viewPage;
 		

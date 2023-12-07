@@ -15,15 +15,24 @@ public class StudyDao {
 	
 	private String namespace="study.";
 	
-	public void insertMemo(String editorTxt) {
-		sqlSessionTemplate.insert(namespace+".insertMemo", editorTxt);
+	public void insertStudy(StudyBean st) {
+		sqlSessionTemplate.insert(namespace+"insertStudy", st);
 	}
 
-	public List<StudyBean> getAllMemo() {
+	public List<StudyBean> getAllStudy() {
 		List<StudyBean> list = new ArrayList<StudyBean>();
 		
-		list = sqlSessionTemplate.selectList(namespace+".getAllMemo"); 
+		list = sqlSessionTemplate.selectList(namespace+"getAllStudy"); 
 		return list;
 	}
-	
+
+	public StudyBean getDetailStudy(int s_num) {
+		StudyBean sb = sqlSessionTemplate.selectOne(namespace+"getDetailStudy", s_num); 
+		
+		return sb;
+	}
+
+	public void deleteStudy(int s_num) {
+		sqlSessionTemplate.delete(namespace+"deleteStudy", s_num); 
+	}
 }

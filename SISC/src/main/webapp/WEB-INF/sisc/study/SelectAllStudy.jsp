@@ -1,79 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<link href="<%=request.getContextPath() %>/resources/css/studyTable.css" rel="stylesheet" type="text/css" />
 <%@include file = "./../common/common.jsp" %>
+<%@ include file="../top&bottom/top.jsp"%>  
 
 <script>
 	function insert(){
-		location.href = "editor.pd"
-	}
-	submitPost = function() {
-	    oEditors.getById["txt"].exec("UPDATE_CONTENTS_FIELD", []);
-
-	    // 텍스트 에디터의 내용 가져오기
-	    let content = document.getElementById("txt").value;
-
-	    if (content == '<p>&nbsp;</p>') {
-	        alert("내용을 입력해주세요.");
-	        oEditors.getById["txt"].exec("FOCUS");
-	        return;
-	    } else {
-	        // 이미지 업로드를 위한 FormData 생성
-	        let formData = new FormData();
-	        formData.append("file", document.getElementById("imageFile").files[0]);
-
-	        // 이미지를 업로드할 URL (서버 사이드 이미지 업로드 메서드의 엔드포인트)
-	        let uploadUrl = "/uploadImage";
-
-	        // 이미지 업로드 요청
-	        $.ajax({
-	            url: uploadUrl,
-	            type: "POST",
-	            data: formData,
-	            contentType: false,
-	            processData: false,
-	            success: function (imageUrl) {
-	                // 이미지가 성공적으로 업로드되면 해당 이미지의 URL을 텍스트 에디터에 추가
-	                oEditors.getById["txt"].exec("PASTE_HTML", [content + '<img src="' + imageUrl + '">']);
-	                alert("이미지가 업로드되었습니다.");
-	            },
-	            error: function () {
-	                alert("이미지 업로드에 실패했습니다.");
-	            }
-	        });
-	    }
+		location.href = "insert.st"
 	}
 </script>
 
-<h2 align="center">게시글 화면</h2>
+<h2 align="center">My Page</h2>
 
+<table class="top_table">
+	<tr>
+		<td rowspan="4">사진</td>
+	</tr>
+	<tr>
+		<td>작성자:</td>
+	</tr>
+	<tr>
+		<td>반:</td>
+	</tr>
+	<tr>
+		<td>기간:</td>
+	</tr>
+</table>
 
 <form>
-	<table border="1" style="margin: auto; width: 40%">
+	<div>
+		<table border="0" cellpadding="0" cellspacing="0"  style="margin: auto; width: 40%;">
 		<tr>
 			<td colspan="9" align="right">
 				<input type="button" value="추가하기" onclick="insert()" >
 			</td>
 		</tr>
-		<tr>
-			<th>게시글</th>
-		</tr>
 		<c:choose>
-	<c:when test="${fn:length(list) eq 0}">
-		<tr>
-			<td colspan="9" align="center">
-				등록된 게시글이 없습니다
-			</td>
-		</tr>
-	</c:when>
-	<c:otherwise>
-		<c:forEach var="ed" items="${list }">
+		<c:when test="${fn:length(list) eq 0}">
 			<tr>
-				<td align="center">${ed.txt }</td>
+				<td colspan="9" align="center">
+					등록된 게시글이 없습니다
+				</td>
 			</tr>
-		</c:forEach>
-	</c:otherwise>
-	</c:choose> 
-	</table>
+		</c:when>
+		<c:otherwise>
+			<c:forEach var="st" items="${list }">
+				<input type = "hidden" name = "s_num" value="${st.s_num }">
+				<tr height="100px;">
+					<td width="10%" align="center">${st.s_num }</td>
+					<td>
+						<strong><a href="detail.st?s_num=${st.s_num }">${st.memoTitle }</a></strong>
+						<p style="float:right; display: inline;">${st.memoCate }</p>
+						<p>
+						<p style="float:right; margin-left: ">수정 | 삭제 | ${st.memoDate }</p>
+					</td>
+				</tr>
+			</c:forEach>
+		</c:otherwise>
+		</c:choose> 
+		</table>
+	</div>
 </form>
 
+<script>
+$(window).on("load resize ", function() {
+	var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+	$('.tbl-header').css({'padding-right':scrollWidth});
+}).resize();
+</script>

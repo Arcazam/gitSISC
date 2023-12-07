@@ -3,12 +3,20 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 	<mapper namespace="study">
-		<insert id="insertMemo">
+		<insert id="insertStudy">
 			insert into study_memo
-			values(#{st_seq.nextval},#{s_writer},#{memoCate},#{memoTitle},#{subTitle},#{s_content})
+			values(st_seq.nextval,#{s_writer},#{memoCate},#{memoTitle},#{subTitle},sysdate,#{s_content})
 		</insert>
 		
-		<select id="getAllMemo">
+		<select id="getAllStudy" resultType="SiscStudy">
 			select * from study_memo
 		</select>
+		
+		<select id="getDetailStudy" resultType="SiscStudy">
+			select * from study_memo where s_num = #{s_num}
+		</select>
+		
+		<delete id="deleteStudy">
+			delete from study_memo where s_num = #{s_num}
+		</delete>
 	</mapper>

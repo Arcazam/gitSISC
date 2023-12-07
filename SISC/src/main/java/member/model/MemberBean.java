@@ -2,104 +2,113 @@ package member.model;
 
 public class MemberBean {
 
-	private String id;
-	private String password;
-	private String name;
-	private String birth;
-	private String gender;
-	private String address;
-	private String phone;
-	private int point;
-	private String u_class;
+   private String id;
+   private String password;   
+   private String name;
+   private String pro_img;
+   private String birth;
+   private String gender;   
+   private String address;
+   private String phone;
+   private int point;
+   private String u_class;
 
-	public MemberBean() {
+   public MemberBean() {
 
-	}
+   }
 
-	public MemberBean(String id, String password, String name, String birth, String gender, String address,
-			String phone, int point, String u_class) {
-		super();
-		this.id = id;
-		this.password = password;
-		this.name = name;
-		this.birth = birth;
-		this.gender = gender;
-		this.address = address;
-		this.phone = phone;
-		this.point = point;
-		this.u_class = u_class;
-	}
+   public MemberBean(String id, String password, String name,String pro_img, String birth, String gender, String address,
+         String phone, int point, String u_class) {
+      super();
+      this.id = id;
+      this.password = password;
+      this.name = name;
+      this.pro_img = pro_img;
+      this.birth = birth;
+      this.gender = gender;
+      this.address = address;
+      this.phone = phone;
+      this.point = point;
+      this.u_class = u_class;
+   }
 
-	public String getId() {
-		return id;
-	}
+   public String getId() {
+      return id;
+   }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+   public void setId(String id) {
+      this.id = id;
+   }
 
-	public String getPassword() {
-		return password;
-	}
+   public String getPassword() {
+      return password;
+   }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+   public void setPassword(String password) {
+      this.password = password;
+   }
 
-	public String getName() {
-		return name;
-	}
+   public String getName() {
+      return name;
+   }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+   public void setName(String name) {
+      this.name = name;
+   }
+   
+   public String getPro_img() {
+      return pro_img;
+   }
 
-	public String getBirth() {
-		return birth;
-	}
+   public void setPro_img(String pro_img) {
+      this.pro_img = pro_img;
+   }
 
-	public void setBirth(String birth) {
-		this.birth = birth;
-	}
+   public String getBirth() {
+      return birth;
+   }
 
-	public String getGender() {
-		return gender;
-	}
+   public void setBirth(String birth) {
+      this.birth = birth;
+   }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+   public String getGender() {
+      return gender;
+   }
 
-	public String getAddress() {
-		return address;
-	}
+   public void setGender(String gender) {
+      this.gender = gender;
+   }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+   public String getAddress() {
+      return address;
+   }
 
-	public String getPhone() {
-		return phone;
-	}
+   public void setAddress(String address) {
+      this.address = address;
+   }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+   public String getPhone() {
+      return phone;
+   }
 
-	public int getPoint() {
-		return point;
-	}
+   public void setPhone(String phone) {
+      this.phone = phone;
+   }
 
-	public void setPoint(int point) {
-		this.point = point;
-	}
+   public int getPoint() {
+      return point;
+   }
 
-	public String getU_class() {
-		return u_class;
-	}
+   public void setPoint(int point) {
+      this.point = point;
+   }
 
-	public void setU_class(String u_class) {
-		this.u_class = u_class;
-	}
+   public String getU_class() {
+      return u_class;
+   }
 
+   public void setU_class(String u_class) {
+      this.u_class = u_class;
+   }
 }

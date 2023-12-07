@@ -1,59 +1,18 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:700);
-html, body{background : #FBC02D; font-family : Roboto; height: 100%; width: 100%; margin: 0;}
-
-#holder{
-  -moz-user-select: -moz-none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  background: white;
-  padding: 10px;
-  width: 250px;
-  margin: 0 auto;
-  position: relative;
-  top: 50%;
-  transform: translateY(-65%);
-  border-radius: 2px;
-  margin-top: 50px;
-  float: right;
-}
-.button {
-  background: #3D4C53;
-  margin : 20px auto;
-  width : 200px;
-  height : 40px;
-  overflow: hidden;
-  text-align : center;
-  transition : .2s;
-  cursor : pointer;
-  border-radius: 3px;
-  box-shadow: 0px 1px 2px rgba(0,0,0,.2);
-}
-.btnTwo {
-  position : relative;
-  width : 190px;
-  height : 100px;
-  margin-top: -80px;
-  padding-top: 2px;
-  background : #26A69A;
-  left : -240px;
-  transition : .3s;
-}
-.btnText {
-  color : white;
-  margin-top: 7px;
-  transition : .3s;
-}
-.btnText2 {
-  margin-top : 52px;
-  margin-right : -130px;
-  color : #FFF;
-}
-.button:hover .btnTwo{ /*When hovering over .button change .btnTwo*/
-  left: -130px;
-}
-.button:hover .btnText{ /*When hovering over .button change .btnText*/
-  margin-left : 65px;
-}
-.button:active { /*Clicked and held*/
-  box-shadow: 0px 5px 6px rgba(0,0,0,0.3);
+.studysave{
+	display: inline-block;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    background: #000000;
+    color: #FFFFFF;
+    border-radius: 8px;
+    padding: 14px 24px 16px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+    float: right;
+    transition: transform 200ms,background 200ms;
+    :hover{
+    	transform: translateY(-2px);
+    }
 }

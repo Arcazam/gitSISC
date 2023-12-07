@@ -35,7 +35,7 @@
 <body>
 <br><br>
 <form class="container" method="post" action="insert.st">
-	<input type="text" name="s_writer" style="width: 20%;" placeholder="작성자"/>
+	<input type="text" name="s_writer" style="width: 20%;" placeholder="작성자"/> <!-- member의 id값과 같아야함 -->
 	<select name="memoCate" style="float: right;">
 		<option value="Java">Java</option>
 		<option value="Jsp">Jsp</option>
@@ -50,25 +50,19 @@
 	<input type="text" name="subTitle" style="width: 40%;" placeholder="소제목"/><br><br>
 	<textarea class="summernote" name="s_content"></textarea> 
 	<br><br>
-	<div id="holder">
-		<div class="button">
-		    <input type="submit" value="저장하기" class = "sbtn">
-		    <div class="btnTwo">
-		      <p class="btnText2">GO!</p>
-		    </div>
-		</div>
-	</div>
+	<input type="submit" value="저장하기" class="studysave">
 </form>
 </body>
 <script>
 $(document).ready(function() {
-	  $('.summernote').summernote({
- 	    	placeholder: '내용',
-	        minHeight: 370,
-	        maxHeight: null,
-	        focus: true, 
-	        lang : 'ko-KR'
-	  });
+	$('.summernote').summernote({
+ 		placeholder: '내용',
+	    minHeight: 370,
+	    maxHeight: null,
+	    focus: true, 
+	    lang : 'ko-KR'
 	});
+});
+
 </script>
 </html>

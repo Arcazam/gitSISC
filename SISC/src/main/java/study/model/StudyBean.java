@@ -1,5 +1,7 @@
 package study.model;
 
+import java.sql.Date;
+
 public class StudyBean {
 
 	private int s_num;
@@ -7,13 +9,14 @@ public class StudyBean {
 	private String memoCate;
 	private String memoTitle;
 	private String subTitle;
+	private Date memoDate;
 	private String s_content;
 
 	public StudyBean() {
 
 	}
 
-	public StudyBean(int s_num, String s_writer, String memoCate, String memoTitle, String subTitle,
+	public StudyBean(int s_num, String s_writer, String memoCate, String memoTitle, String subTitle, Date memoDate,
 			String s_content) {
 		super();
 		this.s_num = s_num;
@@ -21,6 +24,7 @@ public class StudyBean {
 		this.memoCate = memoCate;
 		this.memoTitle = memoTitle;
 		this.subTitle = subTitle;
+		this.memoDate = memoDate;
 		this.s_content = s_content;
 	}
 
@@ -64,6 +68,14 @@ public class StudyBean {
 		this.subTitle = subTitle;
 	}
 
+	public Date getMemoDate() {
+		return memoDate;
+	}
+
+	public void setMemoDate(Date memoDate) {
+		this.memoDate = memoDate;
+	}
+
 	public String getS_content() {
 		return s_content;
 	}
@@ -71,5 +83,4 @@ public class StudyBean {
 	public void setS_content(String s_content) {
 		this.s_content = s_content;
 	}
-	
 }
