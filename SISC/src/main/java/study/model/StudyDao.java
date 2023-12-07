@@ -2,10 +2,14 @@ package study.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import utility.Paging;
 
 @Component("myStudy")
 public class StudyDao {
@@ -19,13 +23,20 @@ public class StudyDao {
 		sqlSessionTemplate.insert(namespace+"insertStudy", st);
 	}
 
-	public List<StudyBean> getAllStudy() {
+	public List<StudyBean> getAllStudy(Paging pageInfo, Map<String, String> map) {
 		List<StudyBean> list = new ArrayList<StudyBean>();
 		
-		list = sqlSessionTemplate.selectList(namespace+"getAllStudy"); 
+		RowBounds rowbounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		
+		list = sqlSessionTemplate.selectList(namespace+"getAllStudy", map,rowbounds); 
 		return list;
 	}
 
+	public int getTotalCount(Map<String, String> map) {
+		int cnt = sqlSessionTemplate.selectOne(namespace+"getTotalCount", map);
+		return cnt;
+	}
+	
 	public StudyBean getDetailStudy(int s_num) {
 		StudyBean sb = sqlSessionTemplate.selectOne(namespace+"getDetailStudy", s_num); 
 		
@@ -35,4 +46,10 @@ public class StudyDao {
 	public void deleteStudy(int s_num) {
 		sqlSessionTemplate.delete(namespace+"deleteStudy", s_num); 
 	}
+
+	public int updateStudy(StudyBean sb) {
+		int cnt = sqlSessionTemplate.update(namespace+"updateStudy", sb);
+		return cnt;
+	}
+
 }

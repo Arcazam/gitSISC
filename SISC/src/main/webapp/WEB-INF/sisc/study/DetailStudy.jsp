@@ -31,6 +31,6 @@
 		<td height="450px;" colspan="2">${st.s_content }</td>
 	</tr>
 	<tr align="center">
-		<td height="50px;" colspan="2"><a href = "update.st">수정</a> | <a href = "delete.st?s_num=${st.s_num }">삭제</a></td>
+		<td height="50px;" colspan="2"><a href = "update.st?s_num=${st.s_num }&pageNumber=${pageNumber}"">수정</a> | <a href = "delete.st?s_num=${st.s_num }&pageNumber=${pageNumber}">삭제</a></td>
 	</tr>
 </table>

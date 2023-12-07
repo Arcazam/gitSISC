@@ -20,10 +20,12 @@ public class StudyDetailController {
 	private StudyDao sdao;
 	
 	@RequestMapping(value = command)
-	public String detail(@RequestParam("s_num") int s_num, Model model) {
-		
+	public String detail(@RequestParam("s_num") int s_num, 
+						@RequestParam("pageNumber") int pageNumber, Model model) {
+
 		StudyBean sb = sdao.getDetailStudy(s_num);
 		model.addAttribute("sb",sb);
+		model.addAttribute("pageNumber",pageNumber);
 		
 		return gotoPage;
 	}

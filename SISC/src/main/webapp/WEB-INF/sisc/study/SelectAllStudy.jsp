@@ -13,6 +13,17 @@
 
 <h2 align="center">My Page</h2>
 
+<form action="SelectAllStudy.st" method="get" style="text-align: center;">
+	<select name="whatColumn">
+		<option value = "all">전체검색
+		<option value = "memoTitle">제목
+		<option value = "subTitle">소제목
+		<option value = "memoDate">작성날짜
+	</select>
+	<input type="text" name="keyword">
+	<input type="submit" value="검색">
+</form>
+
 <table class="top_table">
 	<tr>
 		<td rowspan="4">사진</td>
@@ -50,7 +61,7 @@
 				<tr height="100px;">
 					<td width="10%" align="center">${st.s_num }</td>
 					<td>
-						<strong><a href="detail.st?s_num=${st.s_num }">${st.memoTitle }</a></strong>
+						<strong><a href="detail.st?s_num=${st.s_num }&pageNumber=${pageInfo.pageNumber}">${st.memoTitle }</a></strong>
 						<p style="float:right; display: inline;">${st.memoCate }</p>
 						<p>
 						<p style="float:right; margin-left: ">수정 | 삭제 | ${st.memoDate }</p>
@@ -62,10 +73,4 @@
 		</table>
 	</div>
 </form>
-
-<script>
-$(window).on("load resize ", function() {
-	var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
-	$('.tbl-header').css({'padding-right':scrollWidth});
-}).resize();
-</script>
+<center style="margin-bottom: 100px;">${pageInfo.pagingHtml}</center>

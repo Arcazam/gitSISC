@@ -37,13 +37,10 @@
 <form class="container" method="post" action="insert.st">
 	<input type="text" name="s_writer" style="width: 20%;" placeholder="작성자"/> <!-- member의 id값과 같아야함 -->
 	<select name="memoCate" style="float: right;">
-		<option value="Java">Java</option>
-		<option value="Jsp">Jsp</option>
-		<option value="Js(J QUERY)">Js</option>
-		<option value="Html">Html</option>
-		<option value="Css">Css</option>
-		<option value="Servlet">Servlet</option>
-		<option value="Spring">Spring</option>
+		<c:set var="cates" value="${fn:split('선택하세요,Java,Jsp,Js,Html,Css,Servlet,Spring',',')}"></c:set>
+		<c:forEach var="mecates" items="${cates }">
+			<option value="${mecates }">${mecates }</option>
+		</c:forEach>
 	</select>
 	<br><br>
 	<input type="text" name="memoTitle" style="width: 40%;" placeholder="제목"/><br><br>
