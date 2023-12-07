@@ -22,7 +22,7 @@
 		<td align="right" height="50px;">${st.memoDate }</td>
 	</tr>
 	<tr>
-		<td colspan="100px" style="">${st.memoTitle }</td>
+		<td colspan="2">${st.memoTitle }</td>
 	</tr>
 	<tr>
 		<td height="50px;" colspan="2">${st.subTitle }</td>
