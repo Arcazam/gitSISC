@@ -1,33 +1,41 @@
 package member.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MemberBean {
 
 	private String id;
 	private String password;	
 	private String name;
+	private String pro_img;
+	private String jommin;
 	private String birth;
 	private String gender;	
 	private String address;
 	private String phone;
 	private int point;
-	private String u_class;
+	private String m_class;
+	private MultipartFile upload;
 
 	public MemberBean() {
 
 	}
 
-	public MemberBean(String id, String password, String name, String birth, String gender, String address,
-			String phone, int point, String u_class) {
+	public MemberBean(String id, String password, String name,String pro_img, String jommin, String birth, String gender, String address,
+			String phone, int point, String m_class, MultipartFile upload) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.name = name;
+		this.pro_img = pro_img;
+		this.jommin = jommin;
 		this.birth = birth;
 		this.gender = gender;
 		this.address = address;
 		this.phone = phone;
 		this.point = point;
-		this.u_class = u_class;
+		this.m_class = m_class;
+		this.upload = upload;
 	}
 
 	public String getId() {
@@ -52,6 +60,14 @@ public class MemberBean {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getPro_img() {
+		return pro_img;
+	}
+
+	public void setPro_img(String pro_img) {
+		this.pro_img = pro_img;
 	}
 
 	public String getBirth() {
@@ -94,12 +110,31 @@ public class MemberBean {
 		this.point = point;
 	}
 
-	public String getU_class() {
-		return u_class;
+	public String getM_class() {
+		return m_class;
 	}
 
-	public void setU_class(String u_class) {
-		this.u_class = u_class;
+	public void setM_class(String m_class) {
+		this.m_class = m_class;
+	}
+
+	public MultipartFile getUpload() {
+		return upload;
+	}
+
+	public void setUpload(MultipartFile upload) {
+		this.upload = upload;
+		if(this.upload != null) {
+			pro_img = upload.getOriginalFilename();
+		}
+	}
+
+	public String getJommin() {
+		return jommin;
+	}
+
+	public void setJommin(String jommin) {
+		this.jommin = jommin;
 	}
 
 }

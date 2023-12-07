@@ -16,5 +16,15 @@ public class MemberDao {
 		MemberBean mb = sqlSessionTemplate.selectOne(namespace+"getAllMember",userId);
 		return mb;
 	}
+
+	public int checkMemberId(MemberBean mb) {
+		int check = sqlSessionTemplate.selectOne(namespace+"checkMemberId",mb);
+		return check;
+	}
+
+	public void insertMember(MemberBean mb) {
+		sqlSessionTemplate.insert(namespace+"insertMember",mb);
+	}	
+	
 	
 }
