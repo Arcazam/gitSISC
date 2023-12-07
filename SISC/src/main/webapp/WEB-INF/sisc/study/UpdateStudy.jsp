@@ -35,14 +35,14 @@
 	<table border="1" class="detailTable">
 	<tr>
 		<td height="50px;">
-			<select name="memoCate" style="float: left;">
+			<select name="memoCate" style="float: left;" class="pl">
 				<c:set var="cates" value="${fn:split('선택하세요,Java,Jsp,Js,Html,Css,Servlet,Spring',',')}"></c:set>
 				<c:forEach var="mecates" items="${cates }">
 					<option value="${mecates }" <c:if test = "${st.memoCate eq mecates}">selected</c:if>>${mecates }</option>
 				</c:forEach>
 			</select>
 		</td>
-		<td align="right" height="50px;">${st.memoDate }</td>
+		<td align="right" height="50px;" class="date">${st.memoDate }</td>
 	</tr>
 	<tr>
 		<td colspan="2">
@@ -60,11 +60,16 @@
 			<textarea class="summernote" name="s_content">${st.s_content }</textarea>
 		</td>
 	</tr>
-	<tr align="center" colspan="2">
-		<td height="50px;" colspan="2">
-			<input type="submit" value="수정하기">
-		</td>
-	</tr>
+	<tr align="center">
+    <td height="100px;" colspan="2">
+        <button class="learn-more" type="submit">
+            <span class="circle" aria-hidden="true">
+                <span class="icon arrow"></span>
+            </span>
+            <span class="button-text">수정하기</span>
+        </button>
+    </td>
+</tr>
 </table>
 </form>
 

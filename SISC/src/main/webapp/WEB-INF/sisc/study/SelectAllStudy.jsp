@@ -41,23 +41,26 @@
 	</tr>
 </table>
 
+<button class="learn-more" type="button" onclick="insert()">
+	<span class="circle" aria-hidden="true">
+		<span class="icon arrow"></span>
+	</span>
+	<span class="button-text">추가하기</span>
+</button>
+
 <div>
-	<table border="0" cellpadding="0" cellspacing="0" style="margin: auto;">
-		<tr>
-			<td colspan="9" align="right"><input type="button"
-				class="btnstyle" value="추가하기" onclick="insert()"></td>
-		</tr>
+	<table style="margin: auto;">
 		<c:choose>
 			<c:when test="${fn:length(list) eq 0}">
 				<tr>
-					<td colspan="9" align="center">등록된 게시글이 없습니다</td>
+					<td colspan="9" align="center">등록된 메모가 없습니다</td>
 				</tr>
 			</c:when>
 			<c:otherwise>
 				<c:forEach var="st" items="${list }">
 					<input type="hidden" name="s_num" value="${st.s_num }">
-					<tr">
-						<td width="10%" align="center">${st.s_num }</td>
+					<tr>
+						<td width="10%" height="50px;" align="center">${st.s_num }</td>
 						<td><strong style="float: left;"><a
 								href="detail.st?s_num=${st.s_num }&pageNumber=${pageInfo.pageNumber}">${st.memoTitle }</a></strong>
 							<p style="float: right;">${st.memoCate }</p>
@@ -77,4 +80,4 @@
 		</c:choose>
 	</table>
 </div>
-<center style="margin-bottom: 100px;">${pageInfo.pagingHtml}</center>
+<center style="margin-bottom: 100px; margin-top: 50px">${pageInfo.pagingHtml}</center>
