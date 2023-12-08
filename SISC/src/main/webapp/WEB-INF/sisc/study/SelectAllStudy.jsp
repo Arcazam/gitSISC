@@ -4,7 +4,68 @@
 <link href="<%=request.getContextPath() %>/resources/css/studyTable.css"
 	rel="stylesheet" type="text/css" />
 <%@include file="./../common/common.jsp"%>
-<%@ include file="../top&bottom/top.jsp"%>
+<%@ include file="../top&bottom/topLogin.jsp"%>
+
+<style>
+/* css파일에다 따로하면 스타일이 적용이 안되서 이부분에 스타일 적용 */
+.card {
+  width: 190px;
+  height: 90px;
+  background: #ffff;
+  box-shadow: 0 1px 25px rgba(0,0,0,0.2);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 30%;
+  left: 10%;
+  padding: 12px 10px;
+}
+
+.card_load {
+  width: 70px;
+  height: 70px;
+  position: relative;
+  float: left;
+  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
+  40%, #e5e5e5 48%);
+  border-radius: 50%;
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  animation: load89234 2s infinite;
+}
+
+.card_load_extreme_title {
+  width: 90px;
+  height: 25px;
+  position: relative;
+  float: right;
+  border-radius: 5px;
+  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
+  40%, #e5e5e5 48%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  animation: load89234 2s infinite;
+}
+
+.card_load_extreme_descripion {
+  width: 90px;
+  height: 47px;
+  position: relative;
+  float: right;
+  border-radius: 5px;
+  background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
+  40%, #e5e5e5 48%);
+  margin-top: 10px;
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  animation: load89234 2s infinite;
+}
+
+@keyframes load89234 {
+  100% {
+    background-position: -100% 0;
+  }
+}
+</style>
 
 <script>
 	function insert(){
@@ -12,9 +73,13 @@
 	}
 </script>
 
-<h2 align="center">My Page</h2>
+<h2 align="center">My Pages</h2>
 
-
+<div class="card">
+    <div class="card_load">사진</div>
+    <div class="card_load_extreme_title">${loginInfo }</div>
+    <div class="card_load_extreme_descripion">asd</div>
+</div>
 
 <form action="SelectAllStudy.st" method="get" class="search-form">
 	<select name="whatColumn" class="search-select">

@@ -5,12 +5,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class GoMainController {
-	private final String command = "SiscMain.view";
-	private final String gotoPage = "Home";
+	private final String commandNotLogin = "SiscMain.view";
+	private final String commandLogin = "SiscLoginMain.view";
+	private final String gotoNotLoginPage = "NotLoginHome";
+	private final String gotoLoginPage = "LoginHome";
 	
-	@RequestMapping(command)
+	@RequestMapping(commandNotLogin)
 	public String goMain() {
 		
-		return gotoPage;
+		return gotoNotLoginPage;
+	}
+	
+	@RequestMapping(commandLogin)
+	public String goMain2() {
+		
+		return gotoLoginPage;
 	}
 }
