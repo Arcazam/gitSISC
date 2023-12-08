@@ -31,7 +31,7 @@ public class MainViewController {
 	@Autowired
 	private BookDao bok_dao;
 
-	public final String command = "/list.vw";
+	public final String command = "/list.view";
 	public final String viewPage = "siscMain";
 
 	@RequestMapping(value=command,method=RequestMethod.GET)

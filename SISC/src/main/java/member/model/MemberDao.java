@@ -24,6 +24,13 @@ public class MemberDao {
 
 	public void insertMember(MemberBean mb) {
 		sqlSessionTemplate.insert(namespace+"insertMember",mb);
+	}
+
+	public MemberBean findMemberId(MemberBean mb) {
+
+		MemberBean findMB = sqlSessionTemplate.selectOne(namespace+"findMemberId");
+		
+		return findMB;
 	}	
 	
 }

@@ -13,8 +13,16 @@
 		</select>
 		
 		<insert id="insertMember">
-			insert into member (id,password,name,pro_img,birth,gender,address,phone,m_class)
-			values (#{id},#{password},#{name},#{pro_img},#{birth},#{gender},#{address},#{phone},#{m_class})
+			insert into member (id,password,name,pro_img,joomin,gender,address,phone,m_class)
+			values (#{id},#{password},#{name},#{pro_img},#{joomin},#{gender},#{address},#{phone},#{m_class})
 		</insert>
+		
+		<select id="findMemberId" resultType="SiscMember">
+			select * from member where name = #{name} and joomin = #{joomin}
+		</select>
+		
+		<select id="findMemberPW" resultType="SiscMember">
+			select * from member where name = #{name} and joomin = #{joomin} and id=#{id}
+		</select>
 		
 	</mapper>

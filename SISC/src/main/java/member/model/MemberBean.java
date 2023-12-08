@@ -8,8 +8,7 @@ public class MemberBean {
 	private String password;	
 	private String name;
 	private String pro_img;
-	private String jommin;
-	private String birth;
+	private String joomin;
 	private String gender;	
 	private String address;
 	private String phone;
@@ -21,15 +20,14 @@ public class MemberBean {
 
 	}
 
-	public MemberBean(String id, String password, String name,String pro_img, String jommin, String birth, String gender, String address,
+	public MemberBean(String id, String password, String name,String pro_img, String joomin, String gender, String address,
 			String phone, int point, String m_class, MultipartFile upload) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.name = name;
 		this.pro_img = pro_img;
-		this.jommin = jommin;
-		this.birth = birth;
+		this.joomin = joomin;
 		this.gender = gender;
 		this.address = address;
 		this.phone = phone;
@@ -69,14 +67,6 @@ public class MemberBean {
 
 	public void setPro_img(String pro_img) {
 		this.pro_img = pro_img;
-	}
-
-	public String getBirth() {
-		return birth;
-	}
-
-	public void setBirth(String birth) {
-		this.birth = birth;
 	}
 
 	public String getGender() {
@@ -130,11 +120,11 @@ public class MemberBean {
 		}
 	}
 
-	public String getJommin() {
-		return jommin;
+	public String getJoomin() {
+		return joomin;
 	}
 
-	public void setJommin(String jommin) {
-		this.jommin = jommin;
+	public void setJoomin(String joomin) {
+		this.joomin = joomin;
 	}
 }
