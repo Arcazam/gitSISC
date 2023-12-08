@@ -13,8 +13,8 @@
 		</select>
 		
 		<insert id="insertMember">
-			insert into member (id,password,name,pro_img,birth,gender,address,phone,m_class)
-			values (#{id},#{password},#{name},#{pro_img},#{birth},#{gender},#{address},#{phone},#{m_class})
+			insert into member (id,password,name,pro_img,joomin,gender,address,phone,m_class)
+			values (#{id},#{password},#{name},#{pro_img},#{joomin},#{gender},#{address},#{phone},#{m_class})
 		</insert>
 		
 	</mapper>

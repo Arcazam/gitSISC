@@ -76,9 +76,15 @@
 			return false;
 		}
 		
-		if($('input[name="birth"]').val() == ""){
-			alert('생일이 누락되었습니다');
-			$('input[name="birth"]').focus();
+		if($('input[name="joomin1"]').val() == ""){
+			alert('주민번호 앞자리가 누락되었습니다');
+			$('input[name="joomin1"]').focus();
+			return false;
+		}
+		
+		if($('input[name="joomin2"]').val() == ""){
+			alert('주민번호 뒷자리가 누락되었습니다');
+			$('input[name="joomin2"]').focus();
 			return false;
 		}
 		
@@ -87,6 +93,23 @@
 			$('input[name="gender"]').focus();
 			return false;
 		}
+		
+		var joomin2 = document.getElementsByName("joomin2")[0].value;
+		var genderRadio = document.getElementsByName("gender");
+
+		// 주민등록번호 뒷자리 첫번째 숫자 추출
+		var genderDigit = parseInt(joomin2.charAt(0), 10);
+		
+		// 성별 라디오 버튼 선택 여부 확인
+	    if ((genderDigit === 1 || genderDigit === 3) && !genderRadio[0].checked) {
+	        alert("주민번호형식과 성별이 서로 맞지 않습니다");
+	        $('input[name="joomin2"]').select();
+	        return false;
+	    } else if ((genderDigit === 2 || genderDigit === 4) && !genderRadio[1].checked) {
+	    	alert("주민번호형식과 성별이 서로 맞지 않습니다");
+	        $('input[name="joomin2"]').select();
+	        return false;
+	    }
 		
 		if($('input[name="address_main"]').val() == ""){
 			alert('주소가 누락되었습니다');
@@ -136,11 +159,9 @@
 	이름 : <input type="text" name="name"> <br>
 	
 	주민등록번호 : 
-	<input type="text" name="joomin1"> - 
-	<input type="text" name="joomin2">	
-	
-	생년월일 : <input type="date" name="birth"><br>
-	
+	<input type="text" name="joomin1" maxlength="6" size="6"> - 
+	<input type="text" name="joomin2" maxlength="7" size="7">	
+		
 	성별 : <input type="radio" name="gender" value="M">남
 		  <input type="radio" name="gender" value="W">여<br><br>
 	
@@ -163,9 +184,9 @@
 	</script>
 	
 	핸드폰 번호 : 
-	<input type="text" name="hp1" value="010"> - 
-	<input type="text" name="hp2"> -
-	<input type="text" name="hp3">
+	<input type="text" name="hp1" maxlength="3" size="3" value="010"> - 
+	<input type="text" name="hp2" maxlength="4" size="4"> -
+	<input type="text" name="hp3" maxlength="4" size="4">
 	<br><br>
 	
 	반 구분 :
