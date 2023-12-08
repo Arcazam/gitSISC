@@ -48,7 +48,7 @@ body, html {
          <input class="top_menu" type="text" placeholder="궁금한 게 있을까요?" name="search"> 
          <input class="top_menu" type="button" value="검색">
       </form>
-      <span class="top_menu">로그인</span>
+      <span class="top_menu"><a href="login.mb">로그인</a></span>
    </div>
 
    <hr>

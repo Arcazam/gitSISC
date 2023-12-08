@@ -62,15 +62,4 @@ public class BoardDao {
 		int gradBoardCount = sqlSessionTemplate.selectOne(namespace+"getCountGrad");
 		return gradBoardCount;
 	}
-
-	public void insertBoard(String editorTxt) {
-		sqlSessionTemplate.insert(namespace+".insertBoard", editorTxt);
-	}
-
-	public List<BoardBean> getAllBoard() {
-		List<BoardBean> list = new ArrayList<BoardBean>();
-		
-		list = sqlSessionTemplate.selectList(namespace+".getAllBoard"); 
-		return list;
-	}
 }

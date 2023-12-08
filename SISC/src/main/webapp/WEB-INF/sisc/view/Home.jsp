@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="resources/css/kfonts2.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resources/css/kfonts2.css" rel="stylesheet">
     
     <style>
     
@@ -49,7 +49,7 @@
     
     /* "자유, Q&A 게시판" 설정 */
     .board_table {
-   margin-left: 210px;
+   margin-left: 300px;
    width: 500px;
    height: 450px;
    border-collapse : collapse;
@@ -109,12 +109,12 @@
    .bottom{
     display: flex;
       flex-direction: row;
-      margin-left: 200px;
+      margin-left: 300px;
     }
     
     /* "중고 책방 글씨" 설정 */
     .usedBook{
-    margin-left: 210px;
+    margin-left: 300px;
     font-size: 2.5em;
     font-family: 'TAEBAEKfont';
     }
@@ -132,14 +132,75 @@
    font-family: 'TAEBAEKfont';
    text-align: center;
    }
+   .book {
+  position: relative;
+  border-radius: 10px;
+  width: 150px;
+  height: 200px;
+  background-color: whitesmoke;
+  -webkit-box-shadow: 1px 1px 12px #000;
+  box-shadow: 1px 1px 12px #000;
+  -webkit-transform: preserve-3d;
+  -ms-transform: preserve-3d;
+  transform: preserve-3d;
+  -webkit-perspective: 2000px;
+  perspective: 2000px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  color: #000;
+  margin-right: 40px;
+}
+img{
+	width: 150px;
+  	height: 200px;
+}
+.cover {
+  top: 0;
+  position: absolute;
+  background-color: lightgray;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transform-origin: 0;
+  -ms-transform-origin: 0;
+  transform-origin: 0;
+  -webkit-box-shadow: 1px 1px 12px #000;
+  box-shadow: 1px 1px 12px #000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.book:hover .cover {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transform: rotatey(-80deg);
+  -ms-transform: rotatey(-80deg);
+  transform: rotatey(-80deg);
+}
+
+p {
+  font-size: 20px;
+  font-weight: bolder;
+}
     </style>
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
-    <script>
-      $('.carousel').carousel()  /* 1 */
-      
-    </script>
   </head>
     
     <!-- 이 위부터는 style과 script 설정입니다 -->
@@ -155,23 +216,23 @@
             </ol>
             <div class="carousel-inner">
                 <div class="item active">
-                    <img src="resources/images/test.jpg" class="slideImg" alt="First slide">
+                    <img src="<%=request.getContextPath() %>/resources/images/test1.jpg" class="slideImg" alt="First slide">
                 </div>
 
                 <div class="item">
-                    <img src="resources/images/test2.jpg" alt="Second slide">
+                    <img src="<%=request.getContextPath() %>/resources/images/test2.jpg" alt="Second slide">
                 </div>
 
                 <div class="item">
-                    <img src="resources/images/test.jpg" alt="Third slide">
+                    <img src="<%=request.getContextPath() %>/resources/images/test1.jpg" alt="Third slide">
                 </div>
 
                 <div class="item">
-                    <img src="resources/images/test2.jpg" alt="Fourth slide">
+                    <img src="<%=request.getContextPath() %>/resources/images/test2.jpg" alt="Fourth slide">
                 </div>
 
                 <div class="item">
-                    <img src="resources/images/test.jpg" alt="Fifth slide">
+                    <img src="<%=request.getContextPath() %>/resources/images/test1.jpg" alt="Fifth slide">
                 </div>
             </div>
 
@@ -360,19 +421,30 @@
     <br><br>
     
     <span class="usedBook">중고책방</span>
-    <br>
+    <br><br>
     
     <div class="bottom">
     <c:forEach var="i" begin="0" end="5" step="1">
     <c:if test="${i < 6 }">
-    <table border=1 class="bookTable">
-       <tr>
-          <td></td>       
-       </tr>
-       <tr>
-          <td class="bookTable2">책 제목 자리입니다</td>
-       </tr>
-    </table>
+    	<div class="book">
+			<p>asd</p>
+			<div class="cover">
+				<p><img src="<%=request.getContextPath()%>/resources/bookImg/1.webp"></p>
+		 	</div>
+		</div>
+    </c:if>
+    </c:forEach>
+    </div>
+    <br><br>
+    <div class="bottom">
+    <c:forEach var="i" begin="0" end="5" step="1">
+    <c:if test="${i < 6 }">
+    	<div class="book">
+			<p>qwe</p>
+			<div class="cover">
+				<p><img src="<%=request.getContextPath()%>/resources/bookImg/2.webp"></p>
+		 	</div>
+		</div>
     </c:if>
     </c:forEach>
     </div>
@@ -407,3 +479,9 @@
      <br>
     
     </body>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
+    <script>
+      $('.carousel').carousel()  /* 1 */
+    </script>
