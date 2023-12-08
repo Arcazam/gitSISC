@@ -48,6 +48,9 @@ public class MemberLoginController {
 		} else { // 아이디 존재함
 			if(mb.getPassword().equals(contrastMB.getPassword())) {
 				session.setAttribute("loginInfo", contrastMB.getId());
+				session.setAttribute("loginName", contrastMB.getName());
+				session.setAttribute("loginPhone", contrastMB.getPhone());
+				session.setAttribute("loginClass", contrastMB.getM_class());
 				return gotoPage;
 			} else {
 				out.println("<script>alert('비밀번호가 맞지 않습니다');</script>");

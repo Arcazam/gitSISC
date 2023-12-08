@@ -37,6 +37,9 @@
          <input class="top_menu" type="text" placeholder="궁금한 게 있을까요?" name="search"> 
          <input class="top_menu" type="button" value="검색">
       </form>
+      <input type="hidden" name="loginName" value="${loginName }">
+      <input type="hidden" name="loginPhone" value="${loginPhone }">
+      <input type="hidden" name="loginClass" value="${loginClass }">
       <span class="top_menu"><a href="SelectAllStudy.st?loginInfo=${loginInfo }">${loginInfo }</a>님</span>
    </div>
 

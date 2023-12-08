@@ -16,14 +16,16 @@
   position: absolute;
   transform: translate(-50%, -50%);
   top: 30%;
-  left: 10%;
+  left: 90%;
   padding: 12px 10px;
+  font-family: 'Pretendard-Regular';
 }
 
 .card_load {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   position: relative;
+  text-align: center;
   float: left;
   background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
   40%, #e5e5e5 48%);
@@ -31,6 +33,7 @@
   background-size: 200% 100%;
   background-position: 100% 0;
   animation: load89234 2s infinite;
+  margin-top: 5px;
 }
 
 .card_load_extreme_title {
@@ -38,6 +41,7 @@
   height: 25px;
   position: relative;
   float: right;
+  text-align: center;
   border-radius: 5px;
   background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
   40%, #e5e5e5 48%);
@@ -48,7 +52,7 @@
 
 .card_load_extreme_descripion {
   width: 90px;
-  height: 47px;
+  height: 50px;
   position: relative;
   float: right;
   border-radius: 5px;
@@ -58,12 +62,21 @@
   background-size: 200% 100%;
   background-position: 100% 0;
   animation: load89234 2s infinite;
+  font-size: 13px;
+  text-align: center;
 }
 
 @keyframes load89234 {
   100% {
     background-position: -100% 0;
   }
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
 }
 </style>
 
@@ -78,7 +91,11 @@
 <div class="card">
     <div class="card_load">사진</div>
     <div class="card_load_extreme_title">${loginInfo }</div>
-    <div class="card_load_extreme_descripion">asd</div>
+    <div class="card_load_extreme_descripion">
+    	${loginName }<br>
+	    ${loginPhone }<br>
+	    ${loginClass }반<br>
+    </div>
 </div>
 
 <form action="SelectAllStudy.st" method="get" class="search-form">
@@ -90,21 +107,6 @@
 	</select> <input type="text" name="keyword" class="search-input"> <input
 		type="submit" class="search-submit" value="검색">
 </form>
-
-<table class="top_table">
-	<tr>
-		<td rowspan="4">사진</td>
-	</tr>
-	<tr>
-		<td>작성자:</td>
-	</tr>
-	<tr>
-		<td>반:</td>
-	</tr>
-	<tr>
-		<td>기간:</td>
-	</tr>
-</table>
 
 <button class="learn-more" type="button" onclick="insert()">
 	<span class="circle" aria-hidden="true">

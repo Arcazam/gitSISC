@@ -46,7 +46,7 @@ public class MemberInsertController {
 			) throws IllegalStateException, IOException {
 			
 		String uploadPath = servletContext.getRealPath("/resources/img/member/pro_img/");
-				
+			System.out.println("uploadPath:"+uploadPath);
 			// 皋牢林家客 惑技林家 钦摹扁
 			mb.setAddress(address_main+" "+address_detail);
 			
