@@ -56,20 +56,102 @@
 			select count(*) from board where b_cate = 'Grad' and re_level = 0
 		</select>
 		
-		<insert id="insertBoard">
-			insert into edit
-			values(#{txt})
-		</insert>
-		
-		<select id="getAllBoard">
-			select * from edit
+		<select id="selectFreeDetailCate" resultType="SiscBoard">
+			select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from board where b_cate = 'Free' and re_level = 0
+			<if test="whatColumn=='subjectAndContent'">
+				and subject like #{keyword} or content like #{keyword}
+			</if>
+			<if test="whatColumn=='writer'">
+				and writer like #{keyword}
+			</if>
+			<if test="whatColumn=='subject'">
+				and subject like #{keyword}
+			</if>
+			<if test="whatColumn=='content'">
+				and content like #{keyword}
+			</if>
+			order by ref desc, re_step asc ))
 		</select>
 		
-	</mapper>
-	
-	<!-- 
-	
-		getAll [A] Board : ... where b_cate = A and re_level = 0 ... 
-		A게시판의 원글에 대한 레코드 5개 가져오기
+		<select id="selectKnowDetailCate" resultType="SiscBoard">
+			select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from board where b_cate = 'Know' and re_level = 0
+			<if test="whatColumn=='subjectAndContent'">
+				and subject like #{keyword} or content like #{keyword}
+			</if>
+			<if test="whatColumn=='writer'">
+				and writer like #{keyword}
+			</if>
+			<if test="whatColumn=='subject'">
+				and subject like #{keyword}
+			</if>
+			<if test="whatColumn=='content'">
+				and content like #{keyword}
+			</if>
+			order by ref desc, re_step asc ))
+		</select>
 		
-	-->
+		<select id="selectQnADetailCate" resultType="SiscBoard">
+			select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from board where b_cate = 'QnA' and re_level = 0
+			<if test="whatColumn=='subjectAndContent'">
+				and subject like #{keyword} or content like #{keyword}
+			</if>
+			<if test="whatColumn=='writer'">
+				and writer like #{keyword}
+			</if>
+			<if test="whatColumn=='subject'">
+				and subject like #{keyword}
+			</if>
+			<if test="whatColumn=='content'">
+				and content like #{keyword}
+			</if>
+			order by ref desc, re_step asc ))
+		</select>
+		
+		<select id="selectGradDetailCate" resultType="SiscBoard">
+			select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from board where b_cate = 'Grad' and re_level = 0
+			<if test="whatColumn=='subjectAndContent'">
+				and subject like #{keyword} or content like #{keyword}
+			</if>
+			<if test="whatColumn=='writer'">
+				and writer like #{keyword}
+			</if>
+			<if test="whatColumn=='subject'">
+				and subject like #{keyword}
+			</if>
+			<if test="whatColumn=='content'">
+				and content like #{keyword}
+			</if>
+			order by ref desc, re_step asc ))
+		</select>
+		
+		<select id="getBoardInfoWriter" resultType="SiscBoard">
+			select * from board where writer = #{id}
+		</select>
+		
+		<!-- 삽입구문 (Free, Know, QnA, Grad) -->
+		
+		<insert id="insertBoardContent">
+			insert into board(b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content)
+			values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,bor_seq.currval,0,0,#{content})
+		</insert>
+		
+		<!-- 수정구문 (Free, Know, QnA, Grad) -->
+		
+		<update id="updateBoardContent">
+			update board set b_cate=#{b_cate}, subject=#{subject}, reg_date=#{reg_date}, content=#{content}
+			where writer = #{writer}
+		</update>
+		
+	</mapper>

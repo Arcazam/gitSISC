@@ -16,7 +16,7 @@ import board.model.BoardBean;
 import board.model.BoardDao;
 import study.model.StudyBean;
 import study.model.StudyDao;
-import utility.Paging;
+import utility.BoardPaging;
 
 @Controller
 public class StudyListController {
@@ -42,7 +42,7 @@ public class StudyListController {
 		int totalCount = sdao.getTotalCount(map); 
 		
 		String pageSize = "5"; 
-		Paging pageInfo = new Paging(pageNumber,pageSize,totalCount,url,whatColumn,keyword);
+		BoardPaging pageInfo = new BoardPaging(pageNumber,pageSize,totalCount,url,whatColumn,keyword);
 		
 		List<StudyBean> lists = sdao.getAllStudy(pageInfo, map);
 		model.addAttribute("list",lists);

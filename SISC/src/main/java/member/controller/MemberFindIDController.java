@@ -39,18 +39,22 @@ public class MemberFindIDController {
 		
 		response.setContentType("text/html; charset=UTF-8");
 	    PrintWriter out = response.getWriter();
-		
+			    
 		// 주민등록번호 앞,뒤 합치기
 		mb.setJoomin(joomin1 + "-" + joomin2);
 		
 		MemberBean findMB = mdao.findMemberId(mb);
 		
 		if(findMB != null) {
-			out.println("<script>alert('가입하셨던 아이디는"+findMB.getId()+"입니다');</script>");
+			out.println("<script>alert('가입하셨던 아이디는 "+findMB.getId()+"입니다');</script>");
 		    out.flush();
+		    return gotoPage;
+		} else {
+			out.println("<script>alert('가입되지 않은 회원입니다');</script>");
+		    out.flush();
+		    return viewPage;
 		}
-		
-		return null;
+	
 	}
 	
 }

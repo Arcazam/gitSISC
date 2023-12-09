@@ -1,10 +1,16 @@
 package board.model;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.stereotype.Component;
+
+import member.model.MemberBean;
+import utility.BoardPaging;
 
 @Component("myBoard")
 public class BoardDao {
@@ -61,5 +67,61 @@ public class BoardDao {
       int gradBoardCount = sqlSessionTemplate.selectOne(namespace+"getCountGrad");
       return gradBoardCount;
    }
+
+   // 자유게시판 페이징처리 검색
+	public List<BoardBean> selectFreeDetailCate(BoardPaging pageInfo, Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectFreeDetailCate",map,rowBounds);
+		return board_cateList;	
+	}
+	
+	// 지식게시판 페이징처리 검색
+	public List<BoardBean> selectKnowDetailCate(BoardPaging pageInfo, Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectKnowDetailCate",map,rowBounds);
+		return board_cateList;	
+	}
+	
+	// QnA게시판 페이징처리 검색
+	public List<BoardBean> selectQnADetailCate(BoardPaging pageInfo, Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectQnADetailCate",map,rowBounds);
+		return board_cateList;	
+	}
+	
+	// 수료생게시판 페이징처리 검색
+	public List<BoardBean> selectGradDetailCate(BoardPaging pageInfo, Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectGradDetailCate",map,rowBounds);
+		return board_cateList;	
+	}
+
+	// 게시판 삽입 작업
+	public int insertBoardContent(BoardBean bb) {
+		int cnt = 0;
+		try {
+			sqlSessionTemplate.insert(namespace+"insertBoardContent",bb);			
+		} catch(UncategorizedSQLException e) {
+			cnt = 1;
+		}
+		return cnt;
+	}
+
+	// 게시판 글쓴이 정보 가져오기
+	public BoardBean getBoardInfoWriter(MemberBean mb) {
+		BoardBean bb = sqlSessionTemplate.selectOne(namespace+"getBoardInfoWriter",mb);
+		return bb;
+	}
+
+	// 게시판 수정 작업
+	public int updateBoardContent(BoardBean bb) {
+		int cnt = 0;
+		try {
+			sqlSessionTemplate.update(namespace+"updateBoardContent",bb);			
+		} catch(UncategorizedSQLException e) {
+			cnt = 1;
+		}
+		return cnt;
+	}
 
 }

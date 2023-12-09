@@ -22,7 +22,10 @@ public class MemberLoginController {
 	
 	public final String command = "/login.mb";
 	public final String viewPage = "memberlogin";
-	public final String gotoPage = "redirect:/list.vw";
+	
+//	public final String tempPage = "redirect:insert.bd";
+	
+	public final String gotoPage = "redirect:/list.view";
 	
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String toLoginForm() {

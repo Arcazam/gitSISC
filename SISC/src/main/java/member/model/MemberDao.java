@@ -27,10 +27,17 @@ public class MemberDao {
 	}
 
 	public MemberBean findMemberId(MemberBean mb) {
-
-		MemberBean findMB = sqlSessionTemplate.selectOne(namespace+"findMemberId");
-		
+		MemberBean findMB = sqlSessionTemplate.selectOne(namespace+"findMemberID",mb);		
 		return findMB;
+	}
+
+	public MemberBean findMemberPW(MemberBean mb) {
+		MemberBean findMB = sqlSessionTemplate.selectOne(namespace+"findMemberPw",mb);
+		return findMB;
+	}
+
+	public void updatePW(MemberBean mb) {
+		sqlSessionTemplate.update(namespace+"updatePW",mb);
 	}	
 	
 }
