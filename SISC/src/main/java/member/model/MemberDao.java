@@ -27,12 +27,18 @@ public class MemberDao {
 	}
 
 	public MemberBean findMemberId(MemberBean mb) {
-
-		MemberBean findMB = sqlSessionTemplate.selectOne(namespace+"findMemberId", mb);
-		
+		MemberBean findMB = sqlSessionTemplate.selectOne(namespace+"findMemberID",mb);		
 		return findMB;
 	}
 
+	public MemberBean findMemberPW(MemberBean mb) {
+		MemberBean findMB = sqlSessionTemplate.selectOne(namespace+"findMemberPw",mb);
+		return findMB;
+	}
+
+	public void updatePW(MemberBean mb) {
+		sqlSessionTemplate.update(namespace+"updatePW",mb);
+	}	
 	public void deleteMember(String id) {
 		sqlSessionTemplate.delete(namespace+"deleteMember", id);
 	}
@@ -53,5 +59,4 @@ public class MemberDao {
 		int mb1 = sqlSessionTemplate.update(namespace+"updateProImg", mb); 
 		return mb1;
 	}	
-	
 }

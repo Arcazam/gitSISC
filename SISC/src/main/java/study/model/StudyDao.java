@@ -9,7 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import utility.Paging;
+import utility.BoardPaging;
 
 @Component("myStudy")
 public class StudyDao {
@@ -23,7 +23,7 @@ public class StudyDao {
 		sqlSessionTemplate.insert(namespace+"insertStudy", st);
 	}
 
-	public List<StudyBean> getAllStudy(Paging pageInfo, Map<String, String> map) {
+	public List<StudyBean> getAllStudy(BoardPaging pageInfo, Map<String, String> map) {
 		List<StudyBean> list = new ArrayList<StudyBean>();
 		
 		RowBounds rowbounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());

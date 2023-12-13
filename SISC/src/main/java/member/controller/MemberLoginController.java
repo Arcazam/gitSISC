@@ -22,7 +22,10 @@ public class MemberLoginController {
 	
 	public final String command = "/login.mb";
 	public final String viewPage = "memberlogin";
-	public final String gotoPage = "redirect:/SiscLoginMain.view";
+	
+//	public final String tempPage = "redirect:insert.bd";
+	
+	public final String gotoPage = "redirect:/list.view";
 	
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String toLoginForm() {
@@ -47,8 +50,7 @@ public class MemberLoginController {
 			return viewPage;
 		} else { // 아이디 존재함
 			if(mb.getPassword().equals(contrastMB.getPassword())) {
-				session.setAttribute("contrastMB", contrastMB);
-				
+				session.setAttribute("loginInfo", contrastMB);
 				return gotoPage;
 			} else {
 				out.println("<script>alert('비밀번호가 맞지 않습니다');</script>");

@@ -12,6 +12,12 @@
 			select count(*) from book
 		</select>
 	
+		<select id="getBookList" resultType="SiscBook">
+			select * from book order by bk_num asc
+		</select>
+		
+		
+	
 	</mapper>
 <!-- selectAllToMainBook : 메인화면에 출력될 5개 레코드만 제한출력 -->
-	
+<!-- getBookList : 책방 페이지에 출력될 책 전체 레코드 -->		

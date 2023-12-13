@@ -1,6 +1,6 @@
 package board.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class BoardBean {
 
@@ -9,14 +9,18 @@ public class BoardBean {
 	private String writer;
 	private String subject;
 	private String passwd;
-	private Date reg_date;
+	private Timestamp reg_date;
 	private int readcount;
 	private int ref;
 	private int re_step;
 	private int re_level;
 	private String content;
+	
+	public BoardBean() {
+		
+	}
 
-	public BoardBean(int b_num, String b_cate, String writer, String subject, String passwd, Date reg_date,
+	public BoardBean(int b_num, String b_cate, String writer, String subject, String passwd, Timestamp reg_date,
 			int readcount, int ref, int re_step, int re_level, String content) {
 		super();
 		this.b_num = b_num;
@@ -72,11 +76,11 @@ public class BoardBean {
 		this.passwd = passwd;
 	}
 
-	public Date getReg_date() {
+	public Timestamp getReg_date() {
 		return reg_date;
 	}
 
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(Timestamp reg_date) {
 		this.reg_date = reg_date;
 	}
 

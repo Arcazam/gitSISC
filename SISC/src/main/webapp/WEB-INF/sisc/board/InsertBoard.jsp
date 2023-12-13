@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="../common/common.jsp" %>
+	
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -16,6 +18,38 @@
 }	
 
 </style>
+
+<script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery.js"></script>
+<script>
+
+	function insertBoardcheck(){
+		
+		if($('input[name="writer"]').val() == ""){
+			alert('작성자가 누락되었습니다');
+			$('input[name="writer"]').focus();
+			return false;
+		}
+		
+		if ($('select option:selected').val() == "") {
+			alert('게시판 카테고리를 선택하셔야합니다');
+			return false;
+		}
+		
+		if($('input[name="subject"]').val() == ""){
+			alert('제목이 누락되었습니다');
+			$('input[name="subject"]').focus();
+			return false;
+		}
+		
+		if($('input[name="content"]').val() == ""){
+			alert('내용이 누락되었습니다');
+			$('input[name="content"]').focus();
+			return false;
+		}
+		
+	}
+
+</script>
 
 <head>
   <title>SummerNoteExample</title>
@@ -34,20 +68,51 @@
 
 <body>
 <br><br>
-<form class="container" method="post" action="insert.bd">
-	<input type="text" name="writer" style="width: 40%;" placeholder="작성자"/><br><br> <!-- member의 id값과 같아야함 -->
-	<select name="b_cate" style="float: right;">
-		<c:set var="cates" value="${fn:split('선택하세요,자유,지식,Q&A,수료생',',')}"></c:set>
-		<c:forEach var="bdcates" items="${cates }">
-			<option value="${bdcates }">${bdcates }</option>
-		</c:forEach>
+<form:form commandName="bb" class="container" method="post" action="insert.bd">
+	<input type="text" name="writer" style="width: 40%;" value="${ mb.id }" readonly><br><br> 
+	<select name="b_cate" style="float: right;">	
+		<option value="">선택하세요</option>
+		<option value="Free">자유</option>
+		<option value="Know">지식</option>
+		<option value="QnA">QnA</option>
+		<option value="Grad">수료생</option>
 	</select>
 	<br><br>
-	<input type="text" name="subject" style="width: 40%;" placeholder="제목"/><br><br>
-	<textarea class="summernote" name="content"></textarea> 
+	<input type="text" name="subject" style="width: 40%;" value="${ bb.subject }" placeholder="제목"/>
+	<div id="charCount">(100/0)</div><br><br>
+	 <script>
+	 $(document).ready(function () {
+		    // 텍스트 입력란에 입력이 발생할 때마다 바이트 수 업데이트
+		    $('input[name="subject"]').on('input', function () {
+		        var inputText = $(this).val();
+		        var byteCount = countBytes(inputText);
+
+		        if (byteCount > 100) {
+		            // 100자를 초과하면 메시지를 표시하고 글자를 100자로 제한
+		            $('#charCount').text('글자수 제한을 초과하셨습니다').css('color', 'red');
+//		            $(this).val(inputText.substring(0, 100));
+//		            byteCount = 100;
+		        } else {
+		            // 100자 이하인 경우에는 정상적으로 글자 수를 표시
+		            $('#charCount').text('(100/' + byteCount + ')').css('color', 'black');
+		        }
+		    });
+
+		    // 문자열의 바이트 수를 계산하는 함수
+		    function countBytes(text) {
+		        var totalCount = 0;
+		        for (var i = 0; i < text.length; i++) {
+		            var charCode = text.charCodeAt(i);
+		            totalCount += (charCode < 128) ? 1 : 3; // ASCII 문자는 1바이트, 나머지는 3바이트로 계산
+		        }
+		        return totalCount;
+		    }
+		});
+    </script>
+	<textarea class="summernote" name="content">${ bb.content }</textarea> 
 	<br><br>
-	<input type="submit" value="저장하기" class="studysave">
-</form>
+	<input type="submit" value="저장하기" class="studysave" onClick="return insertBoardcheck()">
+</form:form>
 </body>
 <script>
 $(document).ready(function() {
