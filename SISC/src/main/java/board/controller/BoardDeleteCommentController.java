@@ -19,7 +19,7 @@ public class BoardDeleteCommentController {
 	@Autowired
 	private BoardDao bor_dao;
 	
-	public final String command = "/updateComments.bd";
+	public final String command = "/deleteComments.bd";
 	public final String gotoPage = "redirect:/detailList.bd";
 	
 	@RequestMapping(value=command,method=RequestMethod.POST)

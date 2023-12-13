@@ -1,8 +1,16 @@
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ include file="../common/common.jsp" %>
 
-<style>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resources/css/kfonts2.css" rel="stylesheet">
+
+<style type="text/css">
 .top {
    display: flex;
    justify-content: space-evenly;
@@ -22,23 +30,41 @@
 .top_menu {
    margin-top: 45px;
    border-radius: 100px;
-   font-size: 1.25em;
+   font-size: 1.5em;
 }
+
+input[type="button"]:hover{
+   color: #0095FF;
+}
+
+#design{
+   text-decoration-line: none;
+      color: black;
+}
+
+#design:hover{
+   color: #0095FF;
+}
+
 </style>
 
 <body>
    <div class="top">
-      <img class="logo" src="<%=request.getContextPath()%>/resources/images/logo.jpg" style="width:210px; height: 100px;">
-      <span class="top_menu">자유</span> <span class="top_menu">지식</span>
-      <span class="top_menu">Q&A</span> <span class="top_menu">수료생</span>
+      <a href="SiscMain.view"><img class="logo" src="<%=request.getContextPath()%>/resources/images/logo.jpg" style="width:210px; height: 100px;"></a>
+      <span class="top_menu"><a href="board.bd?board=Free" id="design">자유</a></span>
+      <span class="top_menu"><a href="board.bd?board=Know" id="design">지식</a></span>
+      <span class="top_menu"><a href="board.bd?board=QnA" id="design">Q&A</a></span>
+      <span class="top_menu"><a href="board.bd?board=Grad" id="design">수료생</a></span>
+      <span class="top_menu"><a href="board.bd?board=Quiz" id="design">퀴즈</a></span>
       <span class="top_menu"> | </span>
-      <span class="top_menu"><font color="#0040FF">학생</font></span>
+      <span class="top_menu">학생</span>
       <form>
          <input class="top_menu" type="text" placeholder="궁금한 게 있을까요?" name="search"> 
          <input class="top_menu" type="button" value="검색">
       </form>
-      <input type="hidden" name="contrastMB" value="${contrastMB }">
-      <span class="top_menu"><a href="SelectAllStudy.st">${contrastMB.id }</a>님</span>
+
+      <input type="hidden" name="loginInfo" value="${loginInfo }">
+      <span class="top_menu"><a href="SelectAllStudy.st">${loginInfo.id }</a>님</span>
    </div>
 
    <hr>

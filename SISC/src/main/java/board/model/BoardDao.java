@@ -29,27 +29,27 @@ public class BoardDao {
    
    private String namespace="board.";
 
-   // (메인화면)자유게시판
-   public List<BoardBean> getAllFreeBoard() {
-      List<BoardBean> free_board_list = sqlSessionTemplate.selectList(namespace+"getAllFreeBoard");
+// (메인화면)자유게시판
+   public List<BoardBean> getAllFreeBoard(Map<String, String> map) {
+      List<BoardBean> free_board_list = sqlSessionTemplate.selectList(namespace+"getAllFreeBoard", map);
       return free_board_list;
    }
 
    // (메인화면)qna게시판
-   public List<BoardBean> getAllKnowBoard() {
-      List<BoardBean> know_board_list = sqlSessionTemplate.selectList(namespace+"getAllKnowBoard");
+   public List<BoardBean> getAllKnowBoard(Map<String, String> map) {
+      List<BoardBean> know_board_list = sqlSessionTemplate.selectList(namespace+"getAllKnowBoard", map);
       return know_board_list;
    }
 
    // (메인화면)qna게시판
-   public List<BoardBean> getAllQnABoard() {
-      List<BoardBean> qna_board_list = sqlSessionTemplate.selectList(namespace+"getAllQnABoard");
+   public List<BoardBean> getAllQnABoard(Map<String, String> map) {
+      List<BoardBean> qna_board_list = sqlSessionTemplate.selectList(namespace+"getAllQnABoard", map);
       return qna_board_list;
    }
 
    // (메인화면)수료생게시판
-   public List<BoardBean> getAllGradBoard() {
-      List<BoardBean> grad_board_list = sqlSessionTemplate.selectList(namespace+"getAllGradBoard");
+   public List<BoardBean> getAllGradBoard(Map<String, String> map) {
+      List<BoardBean> grad_board_list = sqlSessionTemplate.selectList(namespace+"getAllGradBoard", map);
       return grad_board_list;
    }
 
@@ -76,6 +76,7 @@ public class BoardDao {
       int gradBoardCount = sqlSessionTemplate.selectOne(namespace+"getCountGrad");
       return gradBoardCount;
    }
+
 
    // 자유게시판 페이징처리 검색
 	public List<BoardBean> selectFreeDetailCate(BoardPaging pageInfo, Map<String, String> map) {

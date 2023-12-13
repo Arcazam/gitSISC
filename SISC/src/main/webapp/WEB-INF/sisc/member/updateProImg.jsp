@@ -25,7 +25,7 @@
 
 <form action="updateImg.mb" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" value="${mb.id }">
-    <img id="preview" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${contrastMB.pro_img }"><br>
+    <img id="preview" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${loginInfo.pro_img }"><br>
     <input type="file" name="upload" value="${mb.pro_img }">
     <input type="hidden" name="upload2" value="${mb.pro_img }" onchange="previewImage(this);"><br>
     <input type="submit" value="수정하기">

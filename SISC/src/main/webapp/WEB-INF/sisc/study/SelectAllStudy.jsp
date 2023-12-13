@@ -10,7 +10,7 @@
 /* css파일에다 따로하면 스타일이 적용이 안되서 이부분에 스타일 적용 */
 .card {
   width: 700px;
-  height: 180px;
+  height: 200px;
   background: #ffff;
   box-shadow: 0 1px 25px rgba(0,0,0,0.2);
   transform: translate(-50%, -50%);
@@ -112,20 +112,20 @@ ServletContext servletContext = null;
 %>
 <div class="card">
     <div class="card_load">
-		<img class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${contrastMB.pro_img }">
+		<img class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${loginInfo.pro_img }">
 	</div>
-    <div class="card_load_extreme_title">이름 - ${contrastMB.name }</div>
+    <div class="card_load_extreme_title">이름 - ${loginInfo.name }</div>
     <div class="card_load_extreme_descripion">
-    	아이디 - ${contrastMB.id }<br><br>
-	    전화번호 - ${contrastMB.phone }<br><br>
-	    클래스 - ${contrastMB.m_class }반<br>
+    	아이디 - ${loginInfo.id }<br><br>
+	    전화번호 - ${loginInfo.phone }<br><br>
+	    클래스 - ${loginInfo.m_class }반<br>
     </div>
     <div class=	"card_links">
-    <input type="hidden" name="contrastMB" value="${contrastMB }">
-        <a href="update.mb?id=${contrastMB.id }">내정보 수정</a>
+    <input type="hidden" name="loginInfo" value="${loginInfo }">
+        <a href="update.mb?id=${loginInfo.id }">내정보 수정</a>
         <a href="#">내가쓴 게시글</a>
         <a href="#">내가쓴 댓글</a>
-        <a href="delete.mb?id=${contrastMB.id }">회원 탈퇴</a>
+        <a href="delete.mb?id=${loginInfo.id }">회원 탈퇴</a>
     </div>
     
     <!-- 프로필 수정 링크 -->
@@ -144,14 +144,14 @@ ServletContext servletContext = null;
 		type="submit" class="search-submit" value="검색">
 </form>
 
+
+<div>
 <button class="learn-more" type="button" onclick="insert()">
 	<span class="circle" aria-hidden="true">
 		<span class="icon arrow"></span>
 	</span>
 	<span class="button-text">추가하기</span>
 </button>
-
-<div>
 	<table style="margin: auto;">
 		<c:choose>
 			<c:when test="${fn:length(list) eq 0}">

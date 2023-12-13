@@ -69,6 +69,7 @@
 <body>
 <br><br>
 <form:form commandName="bb" class="container" method="post" action="insert.bd">
+	<input type="hidden" name="board" value="${board }">
 	<input type="text" name="writer" style="width: 40%;" value="${ mb.id }" readonly><br><br> 
 	<select name="b_cate" style="float: right;">	
 		<option value="">선택하세요</option>

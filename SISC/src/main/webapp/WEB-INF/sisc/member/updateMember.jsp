@@ -88,7 +88,7 @@ img{
    <table class="insert">
       <tr>
          <td>
-         <img src="<%= request.getContextPath() %>/resources/member/pro_img/${contrastMB.pro_img }"><br>
+         <img src="<%= request.getContextPath() %>/resources/member/pro_img/${loginInfo.pro_img }"><br>
          [프로필 사진]
          </td>
       </tr>

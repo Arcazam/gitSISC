@@ -32,7 +32,7 @@ public class MainViewController {
 	private BookDao bok_dao;
 
 	public final String command = "/list.view";
-	public final String viewPage = "siscMain";
+	public final String viewPage = "LoginHome";
 
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String siscMainjsp(

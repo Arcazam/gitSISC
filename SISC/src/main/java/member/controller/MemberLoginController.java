@@ -25,7 +25,7 @@ public class MemberLoginController {
 	
 //	public final String tempPage = "redirect:insert.bd";
 	
-	public final String gotoPage = "redirect:/list.view";
+	public final String gotoPage = "redirect:/SiscMain.view";
 	
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String toLoginForm() {

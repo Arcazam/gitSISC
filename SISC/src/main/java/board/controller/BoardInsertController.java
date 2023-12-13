@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import board.model.BoardBean;
 import board.model.BoardDao;
@@ -27,20 +28,24 @@ public class BoardInsertController {
 	public final String command = "/insert.bd";
 	public final String sessionID = "loginInfo";
 	public final String viewPage = "InsertBoard";
-	public final String gotoPage = "redirect:/list.bd";
+	public final String gotoPage = "redirect:/board.bd";
 	
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String toInsertBoard(
+			@RequestParam("board") String board,
 				Model model,
 				HttpSession session
 			) {
 		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
 		model.addAttribute("mb",mb);
+		model.addAttribute("board", board);
+		
 		return viewPage;
 	}
 	
 	@RequestMapping(value=command,method=RequestMethod.POST)
 	public String toMainBoradList(
+				@RequestParam("board") String board,
 				@ModelAttribute("bb") BoardBean bb,
 				HttpServletResponse response,
 				HttpSession session,
@@ -64,7 +69,7 @@ public class BoardInsertController {
 			return viewPage;
 		}
 		
-		return gotoPage;
+		return gotoPage + "?board=" + board;
 	}
 	
 }

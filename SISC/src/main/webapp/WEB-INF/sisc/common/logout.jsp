@@ -3,6 +3,6 @@
 <%
 
 	session.invalidate();
-	response.sendRedirect("start.jsp");
+	response.sendRedirect("SISC.jsp");
 
 %>

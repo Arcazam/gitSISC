@@ -32,22 +32,37 @@
    border-radius: 100px;
    font-size: 1.5em;
 }
+
+input[type="button"]:hover{
+   color: #0095FF;
+}
+
+#design{
+   text-decoration-line: none;
+      color: black;
+}
+
+#design:hover{
+   color: #0095FF;
+}
+
 </style>
 
 <body>
    <div class="top">
       <a href="SiscMain.view"><img class="logo" src="<%=request.getContextPath()%>/resources/images/logo.jpg" style="width:210px; height: 100px;"></a>
-      <span class="top_menu"><a href="board.bd">자유</a></span>
-      <span class="top_menu">지식</span>
-      <span class="top_menu">Q&A</span>
-      <span class="top_menu">수료생</span>
+      <span class="top_menu"><a href="board.bd?board=Free" id="design">자유</a></span>
+      <span class="top_menu"><a href="board.bd?board=Know" id="design">지식</a></span>
+      <span class="top_menu"><a href="board.bd?board=QnA" id="design">Q&A</a></span>
+      <span class="top_menu"><a href="board.bd?board=Grad" id="design">수료생</a></span>
+      <span class="top_menu"><a href="board.bd?board=Quiz" id="design">퀴즈</a></span>
       <span class="top_menu"> | </span>
-      <span class="top_menu"><font color="#0040FF">학생</font></span>
+      <span class="top_menu">학생</span>
       <form>
          <input class="top_menu" type="text" placeholder="궁금한 게 있을까요?" name="search"> 
          <input class="top_menu" type="button" value="검색">
       </form>
-      <span class="top_menu"><a href = "login.mb">로그인</a></span>
+      <span class="top_menu"><a href = "login.mb" id="design">로그인</a></span>
    </div>
 
    <hr>

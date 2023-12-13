@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../top&bottom/topLogin.jsp"%>
+<%
+Object loginInfo = session.getAttribute("loginInfo");
+	if(loginInfo == null){%>
+		<%@ include file="../top&bottom/top.jsp"%>
+	<%}else{%>
+		<%@ include file="../top&bottom/topLogin.jsp"%>
+	<%}%>
    
   <head>
     <meta charset="utf-8">
