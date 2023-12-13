@@ -28,6 +28,7 @@ public class BoardListController {
 		
 	public final String command = "/list.bd";
 	public final String viewPage = "BoardList";
+	public final String sessionID = "loginInfo";
 
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String toBoardList(
@@ -49,7 +50,7 @@ public class BoardListController {
 		BoardPaging pageInfo = null;
 		
 		// 사용자 세션값 불러와서 BoardList.jsp에 저장해 놓을 객체를 모델로 주입 준비
-		MemberBean mb = (MemberBean)session.getAttribute("loginInfo");
+		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
 		
 		// 게시판 카테고리를 불러와서 빈에 저장
 		bb.setB_cate(b_cate);

@@ -140,6 +140,22 @@
 			select * from board where writer = #{id}
 		</select>
 		
+		<select id="getBoardInfoBnum" resultType="SiscBoard">
+			select * from board where b_num = #{b_num}
+		</select>
+		
+		<select id="getCommentsCount" resultType="int">
+			select count(*) from board where ref=#{ref} and re_level > 0
+		</select>
+		
+		<select id="getAllCommentsLists" resultType="SiscBoard">
+			select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			from board where ref = #{ref} and re_level > 0
+			order by ref desc, re_step asc ))
+		</select>
+		
 		<!-- 삽입구문 (Free, Know, QnA, Grad) -->
 		
 		<insert id="insertBoardContent">
@@ -151,7 +167,29 @@
 		
 		<update id="updateBoardContent">
 			update board set b_cate=#{b_cate}, subject=#{subject}, reg_date=#{reg_date}, content=#{content}
-			where writer = #{writer}
+			where b_num = #{b_num} and writer=#{writer} and re_level=#{re_level}
 		</update>
+		
+		<update id="findStep">
+			update board set re_step=re_step+1 where ref=#{ref} and re_step > #{re_step}
+		</update>
+		
+		<insert id="insertComments">
+			insert into board(b_num,b_cate,writer,subject,reg_date,ref,re_step,re_level,content)
+			values(board_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},#{ref},#{re_step},#{re_level},#{content})
+		</insert>
+		
+		<update id="updateCommentsProc">
+			update board set b_cate = #{b_cate}, writer=#{writer}, subject=#{subject}, reg_date=#{reg_date}, content=#{content} 
+			where b_num = #{b_num} and writer=#{writer} and ref=#{ref} and re_level=#{re_level}
+		</update>
+		
+		<delete id="deleteBoardContent">
+			delete from board where b_num = #{b_num}
+		</delete>
+		
+		<delete id="deleteCommentsProc">
+			delte from board where b_num = #{b_num} and ref=#{ref} and re_level = #{re_level}
+		</delete>
 		
 	</mapper>

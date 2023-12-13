@@ -45,7 +45,8 @@ public class MemberInsertController {
 			@RequestParam(value = "hp2") String hp2,
 			@RequestParam(value = "hp3") String hp3) throws IllegalStateException, IOException {
 
-		String uploadPath = servletContext.getRealPath("/resources/img/member/pro_img/");
+		String uploadPath = servletContext.getRealPath("/resources/member/pro_img/");
+		// uploadPath : F:\쌍용강북\팀프로젝트\WorkSpace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SISC\resources
 
 		// 메인주소와 상세주소 합치기
 		mb.setAddress(address_main + " " + address_detail);
@@ -57,16 +58,12 @@ public class MemberInsertController {
 		mb.setPhone(hp1 + "-" + hp2 + "-" + hp3);
 
 		if (upload.isEmpty()) {
-			mb.setPro_img("defaultImage.jpg");
+			mb.setPro_img("defaultImg.png");
 			mdao.insertMember(mb);
 		} else {
-			
 			mdao.insertMember(mb);
-			
 			File destination = new File(uploadPath + File.separator + mb.getPro_img());
-
 			MultipartFile multi = mb.getUpload();
-
 			multi.transferTo(destination);
 		}
 

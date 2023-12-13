@@ -13,9 +13,9 @@
 		</select>
 		
 		<insert id="insertMember">
-			insert into member (id,password,name,pro_img,joomin,gender,address,phone,m_class)
-			values (#{id},#{password},#{name},#{pro_img},#{joomin},#{gender},#{address},#{phone},#{m_class})
-		</insert>
+         insert into member values 
+         (#{id},#{password},#{name},#{pro_img},#{joomin},#{birth},#{gender},#{address},#{division},#{code},#{start_day},#{end_day},#{phone},#{point},#{m_class},#{curriculum})
+      </insert>
 		
 		<select id="findMemberID" resultType="SiscMember">
 			select * from member where name = #{name} and joomin = #{joomin}

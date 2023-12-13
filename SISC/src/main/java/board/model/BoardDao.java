@@ -1,5 +1,6 @@
 package board.model;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.stereotype.Component;
 
 import member.model.MemberBean;
+import utility.BoardCommentsPaging;
 import utility.BoardPaging;
 
 @Component("myBoard")
@@ -122,6 +124,68 @@ public class BoardDao {
 			cnt = 1;
 		}
 		return cnt;
+	}
+
+	public BoardBean getBoardInfoBnum(BoardBean bb) {
+		BoardBean modelAttBor = sqlSessionTemplate.selectOne(namespace+"getBoardInfoBnum",bb);
+		return modelAttBor;
+	}
+
+	public void deleteBoardContent(BoardBean bb) {
+		sqlSessionTemplate.delete(namespace+"deleteBoardContent",bb);
+	}
+
+	// ¿ø±Û ¹Ø¿¡´Þ¸± ´ñ±Û ¸®½ºÆ®µé
+	public List<BoardBean> getAllCommentsLists(BoardCommentsPaging pageInfo, BoardBean bb) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("ref", bb.getRef());
+		List<BoardBean> numCommentsList = sqlSessionTemplate.selectList(namespace+"getAllCommentsLists",map,rowBounds);
+		return numCommentsList;
+	}
+	
+	// ¿ø±Û ¹Ø¿¡´Þ¸± ´ñ±Û ¼ö
+	public int getCommentsCount(BoardBean bb) {
+		int boardCommentsCount = sqlSessionTemplate.selectOne(namespace+"getCommentsCount",bb);
+		return boardCommentsCount;
+	}
+
+	// ´ñ±Û ´Þ±â
+	public int insertCommentsProc(BoardBean bb) {
+
+		int cnt = 0;
+		
+		try {
+			
+			sqlSessionTemplate.update(namespace+"findStep",bb);
+			
+			bb.setSubject("comments");
+			bb.setRe_step(bb.getRe_step()+1);
+			bb.setRe_level(bb.getRe_level()+1);
+			
+			sqlSessionTemplate.insert(namespace+"insertComments",bb);
+			
+		} catch (UncategorizedSQLException e) {
+			cnt = 1;
+		}
+		
+		return cnt;
+	}
+
+	public int updateCommentsProc(BoardBean bb) {
+		
+		int cnt = 0;
+		try {
+			sqlSessionTemplate.update(namespace+"updateCommentsProc",bb);
+		} catch (UncategorizedSQLException e) {
+			cnt = 1;
+		}
+		return cnt;
+		
+	}
+
+	public void deleteCommentsProc(BoardBean bb) {
+		sqlSessionTemplate.delete(namespace+"deleteCommentsProc",bb);
 	}
 
 }

@@ -47,6 +47,7 @@ public class BoardUpdateController {
 	@RequestMapping(value=command,method=RequestMethod.POST)
 	public String toUpdateProcBoard(
 				@ModelAttribute("bb") BoardBean bb,
+				@RequestParam("b_num") int b_num,
 				@RequestParam("pageNumber") int pageNumber,
 				HttpServletResponse response,
 				HttpSession session,
@@ -55,6 +56,7 @@ public class BoardUpdateController {
 		
 		int cnt;
 		
+		bb.setB_num(b_num);
 		bb.setReg_date(new Timestamp(System.currentTimeMillis()));
 		
 		cnt = bor_dao.updateBoardContent(bb);

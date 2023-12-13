@@ -2,38 +2,50 @@ package book.model;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BookBean {
 
 	private int bk_num;
-	private String seller;
-	private String writer;
-	private String title;
-	private String publisher;
-	private Date pub_date; // 출간일
-	private Date sell_date; // 판매일
-	private String sell_content; // 판매코멘트
-	private int price;
-	private String kind;
-	private String tradeway;
-	private String tradeplace;
+	private String seller; // 판매자 -
+	private String seller_name; // 판매자 이름 -
+	private String seller_pnum; // 판매자 번호 -
+	private String writer; // 저자 -
+	private String title; // 책 제목 -
+	private String publisher; // 출판사 -
+	private String b_image; // 책 사진 -
+	private Date pub_date; // 출간일 -
+	private Date sell_date; // 판매일 -
+	private String sell_content; // 판매코멘트 -
+	private int pri_price; // 원가 -
+	private int dis_price; // 할인가 -
+	private String kind; // 책 상태 -
+	private MultipartFile upload;
+	private String tradeway; // 거래 방식
+	private String tradeplace; //거래 장소
 
 	public BookBean() {
 
 	}
 
-	public BookBean(int bk_num, String seller, String writer, String title, String publisher, Date pub_date,
-			Date sell_date, String sell_content, int price, String kind, String tradeway, String tradeplace) {
+	public BookBean(int bk_num, String seller, String seller_name, String seller_pnum, String writer, String title, String publisher,String b_image, Date pub_date,
+			Date sell_date, String sell_content, int pri_price, int dis_price, String kind, MultipartFile upload, String tradeway, String tradeplace) {
 		super();
 		this.bk_num = bk_num;
 		this.seller = seller;
+		this.seller_name = seller_name;
+		this.seller_pnum = seller_pnum;
 		this.writer = writer;
 		this.title = title;
 		this.publisher = publisher;
+		this.b_image = b_image;
 		this.pub_date = pub_date;
 		this.sell_date = sell_date;
 		this.sell_content = sell_content;
-		this.price = price;
+		this.pri_price = pri_price;
+		this.dis_price = dis_price;
 		this.kind = kind;
+		this.upload = upload;
 		this.tradeway = tradeway;
 		this.tradeplace = tradeplace;
 	}
@@ -102,12 +114,20 @@ public class BookBean {
 		this.sell_content = sell_content;
 	}
 
-	public int getPrice() {
-		return price;
+	public int getPri_price() {
+		return pri_price;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setPri_price(int pri_price) {
+		this.pri_price = pri_price;
+	}
+
+	public int getDis_price() {
+		return dis_price;
+	}
+
+	public void setDis_price(int dis_price) {
+		this.dis_price = dis_price;
 	}
 
 	public String getKind() {
@@ -132,6 +152,41 @@ public class BookBean {
 
 	public void setTradeplace(String tradeplace) {
 		this.tradeplace = tradeplace;
+	}
+
+	public String getB_image() {
+		return b_image;
+	}
+
+	public void setB_image(String b_image) {
+		this.b_image = b_image;
+	}
+
+	public MultipartFile getUpload() {
+		return upload;
+	}
+
+	public void setUpload(MultipartFile upload) {
+		this.upload = upload;
+		if (this.upload != null) {
+			b_image = upload.getOriginalFilename();
+		}
+	}
+
+	public String getSeller_pnum() {
+		return seller_pnum;
+	}
+
+	public void setSeller_pnum(String seller_pnum) {
+		this.seller_pnum = seller_pnum;
+	}
+
+	public String getSeller_name() {
+		return seller_name;
+	}
+
+	public void setSeller_name(String seller_name) {
+		this.seller_name = seller_name;
 	}
 	
 }
