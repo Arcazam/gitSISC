@@ -68,12 +68,12 @@ Object loginInfo = session.getAttribute("loginInfo");
    .boardMain{
    border-collapse: collapse;
    border-radius : 30px;
-      border-style : hidden;
+      border-style : hidden; 
       box-shadow : 0 0 0 1px #666;
    margin: auto;
    margin-top: 10px;
    width: 600px;
-   height: 200px;
+   height: 150px;
    }
    
    .boardTableTitle{
@@ -353,29 +353,37 @@ Object loginInfo = session.getAttribute("loginInfo");
    <input type="button" value="글쓰기" style="margin-left: 1155px; border-radius: 100px; width: 220px;" onclick="insert('${boardName}')">
    </div>
    
-   <c:forEach var="i" begin="0" end="9" step="1">
-   <div class="showBoard">   
-      <table border=1 class="boardMain">
-            <tr>
-                <td class="boardTableTitle"><b><font size="5">자바스프링 어려워요 자바스프링 어려워요 자바스프링 어려워요 자바스프링 어려워요</font></b></td>
-            </tr>
-            
-            <tr>
-                <td colspan=2 class="contentStyle">
-                <div class="boardTableContent">
-                내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다.
-               </div>
-               </td>
-            </tr>
-            
-            <tr>
-               <td class="boardTableWriter"><b>작성자</b></td>
-            </tr>
-            
-            <tr>
-                <td class="boardTableTag" colspan=2>#태그</td>
-            </tr>
+   <div>   
+   <c:forEach var="bd" items="${list }">
+        <table border=1 class="boardMain">
+            <c:choose>
+			<c:when test="${fn:length(list) eq 0}">
+				<tr>
+					<td colspan="3" align="center" class="boardTableTitle">등록된 게시글이 없습니다</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+					<tr>
+		                <td class="boardTableTitle"><b><font size="5"><a href = "detailBoard.bd">${bd.subject }</a></font></b></td>
+		            </tr>
+		            
+		            <tr>
+		                <td colspan=2 class="contentStyle">
+		                <div class="boardTableContent">
+		                ${bd.content }
+		               </div>
+		               </td>
+		            </tr>
+		            
+		            <tr>
+		               <td class="boardTableWriter"><b>${bd.writer }</b></td>
+		            </tr>
+		            
+		            <tr>
+		                <td class="boardTableTag" colspan=2>#태그</td>
+		            </tr>
+			</c:otherwise>
+		</c:choose>
         </table>
-   </div>
-   <br>
    </c:forEach>
+   </div>

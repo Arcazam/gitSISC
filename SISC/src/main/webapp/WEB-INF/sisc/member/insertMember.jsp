@@ -152,12 +152,6 @@ font-family: 'TAEBAEKfont';
 			return false;
 		}
 		
-		// 주민등록번호 앞 6자리가 날짜 형식 'yymmdd'에 맞는지 확인
-		if (!isValidDate(joomin1)) {
-		    alert('올바른 날짜 형식이 아닙니다.');
-		    return false;
-		}
-		
 		function isValidDate(dateStr) {
 		    // 날짜 형식 'yymmdd' 정규표현식
 		    var datePattern = /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/;

@@ -9,12 +9,6 @@ Object loginInfo = session.getAttribute("loginInfo");
 	<%}%>
    
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<%=request.getContextPath() %>/resources/css/kfonts2.css" rel="stylesheet">
     
     <style>
     
@@ -36,79 +30,88 @@ Object loginInfo = session.getAttribute("loginInfo");
     /* "상단 메뉴 5개" 설정 */
     .menu{
     display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      font-family: 'TAEBAEKfont';
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-family: 'TAEBAEKfont';
     }
     
     /* "인기태크" 설정 */
-    .popTag{
+    .popStar{
     font-family: 'TAEBAEKfont';
     }
     
     /* "게시판 4개 div" 설정 */
     .middle{
-      margin-top: 10px;
-      display: flex;
-      flex-direction: row;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
     }
     
     /* "자유, Q&A 게시판" 설정 */
     .board_table {
-   margin-left: 300px;
-   width: 500px;
-   height: 450px;
-   border-collapse : collapse;
-     border-radius : 30px;
-     border-style : hidden;
-     box-shadow : 0 0 0 1px #666;
-     font-family: 'TAEBAEKfont';
-   }
+      margin-left: 300px;
+      width: 500px;
+      height: 450px;
+      border-collapse : collapse;
+      border-radius : 30px;
+      border-style : hidden;
+      box-shadow : 0 0 0 1px #666;
+      font-family: 'TAEBAEKfont';
+      }
    
-   /* "지식, 수료생 게시판" 설정 */
+      /* "지식, 수료생 게시판" 설정 */
     .board_table2 {
-   margin-left: 100px;
-   width: 500px;
-   border-collapse : collapse;
-     border-radius : 30px;
-     border-style : hidden;
-     box-shadow : 0 0 0 1px #666;
-     font-family: 'TAEBAEKfont';
-   }
+      margin-left: 100px;
+      width: 500px;
+      border-collapse : collapse;
+      border-radius : 30px;
+      border-style : hidden;
+      box-shadow : 0 0 0 1px #666;
+      font-family: 'TAEBAEKfont';
+      }
    
-   /* "게시판 이름" 설정 */
-   .tableBoard{
-   height: 50px;
-   padding-left: 20px;
-   font-size: 1.5em;
-   }
+      /* "게시판 이름" 설정 */
+      .tableBoard{
+      height: 50px;
+      padding-left: 20px;
+      font-size: 1.5em;
+      }
    
-   /* "작성자 프로필 이미지" 설정 */
-   .tableImg{
-   width:25px;
-   height: 25px;
-   border-radius: 100px;
-   margin-left: 5px;
-   margin-top: 5px;
-   }
+      /* "작성자 프로필 이미지" 설정 */
+      .tableImg{
+      width:25px;
+      height: 25px;
+      border-radius: 100px;
+      margin-left: 5px;
+      margin-top: 5px;
+      }
    
-   /* "댓글 모양 이미지" 설정 */
-   .tableImg2{
-   width:30px;
-   height: 30px;
-   border-radius: 100px;
-   margin-left: 360px;
-   }
+      /* "댓글 모양 이미지" 설정 */
+      .tableImg2{
+      width:30px;
+      height: 30px;
+      border-radius: 100px;
+      margin-left: 360px;
+      }
    
-   /* "게시글 제목" 설정 */
-   .tableTitle{
-   height: 30px;
-   white-space: nowrap;
-   text-overflow: ellipsis;
-   overflow: hidden;
-   max-width: 150px;
-   padding-left: 5px;
-   border-top: none;
+      /* "게시글 제목" 설정 */
+      .tableTitle{
+      height: 30px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 150px;
+      padding-left: 5px;
+      border-top: none;
+      }
+   
+   /* "게시글 더보기" 설정 */
+   #more{
+   text-decoration-line: none;
+   color: black;
+   }
+   #more:hover{
+   color: #0095FF;
    }
    
    /* "중고 책방" div 설정 */
@@ -133,18 +136,6 @@ Object loginInfo = session.getAttribute("loginInfo");
     }
    
    /* 중고 책방 게시판 설정 */
-   .bookTable{
-   margin-left: 10px;
-   width: 175px;
-   height: 230px;
-   }
-   
-   .bookTable2{
-   border-bottom: none;
-   height: 30px;
-   font-family: 'TAEBAEKfont';
-   text-align: center;
-   }
    .book {
   position: relative;
   border-radius: 10px;
@@ -171,8 +162,8 @@ Object loginInfo = session.getAttribute("loginInfo");
   margin-right: 40px;
 }
 img{
-	width: 150px;
-  	height: 200px;
+   width: 150px;
+     height: 200px;
 }
 .cover {
   top: 0;
@@ -213,6 +204,23 @@ p {
   font-weight: bolder;
 }
     </style>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
+    <script>
+      $('.carousel').carousel()  /* 1 */
+    </script>
+    
+    <script>
+    function changeTextColor(index, isMouseOver) {
+        var menuText = document.getElementById("menuText" + index);
+        if (isMouseOver) {
+            menuText.style.color = "#0095FF";
+        } else {
+            menuText.style.color = ""; // 빈 문자열로 설정하면 원래 스타일로 돌아갑니다.
+        }
+    }
+   </script>
     
   </head>
     
@@ -264,32 +272,45 @@ p {
      <div class="menu">
      <%
      String [] menus = {"공지사항", "랭킹", "설문", "취업정보", "문의"};
-     String [] menuImgs = {"black.jpg", "black.jpg", "black.jpg", "black.jpg", "black.jpg"};     
+     String [] menuImgs = {"test1.jpg", "test2.jpg", "logo.jpg", "logo.jpg", "logo.jpg"};     
      %>
      
      <c:set var="menu" value="<%= menus %>"/>
      <c:set var="menuImg" value="<%= menuImgs %>"/>
      
      <c:forEach var="i" begin="0" end="${fn:length(menu) -1}" step="1">
-     <table style="text-align: center;">
-        <tr>
-           <th>
-           <a href=""><img src="<%=request.getContextPath()%>/resources/images/${menuImg[i]}" style="width:60px; height: 60px; border-radius: 100px;"></a>
-           </th>
-        </tr>
-        
-        <tr>
-           <td style="padding-top: 10px;"><span>${menu[i] }</span></td>
-        </tr>
-     </table>
+     <div class="menu-item">
+        <table>
+           <tr>
+              <td style="text-align: center;">
+              <c:if test="${menu == '공지사항' }">
+              <c:set var="link" value="findMemberID.mb"/>
+              </c:if>
+              
+              <c:if test="${menu == '랭킹' }">
+              <c:set var="link" value="insertMember.mb"/>
+              </c:if>
+                 <a href="${link }"><img src="<%=request.getContextPath()%>/resources/images/${menuImg[i]}" class="menu-image" 
+                 onmouseover="changeTextColor(${i}, true)" onmouseout="changeTextColor(${i}, false)"
+                 style="width:60px; height: 60px; border-radius: 100px;"></a>
+              </td>
+           </tr>
+           
+           <tr>
+              <td style="text-align: center;">
+                 <span id="menuText${i}" class="menu-text" style="font-size: 17px;">${menu[i]}</span>
+              </td>
+           </tr>
+        </table>
+     </div>
      </c:forEach>
      </div> <!-- 메뉴 설정 끝 -->
      
      <br><br>
      
-     <div class="popTag">
+     <div class="popStar">
      <center>
-     <span style="font-size: 2.5em;">인기태그 <font style="color: yellowgreen;">TOP</font>21</span>
+     <span style="font-size: 2.5em;">작성자 <font style="color: yellowgreen;">TOP</font>21</span>
      
      <hr style="width: 500px; size: 10px; color: green;">
      
@@ -341,18 +362,20 @@ p {
          <c:forEach var="i" begin="0" end="4" step="1">
         <tr>
             <td style="border-bottom: none;">
-            <a href=""><img src="<%=request.getContextPath()%>/resources/images/자유.png" class="tableImg"></a>
-            <span style="padding-top: 5px;">작성자</span>
+            <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
+            <span style="padding-top: 5px;"><a href="" id="more">작성자</a></span>
             <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">7
             </td>
          </tr>
          <tr>
-            <td class="tableTitle">제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다.</td>
+            <td class="tableTitle">
+            <a href="" id="more">제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다.</a>
+            </td>
          </tr>
          </c:forEach>
          
          <tr>
-            <td style="height: 30px; text-align: center;"><a href="">더보기</a></td>
+            <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
          </tr>
       </table>
       
@@ -365,18 +388,20 @@ p {
          <c:forEach var="i" begin="0" end="4" step="1">
         <tr>
             <td style="border-bottom: none;">
-            <a href=""><img src="<%=request.getContextPath()%>/resources/images/자유.png" class="tableImg"></a>
-            <span style="padding-top: 5px;">작성자</span>
+            <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
+            <span style="padding-top: 5px;"><a href="" id="more">작성자</a></span>
             <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">7
             </td>
          </tr>
          <tr>
-            <td class="tableTitle">제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다.</td>
+            <td class="tableTitle">
+            <a href="" id="more">제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다.</a>
+            </td>
          </tr>
          </c:forEach>
 
          <tr>
-            <td style="height: 30px; text-align: center;"><a href="">더보기</a></td>
+            <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
          </tr>
       </table>
       </div> <!-- 자유 지식 게시글 끝 -->
@@ -392,18 +417,20 @@ p {
          <c:forEach var="i" begin="0" end="4" step="1">
         <tr>
             <td style="border-bottom: none;">
-            <a href=""><img src="<%=request.getContextPath()%>/resources/images/자유.png" class="tableImg"></a>
-            <span style="padding-top: 5px;">작성자</span>
+            <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
+            <span style="padding-top: 5px;"><a href="" id="more">작성자</a></span>
             <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">7
             </td>
          </tr>
          <tr>
-            <td class="tableTitle">코딩 뉴비 질문드립니다!</td>
+            <td class="tableTitle">
+            <a href="" id="more">코딩 뉴비 질문드립니다!</a>
+            </td>
          </tr>
          </c:forEach>
          
          <tr>
-            <td style="height: 30px; text-align: center;"><a href="">더보기</a></td>
+            <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
          </tr>
       </table>
       
@@ -415,18 +442,20 @@ p {
          <c:forEach var="i" begin="0" end="4" step="1">
         <tr>
             <td style="border-bottom: none;">
-            <a href=""><img src="<%=request.getContextPath()%>/resources/images/자유.png" class="tableImg"></a>
-            <span style="padding-top: 5px;">작성자</span>
+            <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
+            <span style="padding-top: 5px;"><a href="" id="more">작성자</a></span>
             <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">7
             </td>
          </tr>
          <tr>
-            <td class="tableTitle">제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다.</td>
+            <td class="tableTitle">
+            <a href="" id="more">제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다.</a>
+            </td>
          </tr>
          </c:forEach>
          
          <tr>
-            <td style="height: 30px; text-align: center;"><a href="">더보기</a></td>
+            <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
          </tr>
       </table>
       </div> <!-- Q&A 수료생 게시글 끝 -->
@@ -434,18 +463,18 @@ p {
     <br><br>
     
     <span class="usedBook1">중고책방</span>
-    <span class="usedBook2"><a href="">더보기</a></span>
+    <span class="usedBook2"><a href="" id="more">더보기</a></span>
     <br><br>
     
     <div class="bottom">
     <c:forEach var="i" begin="0" end="5" step="1">
     <c:if test="${i < 6 }">
-    	<div class="book">
-			<p>asd</p>
-			<div class="cover">
-				<p><img src="<%=request.getContextPath()%>/resources/bookImg/1.webp"></p>
-		 	</div>
-		</div>
+       <div class="book">
+         <p>asd</p>
+         <div class="cover">
+            <p><img src="<%=request.getContextPath()%>/resources/bookImg/1.webp"></p>
+          </div>
+      </div>
     </c:if>
     </c:forEach>
     </div>
@@ -453,12 +482,12 @@ p {
     <div class="bottom">
     <c:forEach var="i" begin="0" end="5" step="1">
     <c:if test="${i < 6 }">
-    	<div class="book">
-			<p>qwe</p>
-			<div class="cover">
-				<p><img src="<%=request.getContextPath()%>/resources/bookImg/2.webp"></p>
-		 	</div>
-		</div>
+       <div class="book">
+         <p>qwe</p>
+         <div class="cover">
+            <p><img src="<%=request.getContextPath()%>/resources/bookImg/2.webp"></p>
+          </div>
+      </div>
     </c:if>
     </c:forEach>
     </div>
@@ -493,9 +522,3 @@ p {
      <br>
     
     </body>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="<%=request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
-    <script>
-      $('.carousel').carousel()  /* 1 */
-    </script>

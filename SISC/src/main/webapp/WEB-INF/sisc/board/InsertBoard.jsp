@@ -7,7 +7,13 @@
 
 <link href="<%=request.getContextPath() %>/resources/css/btn.css" rel="stylesheet" type="text/css" />
 
-<%@ include file="../top&bottom/top.jsp"%>  
+<%
+Object loginInfo = session.getAttribute("loginInfo");
+if(loginInfo == null){%>
+	<%@ include file="../top&bottom/top.jsp"%>
+<%}else{%>
+	<%@ include file="../top&bottom/topLogin.jsp"%>
+<%}%>
 
 <style>
 .sbtn{
@@ -71,13 +77,14 @@
 <form:form commandName="bb" class="container" method="post" action="insert.bd">
 	<input type="hidden" name="board" value="${board }">
 	<input type="text" name="writer" style="width: 40%;" value="${ mb.id }" readonly><br><br> 
-	<select name="b_cate" style="float: right;">	
-		<option value="">선택하세요</option>
-		<option value="Free">자유</option>
-		<option value="Know">지식</option>
-		<option value="QnA">QnA</option>
-		<option value="Grad">수료생</option>
+	<select name="b_cate" style="float: right;">   
+	    <option value="">선택하세요</option>
+	    <option value="Free" <c:if test="${ board == 'Free'}">selected</c:if>>자유</option>
+	    <option value="Know" <c:if test="${ board == 'Know'}">selected</c:if>>지식</option>
+	    <option value="QnA" <c:if test="${ board == 'QnA'}">selected</c:if>>QnA</option>
+	    <option value="Grad" <c:if test="${ board == 'Grad'}">selected</c:if>>수료생</option>
 	</select>
+
 	<br><br>
 	<input type="text" name="subject" style="width: 40%;" value="${ bb.subject }" placeholder="제목"/>
 	<div id="charCount">(100/0)</div><br><br>

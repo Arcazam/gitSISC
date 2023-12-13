@@ -4,7 +4,15 @@
 <link href="<%=request.getContextPath() %>/resources/css/studyTable.css"
 	rel="stylesheet" type="text/css" />
 <%@include file="./../common/common.jsp"%>
-<%@ include file="../top&bottom/topLogin.jsp"%>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<%
+Object loginInfo = session.getAttribute("loginInfo");
+if(loginInfo == null){%>
+	<%@ include file="../top&bottom/top.jsp"%>
+<%}else{%>
+	<%@ include file="../top&bottom/topLogin.jsp"%>
+<%}%>
 
 <style>
 /* css파일에다 따로하면 스타일이 적용이 안되서 이부분에 스타일 적용 */
@@ -105,6 +113,12 @@
 	function insert(){
 		location.href = "insert.st"
 	}
+	function updateProfileImage(imageUrl) {
+        $('#profileImage').attr('src', imageUrl); // 프로필 이미지 업데이트
+    }
+	function openProfileUpdate(userId) {
+    	window.open("updateImg.mb?id=" + userId, "프로필 수정", "width=500,height=500");
+    }
 </script>
 
 <%
@@ -112,7 +126,8 @@ ServletContext servletContext = null;
 %>
 <div class="card">
     <div class="card_load">
-		<img class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${loginInfo.pro_img }">
+    	<!-- 문제점 : 새로고침해도 안바뀌고 로그아웃하고 로그인해야지 프로필 사진이 바뀐다 해결해야함 -->
+		<img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${loginInfo.pro_img}">
 	</div>
     <div class="card_load_extreme_title">이름 - ${loginInfo.name }</div>
     <div class="card_load_extreme_descripion">
@@ -130,7 +145,7 @@ ServletContext servletContext = null;
     
     <!-- 프로필 수정 링크 -->
     <div style="margin-left: 45px; clear: both;">
-	    <a href="#" onclick="openProfileUpdate('${contrastMB.id}')">프로필 수정</a>
+	    <a href="#" onclick="openProfileUpdate('${loginInfo.id}')">프로필 수정</a>
 	</div>
 </div>
 
@@ -185,8 +200,3 @@ ServletContext servletContext = null;
 </div>
 <center style="margin-bottom: 100px; margin-top: 50px">${pageInfo.pagingHtml}</center>
 
-<script>
-    function openProfileUpdate(userId) {
-    	window.open("updateImg.mb?id=" + userId, "프로필 수정", "width=500,height=500");
-    }
-</script>

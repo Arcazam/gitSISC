@@ -38,7 +38,10 @@ public class MemberLoginController {
 				HttpSession session,
 				HttpServletResponse response
 			) throws IOException {
-				
+		
+		String destination = (String)session.getAttribute("destination");	
+		int logincnt = 0; //destination의 중복 방지를 위해서 cnt가 1이면 destination를 초기화시킴
+		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
@@ -51,7 +54,17 @@ public class MemberLoginController {
 		} else { // 아이디 존재함
 			if(mb.getPassword().equals(contrastMB.getPassword())) {
 				session.setAttribute("loginInfo", contrastMB);
+				
+				if(destination != null) {
+					if(logincnt == 1) {
+						session.removeAttribute("destination");
+						
+						return gotoPage;
+					}
+					return destination;
+				}
 				return gotoPage;
+				
 			} else {
 				out.println("<script>alert('비밀번호가 맞지 않습니다');</script>");
 			    out.flush();

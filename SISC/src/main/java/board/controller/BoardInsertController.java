@@ -37,6 +37,13 @@ public class BoardInsertController {
 				HttpSession session
 			) {
 		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
+		
+		if(mb == null) {
+			session.setAttribute("destination", "redirect:insert.bd?board="+board);
+			
+			return "redirect:login.mb";
+		}
+		
 		model.addAttribute("mb",mb);
 		model.addAttribute("board", board);
 		

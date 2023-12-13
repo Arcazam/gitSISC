@@ -20,7 +20,7 @@ public class MemberBean {
 	private int point;
 	private String m_class;
 	private MultipartFile upload;
-	private MultipartFile upload2;
+	private String upload2;
 	private String curriculum;
 
 	public MemberBean() {
@@ -29,7 +29,7 @@ public class MemberBean {
 
 	public MemberBean(String id, String password, String name, String pro_img, String joomin, String birth,
 			String gender, String address, String division, String code, String start_day, String end_day, String phone,
-			int point, String m_class, MultipartFile upload, MultipartFile upload2, String curriculum) {
+			int point, String m_class, MultipartFile upload, String upload2, String curriculum) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -47,7 +47,7 @@ public class MemberBean {
 		this.point = point;
 		this.m_class = m_class;
 		this.upload = upload;
-		this.upload = upload2;
+		this.upload2 = upload2;
 		this.curriculum = curriculum;
 	}
 
@@ -182,11 +182,11 @@ public class MemberBean {
 		}
 	}
 
-	public MultipartFile getUpload2() {
+	public String getUpload2() {
 		return upload2;
 	}
 
-	public void setUpload2(MultipartFile upload2) {
+	public void setUpload2(String upload2) {
 		this.upload2 = upload2;
 	}
 	
