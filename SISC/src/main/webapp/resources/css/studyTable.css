@@ -69,11 +69,7 @@ a:hover {
 
 /* Æû ½ºÅ¸ÀÏ */
 .search-form {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
+  text-align: center; /* Áß¾Ó Á¤·Ä */
 }
 
 .search-select,
@@ -115,8 +111,8 @@ button {
     font-size: inherit;
     font-family: inherit;
     margin-left: 1050px;
-    margin-top: 50px;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 button.learn-more {
@@ -192,3 +188,4 @@ button:hover .circle .icon.arrow {
 button:hover .button-text {
     color: #fff;
 }
+

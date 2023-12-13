@@ -4,7 +4,7 @@
 <link href="<%=request.getContextPath() %>/resources/css/studyUupdate.css" rel="stylesheet" type="text/css" />
 
 <%@include file = "./../common/common.jsp" %>
-<%@ include file="../top&bottom/top.jsp"%>  
+<%@ include file="../top&bottom/topLogin.jsp"%>
 
 <style>
 	.detailTable{

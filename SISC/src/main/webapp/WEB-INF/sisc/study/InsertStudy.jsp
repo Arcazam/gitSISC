@@ -5,7 +5,7 @@
 
 <link href="<%=request.getContextPath() %>/resources/css/btn.css" rel="stylesheet" type="text/css" />
 
-<%@ include file="../top&bottom/top.jsp"%>  
+<%@ include file="../top&bottom/topLogin.jsp"%>
 
 <style>
 .sbtn{

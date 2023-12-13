@@ -39,4 +39,5 @@ public class StudyUpdateController {
 		
 		return gotoPage + "?pageNumber=" + pageNumber;
 	}
+	
 }
