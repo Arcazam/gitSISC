@@ -34,10 +34,11 @@
 		</tr>
 		<tr>
 			<th>판매자 번호</th>
+			<c:set var="seller_pnum_split" value="${ fn:split(bb.seller_pnum,'-') }"/>
 			<td>
-				<input type="tel" name="seller_pnum1" size="3" maxlength="3" value="010"> -
-				<input type="tel" name="seller_pnum2" size="4" maxlength="4"> -
-				<input type="tel" name="seller_pnum3" size="4" maxlength="4">
+				<input type="tel" name="seller_pnum1" size="3" maxlength="3" value="${seller_pnum_split[0]}"> -
+				<input type="tel" name="seller_pnum2" size="4" maxlength="4" value="${seller_pnum_split[1]}"> -
+				<input type="tel" name="seller_pnum3" size="4" maxlength="4" value="${seller_pnum_split[2]}">
 			</td>
 		</tr>
 		<tr>
@@ -47,9 +48,17 @@
 			<th>책 사진</th>
 			<td>
 				<b>책의 사진은 최대 3장의 사진을 올리실수 있습니다</b><br>
-				1)겉표지 <input type="file" name="upload1"><br>
-				2)내부1 <input type="file" name="upload2"><br>
-				3)내부2 <input type="file" name="upload3"><br>
+				<img src="<%=request.getContextPath()%>/resources/uploadFolder/${ bb.b_image1 }" width="150"><br><br>
+				<input type="hidden" name="prevUpload1" value="${ bb.b_image1 }">
+				1)겉표지 <input type="file" name="upload1" value="${ bb.b_image1 }"><br>
+				
+				<img src="<%=request.getContextPath()%>/resources/uploadFolder/${ bb.b_image2 }" width="150"><br><br>
+				<input type="hidden" name="prevUpload2" value="${ bb.b_image2 }">
+				2)내부1 <input type="file" name="upload2" value="${ bb.b_image2 }"><br>
+				
+				<img src="<%=request.getContextPath()%>/resources/uploadFolder/${ bb.b_image3 }" width="150"><br><br>
+				<input type="hidden" name="prevUpload3" value="${ bb.b_image3 }">
+				3)내부2 <input type="file" name="upload3" value="${ bb.b_image3 }"><br>
 				<font color="red"><b>책의 표지가 잘 나와야하고, 화질이 너무 흐릿한 사진을 올려서는 안됩니다</b></font>
 			</td>
 		</tr>
@@ -102,35 +111,35 @@
 			<td>
 				밑줄 흔적 
 				<!-- 1 : 밑줄 흔적 -->
-				<input type="radio" name="kind1" value="A">없음
-				<input type="radio" name="kind1" value="B">연필/샤프
-				<input type="radio" name="kind1" value="C">볼펜/형광펜<br>
+				<input type="radio" name="kind1" value="A" <c:if test="${ fn:substring(bb.kind,0,1) eq 'A' }">checked</c:if>>없음
+				<input type="radio" name="kind1" value="B" <c:if test="${ fn:substring(bb.kind,0,1) eq 'B' }">checked</c:if>>연필/샤프
+				<input type="radio" name="kind1" value="C" <c:if test="${ fn:substring(bb.kind,0,1) eq 'C' }">checked</c:if>>볼펜/형광펜<br>
 				
 				필기 흔적
 				<!-- 2 : 필기 흔적 -->
-				<input type="radio" name="kind2" value="A">없음
-				<input type="radio" name="kind2" value="B">연필/샤프
-				<input type="radio" name="kind2" value="C">볼펜/형광펜<br>
+				<input type="radio" name="kind2" value="A" <c:if test="${ fn:substring(bb.kind,0,2) eq 'A' }">checked</c:if>>없음
+				<input type="radio" name="kind2" value="B" <c:if test="${ fn:substring(bb.kind,0,2) eq 'B' }">checked</c:if>>연필/샤프
+				<input type="radio" name="kind2" value="C" <c:if test="${ fn:substring(bb.kind,0,2) eq 'C' }">checked</c:if>>볼펜/형광펜<br>
 				
 				겉 표지
 				<!-- 3 : 겉 표지 -->
-				<input type="radio" name="kind3" value="A">없음
-				<input type="radio" name="kind3" value="B">연필/샤프<br>
+				<input type="radio" name="kind3" value="A" <c:if test="${ fn:substring(bb.kind,0,3) eq 'A' }">checked</c:if>>없음
+				<input type="radio" name="kind3" value="B" <c:if test="${ fn:substring(bb.kind,0,3) eq 'B' }">checked</c:if>>연필/샤프<br>
 				
 				이름 기입
 				<!-- 4 : 이름 기입 -->
-				<input type="radio" name="kind4" value="A">없음
-				<input type="radio" name="kind4" value="B">있음<br>
+				<input type="radio" name="kind4" value="A" <c:if test="${ fn:substring(bb.kind,0,4) eq 'A' }">checked</c:if>>없음
+				<input type="radio" name="kind4" value="B" <c:if test="${ fn:substring(bb.kind,0,4) eq 'B' }">checked</c:if>>있음<br>
 				
 				페이지 변색
 				<!-- 5 : 페이지 변색 -->
-				<input type="radio" name="kind5" value="A">없음
-				<input type="radio" name="kind5" value="B">있음<br>
+				<input type="radio" name="kind5" value="A" <c:if test="${ fn:substring(bb.kind,0,5) eq 'A' }">checked</c:if>>없음
+				<input type="radio" name="kind5" value="B" <c:if test="${ fn:substring(bb.kind,0,5) eq 'B' }">checked</c:if>>있음<br>
 				
 				페이지 훼손
 				<!-- 6 : 페이지 훼손 -->
-				<input type="radio" name="kind6" value="A">없음
-				<input type="radio" name="kind6" value="B">있음<br>
+				<input type="radio" name="kind6" value="A" <c:if test="${ fn:substring(bb.kind,0,6) eq 'A' }">checked</c:if>>없음
+				<input type="radio" name="kind6" value="B" <c:if test="${ fn:substring(bb.kind,0,6) eq 'B' }">checked</c:if>>있음<br>
 			</td>
 		</tr>
 		<tr>

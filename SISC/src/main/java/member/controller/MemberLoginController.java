@@ -23,7 +23,7 @@ public class MemberLoginController {
 	public final String command = "/login.mb";
 	public final String viewPage = "memberlogin";
 	
-//	public final String tempPage = "redirect:insert.bd";
+	public final String tempPage = "redirect:insert.bk";
 	
 	public final String gotoPage = "redirect:/list.view";
 	
@@ -51,7 +51,7 @@ public class MemberLoginController {
 		} else { // 아이디 존재함
 			if(mb.getPassword().equals(contrastMB.getPassword())) {
 				session.setAttribute("loginInfo", contrastMB);
-				return gotoPage;
+				return tempPage;
 			} else {
 				out.println("<script>alert('비밀번호가 맞지 않습니다');</script>");
 			    out.flush();
