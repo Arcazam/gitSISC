@@ -6,8 +6,10 @@ import java.util.Map;
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.UncategorizedSQLException;
 import org.springframework.stereotype.Component;
 
+import board.model.BoardBean;
 import utility.BookPaging;
 
 @Component("myBook")
@@ -34,6 +36,24 @@ public class BookDao {
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
 		List<BookBean> book_list = sqlSessionTemplate.selectList(namespace+"getBookList",map,rowBounds);
 		return book_list;
+	}
+
+	public int insertBookMarket(BookBean bb) {
+		int cnt = 0;
+		try {
+			sqlSessionTemplate.insert(namespace+"insertBookMarket",bb);
+		} catch(UncategorizedSQLException e) {
+			e.printStackTrace();
+			cnt = 1;
+		}
+		return cnt;
+	}
+
+	public BoardBean getWriterNumDetail(BoardBean bb) {
+		
+		BoardBean modelDetailBoard = sqlSessionTemplate.selectOne(namespace+"getWriterNumDetail",bb);
+		
+		return modelDetailBoard;
 	}
 	
 }
