@@ -1,6 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ include file="../common/common.jsp" %>
+
+<link href="<%=request.getContextPath() %>/resources/js/bootstrap.min.js" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/i18n/defaults-ko_KR.min.js"></script>
+<%
+Object loginInfo = session.getAttribute("loginInfo");
+if(loginInfo == null){%>
+	<%@ include file="../top&bottom/top.jsp"%>
+<%}else{%>
+	<%@ include file="../top&bottom/topLogin.jsp"%>
+<%}%>
 
 <style>
 @font-face {
@@ -15,13 +30,19 @@
 .insert{
 border-collapse : collapse;
 margin: auto;
-margin-top: 200px;
-text-align: center;
-font-family: 'TAEBAEKfont';
+margin-top: 50px;
+margin-left: 650px;
+padding: 0px;
+/* font-family: 'TAEBAEKfont'; */
+}
+label {
+    padding-left: 0; /* 왼쪽 패딩을 없애줍니다 */
+}
+html {
+  font-size: 101%;
 }
 
 </style>
-
 
 <script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery.js"></script>
 <script>
@@ -255,16 +276,31 @@ font-family: 'TAEBAEKfont';
 	           managerLecturerMenu.style.display = "block";
 	       }
 	   }
-	
+	 document.querySelector('input[type="file"]').addEventListener('change', function() {
+			alert(1)
+		    var file = this.files[0]; // 선택된 파일
+		    if (file) {
+		        var reader = new FileReader(); // 파일을 읽기 위한 FileReader 객체 생성
+
+		        reader.onload = function(e) {
+		            // 선택된 파일의 URL을 이미지 태그의 src에 할당하여 미리보기로 표시
+		            document.getElementById('previewImage').setAttribute('src', e.target.result);
+		        }
+
+		        // 파일을 읽음
+		        reader.readAsDataURL(file);
+		    }
+		});
+
 </script>
 
 <form name="insertMemberForm" method="post" action="insertMember.mb" enctype="multipart/form-data">
    <table class="insert">
       <tr>
          <td>
+         <img id="previewImage" src="<%=request.getContextPath()%>/resources/member/pro_img/defaultImage.png" style="margin-left:22px; width:50px; height: 50px;">
          [프로필 사진]
          <br>
-         <img src="<%=request.getContextPath()%>/resources/images/logo.jpg" style="margin-left:22px; width:50px; height: 50px;"> 
          <input type="file" name="upload" style="margin-left: 30px;">
          <br>
          <font color="red">프로필 사진을 고르지 않을 시, 기본프로필 사진으로 대체됩니다</font>
@@ -272,54 +308,89 @@ font-family: 'TAEBAEKfont';
       </tr>
       
       <tr>
-         <td style="padding-top: 30px;">
-         <input type="text" name="id" placeholder="아이디(닉네임)" style="width: 150px; height: 35px;">
+         <td style="padding-top: 10px;">
+         <div class="form-group col-md-4">
+                <label>아이디</label>
+                <input type="text" class="form-control" name="id" size="12" maxlength="12" placeholder="아이디" style="width: 300px;">
          <input type="button" id="idCheck" value="중복확인" style="height: 35px;">
          <span id="idmessage" style="display:none;"></span>
+            </div>
          </td>
       </tr>
       
       <tr>
-         <td style="padding-top: 30px;">   
-         <input type="text" name="password" placeholder="비밀번호" style="width: 150px; height: 35px;">
+         <td style="padding-top: 10px;">   
+         <div class="form-group col-md-4">
+                <label>비밀번호</label>
+                <input type="password" class="form-control" name="password" maxlength="12" placeholder="비밀번호" style="width: 300px">
+            </div>
          </td>
       </tr>
       
       <tr>
-         <td style="padding-top: 30px;">
-         <input type="text" name="name" placeholder="이름" style="width: 150px; height: 35px;">
+         <td style="padding-top: 10px;">
+         <div class="form-group col-md-4">
+         	<label>이름</label>
+            <input type="text" class="form-control" name="name" maxlength="10" placeholder="이름">
+         </div>
          </td>
       </tr>   
       
       <tr>
-         <td style="padding-top: 30px;">
-         <input type="radio" name="gender" value="M">남성
-         <input type="radio" name="gender" value="W">여성
+         <td style="padding-top: 10px;">
+         <div class="form-group col-md-4">
+         	<div class="form-check">
+			  <input class="form-check-input" type="radio" name="gender" value="M">
+			  <label class="form-check-label" style="margin-left: 15px; margin-right: 10px;">
+			    남성
+			  </label>
+			  <input class="form-check-input" type="radio" name="gender" value="W">
+			  <label class="form-check-label" style="margin-left: 15px;">
+			    여성
+			  </label>
+			</div>
+         </div>
+         </td>
+      </tr>
+      <tr>
+         <td style="padding-top: 10px;">     
+         <label style="margin-left: 20px;">생년월일</label><br>
+         <input type="date" name="birth" style="width: 130px; height: 35px; margin-left: 20px;">
+         </td>
+      </tr>
+      <tr>
+         <td style="padding-top: 10px;">
+         <div class="form-group col-md-6">
+             <label>주민등록번호</label>
+             <div class="input-group-prepend">
+                 <input type="text" class="form-control" name="joomin1" maxlength="6" placeholder="주민번호 앞자리" style="width: 500px;">
+                 <label style="margin-top: 6px; margin-left: 10px; margin-right: 10px;"> - </label>
+                 <input type="password" class="form-control" name="joomin2" maxlength="7" placeholder="주민번호 뒷자리" style="width: 500px;">
+             </div>
+         </div>
+         </td>
+      </tr>
+      <tr>
+         <td style="padding-top: 10px;">
+         <div class="form-group col-md-6">
+             <label>핸드폰번호</label>
+             <div class="input-group-prepend">
+                 <input type="text" class="form-control" name=hp1 maxlength="6" value="010" style="width: 55px;">
+                 <label style="margin-top: 6px; margin-left: 10px; margin-right: 10px;"> - </label>
+                 <input type="text" class="form-control" name="hp2" maxlength="4" style="width: 60px;">
+                 <label style="margin-top: 6px; margin-left: 10px; margin-right: 10px;"> - </label>
+                 <input type="text" class="form-control" name="hp3" maxlength="4" style="width: 60px;">
+             </div>
+         </div>
          </td>
       </tr>
       
       <tr>
-         <td style="padding-top: 30px;">     
-         생년월일 <input type="date" name="birth" style="width: 130px; height: 35px;">
-         </td>
-      </tr>
-      <tr>
-         <td style="padding-top: 30px;">
-         <input type="text" name="joomin1" placeholder="주민등록번호 앞자리" style="width: 130px; height: 35px;"> - 
-         <input type="password" name="joomin2" placeholder="주민등록번호 뒷자리" style="width: 130px; height: 35px;">
-         </td>
-      </tr>
-      <tr>
-         <td style="padding-top: 30px;">
-         <input type="text" name="hp1" value="010" size="1" style="height: 35px;"> - 
-         <input type="text" name="hp2" placeholder="핸드폰번호" size="6" style="height: 35px;"> -
-         <input type="text" name="hp3" placeholder="핸드폰번호" size="6" style="height: 35px;">
-         </td>
-      </tr>
-      
-      <tr>
-         <td style="padding-top: 30px;">
-         <input type="text" id="address_kakao" name="address_main" readonly placeholder="주소" style="width: 150px; height: 35px;"/>
+         <td style="padding-top: 10px;">
+         <div class="form-group col-md-4">
+         	<label>주소</label>
+            <input type="text" class="form-control" name="address_main" maxlength="10" placeholder="주소">
+         </div>
          <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
             <script>
             window.onload = function(){
@@ -338,23 +409,39 @@ font-family: 'TAEBAEKfont';
       </tr>
       
       <tr>
-         <td style="padding-top: 30px;">
-         <input type="text" name="address_detail" placeholder="상세주소" style="width: 150px; height: 35px;"/>
+         <td style="padding-top: 10px;">
+         <div class="form-group col-md-4">
+         	<label>상세주소</label>
+            <input type="text" class="form-control" name="address_detail" maxlength="10" placeholder="상세주소">
+         </div>
          </td>
       </tr>   
       
       <tr>
-         <td style="padding-top: 30px;">
-         <input type="radio" name="division" value="student" onclick="showMenu(division.value)">학생
-         <input type="radio" name="division" value="manager" onclick="showMenu(division.value)">매니저
-         <input type="radio" name="division" value="lecturer" onclick="showMenu(division.value)">강사
+         <td style="padding-top: 10px;">
+         <div class="form-group col-md-4">
+         	<div class="form-check">
+			  <input class="form-check-input" type="radio" name="division" value="student" onclick="showMenu(division.value)">
+			  <label class="form-check-label" style="margin-left: 15px; margin-right: 10px;">
+			    학생
+			  </label>
+			  <input class="form-check-input" type="radio" name="division" value="manager" onclick="showMenu(division.value)">
+			  <label class="form-check-label" style="margin-left: 15px; margin-right: 10px;">
+			    매니저
+			  </label>
+			  <input class="form-check-input" type="radio" name="division" value="lecturer" onclick="showMenu(division.value)">
+			  <label class="form-check-label" style="margin-left: 15px;">
+			    강사
+			  </label>
+			</div>
+         </div>
          </td>
       </tr>        
       
       <tr>
-       <td style="padding-top: 20px;">
+       <td style="padding-top: 10px;">
         <div id="allMenu" style="display: none;">
-           <select name="curriculum" style="width: 150px; height: 35px;">
+           <select name="curriculum" style="width: 150px; height: 35px; margin-left: 20px;">
            		<option value="">커리큘럼 선택</option>
            		<option value="자바&스프링기반 AWS클라우드 융합 개발자 양성과정">자바&스프링기반 AWS클라우드 융합 개발자 양성과정</option>
            		<option value="실무 프로젝트 기반 빅데이터 서비스 솔루션 개발자 양성과정">실무 프로젝트 기반 빅데이터 서비스 솔루션 개발자 양성과정</option>
@@ -374,21 +461,23 @@ font-family: 'TAEBAEKfont';
                 <option value="I">I</option>
              </select>
              <br><br>
-            교육시작일
+            <label style = "margin-left: 20px;">교육시작일</label>
             <input type="date" name="start_day" style="width: 150px; height: 35px;"> - 
-            교육종료일
+            <label>교육종료일</label>
             <input type="date" name="end_day" style="width: 150px; height: 35px;">
         </div>
         <div id="managerLecturerMenu" style="display: none;">
            <br>
-           <input type="text" name="code" value="코드 입력" style="width: 150px; height: 35px;">
+           <input type="text" name="code" value="코드 입력" style="width: 150px; height: 35px; margin-left: 20px;">
         </div>
        </td>
       </tr>
       
       <tr>
-         <td style="padding-top: 30px;">           
-         <input type="submit" id="sub" value="회원가입" onClick="return check()" style="width: 150px; height: 35px;">
+         <td style="padding-top: 10px;">           
+          <div class="col-md-12 submit-btn">
+             <input class="btn btn-primary" type="submit" value="회원 가입" onClick="return check()" style="width: 300px; height: 35px; background: #C4FDFF; color: black; border: none;">
+         </div>
          </td>
       </tr>
    </table>

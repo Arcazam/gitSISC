@@ -463,7 +463,7 @@ p {
     <br><br>
     
     <span class="usedBook1">중고책방</span>
-    <span class="usedBook2"><a href="" id="more">더보기</a></span>
+    <span class="usedBook2"><a href="list.bk" id="more">더보기</a></span>
     <br><br>
     
     <div class="bottom">

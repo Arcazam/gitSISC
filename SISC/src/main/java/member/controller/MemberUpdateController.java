@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,7 +62,7 @@ public class MemberUpdateController {
 	}
 	
 	@RequestMapping(value = command2, method = RequestMethod.POST)
-	public String updateImg2(MemberBean mb) {
+	public String updateImg2(MemberBean mb, HttpSession session) {
 		mdao.updateProImg(mb);
 		
 		String uploadPath = servletContext.getRealPath("/resources/member/pro_img/");
@@ -85,6 +86,7 @@ public class MemberUpdateController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} // 파일업로드
+		session.setAttribute("updateImg", destination);
 		
 		return gotoPage2;
 	}

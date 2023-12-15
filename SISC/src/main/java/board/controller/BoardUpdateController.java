@@ -28,27 +28,39 @@ public class BoardUpdateController {
 	public final String command = "/update.bd";
 	public final String sessionID = "loginInfo";
 	public final String viewPage = "UpdateBoard";
-	public final String gotoPage = "redirect:/list.bd";
+	public final String gotoPage = "redirect:/board.bd";
 	
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String toUpdateBoard(
 				Model model,
 				HttpSession session,
-				@RequestParam("pageNumber") int pageNumber
+				@RequestParam(value = "b_num", required = false) int b_num,
+				@RequestParam(value = "pageNumber", required = false) int pageNumber,
+				@RequestParam(value = "board", required = false) String board
 			) {
 		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
-		BoardBean bb = bor_dao.getBoardInfoWriter(mb);
+		
+		Object loginInfo = session.getAttribute("loginInfo");
+	    if(loginInfo == null) {
+	    	session.setAttribute("destination", "redirect:update.bd?b_num=" + b_num + "&board=" + board + "&pageNumber=" + pageNumber);
+	        return "redirect:login.mb";
+	    }
+		
+		BoardBean bb = bor_dao.getBoardInfoWriter(b_num);
 		model.addAttribute("pageNumber",pageNumber);
 		model.addAttribute("bb",bb);
 		model.addAttribute("mb",mb);
+		model.addAttribute("board",board);
+		
 		return viewPage;
 	}
 	
 	@RequestMapping(value=command,method=RequestMethod.POST)
 	public String toUpdateProcBoard(
 				@ModelAttribute("bb") BoardBean bb,
-				@RequestParam("b_num") int b_num,
-				@RequestParam("pageNumber") int pageNumber,
+				@RequestParam(value = "b_num", required = false) int b_num,
+				@RequestParam(value = "pageNumber", required = false) int pageNumber,
+				@RequestParam(value = "board", required = false) String board,
 				HttpServletResponse response,
 				HttpSession session,
 				Model model
@@ -70,10 +82,12 @@ public class BoardUpdateController {
 			MemberBean mb = (MemberBean)session.getAttribute(sessionID);
 			model.addAttribute("mb",mb);
 			model.addAttribute("pageNumber",pageNumber);
+			model.addAttribute("board",board);
+			
 			return viewPage;
 		}
 		
-		return gotoPage;
+		return gotoPage + "?board=" + board;
 	}
 	
 }

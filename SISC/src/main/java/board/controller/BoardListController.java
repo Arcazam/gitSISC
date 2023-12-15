@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import board.model.BoardBean;
 import board.model.BoardDao;
+import utility.BoardPaging;
 
 @Controller
 public class BoardListController {
@@ -24,7 +27,10 @@ public class BoardListController {
    @RequestMapping(command)
    public String board(@RequestParam("board") String board,
                   @RequestParam(value="search", required = false) String search,
-                  Model model) {
+                  Model model, HttpServletRequest request,
+      			@RequestParam(value="whatColumn", required = false) String whatColumn,
+    			@RequestParam(value="keyword", required = false) String keyword,
+    			@RequestParam(value="pageNumber", required = false) String pageNumber) {
       
       //각 게시판의 리스트를 받기 위함
       List<BoardBean> list = null;
@@ -44,6 +50,15 @@ public class BoardListController {
       
       Map<String, String> map = new HashMap<String, String>();
       map.put("search", "%" + search + "%");
+      map.put("whatColumn", whatColumn);
+      map.put("keyword", "%"+keyword+"%");
+		
+      String url = request.getContextPath()+"/"+command;
+		
+      int totalCount = boarddao.getTotalCount(map); 
+		
+      String pageSize = "5"; 
+      BoardPaging pageInfo = new BoardPaging(pageNumber,pageSize,totalCount,url,whatColumn,keyword);
       
       if(board.equals("Free")) {
          list = boarddao.getAllFreeBoard(map);
@@ -82,6 +97,7 @@ public class BoardListController {
       model.addAttribute("QnAB", QnAB);
       model.addAttribute("GradB", GradB);
       model.addAttribute("QuizB", QuizB);
+      model.addAttribute("pageInfo", pageInfo);
       
       return gotoPage;
    }

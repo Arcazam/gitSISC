@@ -33,23 +33,29 @@ public class BoardDetailController {
 				HttpSession session,
 				HttpServletRequest request,
 				@RequestParam("b_num") int b_num,
+				@RequestParam("ref") int ref,
 				@RequestParam(value="whatColumn",required = false) String whatColumn,
 				@RequestParam(value="keyword",required = false) String keyword,
-				@RequestParam("pageNumber") String pageNumber
+				@RequestParam(value="pageNumber",required = false) String pageNumber,
+				@RequestParam(value="boardName") String boardName
 			) {
 		
 		String url = request.getContextPath()+command;
-		
 		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
 		
 		BoardBean bb = new BoardBean();
 		bb.setB_num(b_num);
+		bb.setRef(ref);
 		
 		// 이건 board의 한 컨텐츠를 가져오는것
 		BoardBean modelAttBor = bor_dao.getBoardInfoBnum(bb);
 		
 		// 이건 그 컨텐츠에 달리는 re_level이 1이상인 애들만 가져오는것
 		int boardCommentsCount = bor_dao.getCommentsCount(bb);
+		
+		//조회할떄마다 readcount+1
+		bor_dao.readcountUpdate(bb);
+		
 		// BoardCommentsPaging 여기서 생성자 원하는값으로 바꿔야 원하는 레코드숫자 출력
 		BoardCommentsPaging pageInfo = new BoardCommentsPaging(pageNumber,null,boardCommentsCount,url,whatColumn,keyword);
 		List<BoardBean> numCommentsList = bor_dao.getAllCommentsLists(pageInfo,bb);
@@ -58,6 +64,8 @@ public class BoardDetailController {
 		model.addAttribute("bb",modelAttBor);
 		model.addAttribute("pageNumber",pageNumber);
 		model.addAttribute("mb",mb);
+		model.addAttribute("boardName",boardName);
+		
 		return viewPage;
 	}
 		

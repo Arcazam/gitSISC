@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import member.model.MemberBean;
+import member.model.MemberDao;
 
 @Controller
 public class MemberLoginController {
@@ -21,15 +23,16 @@ public class MemberLoginController {
 	public final String command = "/login.mb";
 	public final String viewPage = "memberlogin";
 	
-	public final String tempPage = "redirect:insert.bk";
+	public final String tempPage = "redirect:SiscMain.view";
 	
 	public final String gotoPage = "redirect:/list.view";
+	
+	int cnt = 0;
 	
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String toLoginForm() {
 		return viewPage;
-	}
-	
+	}	
 	@RequestMapping(value=command,method=RequestMethod.POST)
 	public String toLoginResult(
 				MemberBean mb,
@@ -47,16 +50,21 @@ public class MemberLoginController {
 			out.flush();
 			return viewPage;
 		} else { // 아이디 존재함
+			}
 			if(mb.getPassword().equals(contrastMB.getPassword())) {
 				session.setAttribute("loginInfo", contrastMB);
-				return tempPage;
+				
+				String gotoPage = (String)session.getAttribute("destination");
+				if(gotoPage == null) {
+					return tempPage;
+				}else {
+					return gotoPage;
+				}
 			} else {
 				out.println("<script>alert('비밀번호가 맞지 않습니다');</script>");
 			    out.flush();
 			    return viewPage;
 			}
 		}
-		
 	}
-	
-}
+

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../common/common.jsp" %>
 	
 <!DOCTYPE html>
@@ -31,24 +30,24 @@ if(loginInfo == null){%>
 	function insertBoardcheck(){
 		
 		if($('input[name="writer"]').val() == ""){
-			alert('ÀÛ¼ºÀÚ°¡ ´©¶ôµÇ¾ú½À´Ï´Ù');
+			alert('ì‘ì„±ìê°€ ëˆ„ë½ë˜ì—ˆìŠµë‹ˆë‹¤');
 			$('input[name="writer"]').focus();
 			return false;
 		}
 		
 		if ($('select option:selected').val() == "") {
-			alert('°Ô½ÃÆÇ Ä«Å×°í¸®¸¦ ¼±ÅÃÇÏ¼Å¾ßÇÕ´Ï´Ù');
+			alert('ê²Œì‹œíŒ ì¹´í…Œê³ ë¦¬ë¥¼ ì„ íƒí•˜ì…”ì•¼í•©ë‹ˆë‹¤');
 			return false;
 		}
 		
 		if($('input[name="subject"]').val() == ""){
-			alert('Á¦¸ñÀÌ ´©¶ôµÇ¾ú½À´Ï´Ù');
+			alert('ì œëª©ì´ ëˆ„ë½ë˜ì—ˆìŠµë‹ˆë‹¤');
 			$('input[name="subject"]').focus();
 			return false;
 		}
 		
 		if($('input[name="content"]').val() == ""){
-			alert('³»¿ëÀÌ ´©¶ôµÇ¾ú½À´Ï´Ù');
+			alert('ë‚´ìš©ì´ ëˆ„ë½ë˜ì—ˆìŠµë‹ˆë‹¤');
 			$('input[name="content"]').focus();
 			return false;
 		}
@@ -66,7 +65,7 @@ if(loginInfo == null){%>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
-  <!-- ¼­¸Ó³ëÆ®¸¦ À§ÇØ Ãß°¡ÇØ¾ßÇÒ ºÎºĞ -->
+  <!-- ì„œë¨¸ë…¸íŠ¸ë¥¼ ìœ„í•´ ì¶”ê°€í•´ì•¼í•  ë¶€ë¶„ -->
   <script src="${pageContext.request.contextPath}/resources/summernote/summernote-lite.js"></script>
   <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
@@ -76,13 +75,14 @@ if(loginInfo == null){%>
 <br><br>
 <form:form commandName="bb" class="container" method="post" action="update.bd">
 	<input type="hidden" name="b_num" value="${ bb.b_num }">
+	<input type="hidden" name="board" value="${ board }">
 	<input type="hidden" name="pageNumber" value="${ pageNumber }">
-	<input type="text" name="writer" style="width: 40%;" value="${ mb.id }" readonly><br><br>
+	<input type="text" name="writer" style="width: 40%;" value="${ mb.id }" readonly><br><br>${board }
 <%
 	String[] b_cateList = {"Free","Know","QnA","Grad"};
 %>
 	<select name="b_cate" style="float: right;">
-		<option value="">¼±ÅÃÇÏ¼¼¿ä</option>
+		<option value="">ì„ íƒí•˜ì„¸ìš”</option>
 		<c:forEach var="b_cateList" items="<%= b_cateList %>">
 			<c:if test="${ b_cateList eq bb.b_cate }">
 				<option value="${ b_cateList }" selected>${ b_cateList }</option>
@@ -93,32 +93,32 @@ if(loginInfo == null){%>
 		</c:forEach>
 	</select>
 	<br><br>
-	<input type="text" name="subject" style="width: 40%;" value="${ bb.subject }" placeholder="Á¦¸ñ"/>
+	<input type="text" name="subject" style="width: 40%;" value="${ bb.subject }" placeholder="ì œëª©"/>
 	<div id="charCount">(100/0)</div><br><br>
 	 <script>
 	 $(document).ready(function () {
-		    // ÅØ½ºÆ® ÀÔ·Â¶õ¿¡ ÀÔ·ÂÀÌ ¹ß»ıÇÒ ¶§¸¶´Ù ¹ÙÀÌÆ® ¼ö ¾÷µ¥ÀÌÆ®
+		    // í…ìŠ¤íŠ¸ ì…ë ¥ë€ì— ì…ë ¥ì´ ë°œìƒí•  ë•Œë§ˆë‹¤ ë°”ì´íŠ¸ ìˆ˜ ì—…ë°ì´íŠ¸
 		    $('input[name="subject"]').on('input', function () {
 		        var inputText = $(this).val();
 		        var byteCount = countBytes(inputText);
 
 		        if (byteCount > 100) {
-		            // 100ÀÚ¸¦ ÃÊ°úÇÏ¸é ¸Ş½ÃÁö¸¦ Ç¥½ÃÇÏ°í ±ÛÀÚ¸¦ 100ÀÚ·Î Á¦ÇÑ
-		            $('#charCount').text('±ÛÀÚ¼ö Á¦ÇÑÀ» ÃÊ°úÇÏ¼Ì½À´Ï´Ù').css('color', 'red');
+		            // 100ìë¥¼ ì´ˆê³¼í•˜ë©´ ë©”ì‹œì§€ë¥¼ í‘œì‹œí•˜ê³  ê¸€ìë¥¼ 100ìë¡œ ì œí•œ
+		            $('#charCount').text('ê¸€ììˆ˜ ì œí•œì„ ì´ˆê³¼í•˜ì…¨ìŠµë‹ˆë‹¤').css('color', 'red');
 		            $(this).val(inputText.substring(0, 100));
 		            byteCount = 100;
 		        } else {
-		            // 100ÀÚ ÀÌÇÏÀÎ °æ¿ì¿¡´Â Á¤»óÀûÀ¸·Î ±ÛÀÚ ¼ö¸¦ Ç¥½Ã
+		            // 100ì ì´í•˜ì¸ ê²½ìš°ì—ëŠ” ì •ìƒì ìœ¼ë¡œ ê¸€ì ìˆ˜ë¥¼ í‘œì‹œ
 		            $('#charCount').text('(100/' + byteCount + ')').css('color', 'black');
 		        }
 		    });
 
-		    // ¹®ÀÚ¿­ÀÇ ¹ÙÀÌÆ® ¼ö¸¦ °è»êÇÏ´Â ÇÔ¼ö
+		    // ë¬¸ìì—´ì˜ ë°”ì´íŠ¸ ìˆ˜ë¥¼ ê³„ì‚°í•˜ëŠ” í•¨ìˆ˜
 		    function countBytes(text) {
 		        var totalCount = 0;
 		        for (var i = 0; i < text.length; i++) {
 		            var charCode = text.charCodeAt(i);
-		            totalCount += (charCode < 128) ? 1 : 3; // ASCII ¹®ÀÚ´Â 1¹ÙÀÌÆ®, ³ª¸ÓÁö´Â 3¹ÙÀÌÆ®·Î °è»ê
+		            totalCount += (charCode < 128) ? 1 : 3; // ASCII ë¬¸ìëŠ” 1ë°”ì´íŠ¸, ë‚˜ë¨¸ì§€ëŠ” 3ë°”ì´íŠ¸ë¡œ ê³„ì‚°
 		        }
 		        return totalCount;
 		    }
@@ -126,13 +126,13 @@ if(loginInfo == null){%>
     </script>
 	<textarea class="summernote" name="content">${ bb.content }</textarea> 
 	<br><br>
-	<input type="submit" value="ÀúÀåÇÏ±â" class="studysave" onClick="return insertBoardcheck()">
+	<input type="submit" value="ì €ì¥í•˜ê¸°" class="studysave" onClick="return insertBoardcheck()">
 </form:form>
 </body>
 <script>
 $(document).ready(function() {
 	$('.summernote').summernote({
- 		placeholder: '³»¿ë',
+ 		placeholder: 'ë‚´ìš©',
 	    minHeight: 370,
 	    maxHeight: null,
 	    focus: true, 

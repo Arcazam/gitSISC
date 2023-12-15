@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -123,11 +124,26 @@ if(loginInfo == null){%>
 
 <%
 ServletContext servletContext = null;
+String img = request.getContextPath() + "/resources/member/pro_img/";
+File updateImg = (File)session.getAttribute("updateImg");
+
+String fullPath = "C:\\Users\\rudgu\\Spring_ngh\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\SISC\\resources\\member\\pro_img\\la.png";
+String fileName = new File(fullPath).getName(); // "la.png"
+
 %>
 <div class="card">
     <div class="card_load">
     	<!-- 문제점 : 새로고침해도 안바뀌고 로그아웃하고 로그인해야지 프로필 사진이 바뀐다 해결해야함 -->
-		<img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${loginInfo.pro_img}">
+		<c:choose>
+		    <c:when test="${empty updateImg}">
+		        <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${loginInfo.pro_img}" />
+		    </c:when>
+		    <c:otherwise>
+		        <c:if test="${not empty updateImg}">
+				    <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/<%= fileName %>" />
+				</c:if>
+		    </c:otherwise>
+		</c:choose>
 	</div>
     <div class="card_load_extreme_title">이름 - ${loginInfo.name }</div>
     <div class="card_load_extreme_descripion">
@@ -148,7 +164,6 @@ ServletContext servletContext = null;
 	    <a href="#" onclick="openProfileUpdate('${loginInfo.id}')">프로필 수정</a>
 	</div>
 </div>
-
 <form action="SelectAllStudy.st" method="get" class="search-form">
 	<select name="whatColumn" class="search-select">
 		<option value="all">전체검색</option>
@@ -158,8 +173,6 @@ ServletContext servletContext = null;
 	</select> <input type="text" name="keyword" class="search-input"> <input
 		type="submit" class="search-submit" value="검색">
 </form>
-
-
 <div>
 <button class="learn-more" type="button" onclick="insert()">
 	<span class="circle" aria-hidden="true">

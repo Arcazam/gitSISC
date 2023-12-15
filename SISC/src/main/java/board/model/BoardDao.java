@@ -118,8 +118,8 @@ public class BoardDao {
 	}
 
 	// 게시판 글쓴이 정보 가져오기
-	public BoardBean getBoardInfoWriter(MemberBean mb) {
-		BoardBean bb = sqlSessionTemplate.selectOne(namespace+"getBoardInfoWriter",mb);
+	public BoardBean getBoardInfoWriter(int b_num) {
+		BoardBean bb = sqlSessionTemplate.selectOne(namespace+"getBoardInfoWriter",b_num);
 		return bb;
 	}
 
@@ -196,4 +196,23 @@ public class BoardDao {
 		sqlSessionTemplate.delete(namespace+"deleteCommentsProc",bb);
 	}
 
+	public int getTotalCount(Map<String, String> map) {
+		int cnt = sqlSessionTemplate.selectOne(namespace+"getTotalCount", map);
+		return cnt;
+	}
+	
+	public int readcountUpdate(BoardBean bb) {
+		int cnt = sqlSessionTemplate.update(namespace+"readcountUpdate", bb);
+		return cnt;
+	}
+	
+	public void updateReply(BoardBean bb) {
+		
+		sqlSessionTemplate.update(namespace+"updateReply", bb);
+		
+	}
+	public void insertReply(BoardBean bb) {
+		
+		sqlSessionTemplate.insert(namespace+"insertReply", bb);		
+	}
 }

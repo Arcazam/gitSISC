@@ -364,7 +364,7 @@ Object loginInfo = session.getAttribute("loginInfo");
 			</c:when>
 			<c:otherwise>
 					<tr>
-		                <td class="boardTableTitle"><b><font size="5"><a href = "detailBoard.bd">${bd.subject }</a></font></b></td>
+		                <td class="boardTableTitle"><b><font size="5"><a href = "detailList.bd?b_num=${bd.b_num }&ref=${bd.ref }&pageNumber=${pageInfo.pageNumber}&boardName=${boardName}">${bd.subject }</a></font></b></td>
 		            </tr>
 		            
 		            <tr>
@@ -387,3 +387,4 @@ Object loginInfo = session.getAttribute("loginInfo");
         </table>
    </c:forEach>
    </div>
+   <center style="margin-bottom: 100px; margin-top: 50px">${pageInfo.pagingHtml}</center>
