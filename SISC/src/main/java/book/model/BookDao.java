@@ -49,11 +49,14 @@ public class BookDao {
 		return cnt;
 	}
 
-	public BoardBean getWriterNumDetail(BoardBean bb) {
+	public BookBean getWriterNumDetail(BookBean bb) {
+		bb = sqlSessionTemplate.selectOne(namespace+"getWriterNumDetail",bb);
 		
-		BoardBean modelDetailBoard = sqlSessionTemplate.selectOne(namespace+"getWriterNumDetail",bb);
-		
-		return modelDetailBoard;
+		return bb;
 	}
 	
+	public void deleteBook(int bk_num) {
+		sqlSessionTemplate.delete(namespace+"deleteBook", bk_num);
+		
+	}
 }

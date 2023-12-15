@@ -22,6 +22,13 @@
 			#{pri_price},#{dis_price},#{kind},#{tradeway},#{tradeplace},'Yet')
 		</insert>
 	
+		<select id="getWriterNumDetail" resultType="SiscBook">
+			select * from book where bk_num = #{bk_num}
+		</select>
+		
+		<delete id="deleteBook">
+			delete from book where bk_num = #{bk_num}
+		</delete>
 	</mapper>
 <!-- selectAllToMainBook : 메인화면에 출력될 5개 레코드만 제한출력 -->
 <!-- getBookList : 책방 페이지에 출력될 책 전체 레코드 -->		

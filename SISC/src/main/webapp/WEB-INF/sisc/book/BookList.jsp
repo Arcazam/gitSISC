@@ -48,6 +48,10 @@ i:hover {
   margin-right: 10px;
 }
 
+img{
+	width: 200px;
+	height: 300px;;
+}
 </style>
 
 
@@ -64,7 +68,6 @@ i:hover {
 
 
 <center>
-
   <form action="list.bk" method="get">
     <div class="inner">
       <input type="search"  name="keyword" class="search" placeholder="책 제목을 입력하세요.">
@@ -79,92 +82,41 @@ i:hover {
   </form>
 </center>
 
-
-
-<div class="container mt-5">
+<div class="container mt-5" style="margin-left: 250px;">
   <div class="row row-cols-1 row-cols-md-4 g-4">
     <!-- 책 아이템 시작 -->
-    <div class="col">
-      <div class="card">
-       <a href="detail.bk"> 
-       <img src="<%=request.getContextPath() %>/resources/bookImg/1.jpg" class="card-img-top" alt="Book 1"></a>
-        <div class="card-body">
-          <h5 class="card-title">한권으로 끝내는 웹 기본 교과서</h5>
-          <p class="card-text">Book description goes here.</p>
-          <p class="card-text">Book description goes here.</p>
-        </div>
-      </div>
-    </div>
-     <div class="col">
-      <div class="card">
-        <img src="book1.jpg" class="card-img-top" alt="Book 1">
-        <div class="card-body">
-          <h5 class="card-title">Book Title 1</h5>
-          <p class="card-text">Book description goes here.</p>
-        </div>
-      </div>
-    </div>
-     <div class="col">
-      <div class="card">
-        <img src="book1.jpg" class="card-img-top" alt="Book 1">
-        <div class="card-body">
-          <h5 class="card-title">Book Title 1</h5>
-          <p class="card-text">Book description goes here.</p>
-        </div>
-      </div>
-    </div>
-    
-     <div class="col">
-      <div class="card">
-        <img src="book1.jpg" class="card-img-top" alt="Book 1">
-        <div class="card-body">
-          <h5 class="card-title">Book Title 1</h5>
-          <p class="card-text">Book description goes here.</p>
-        </div>
-      </div>
-    </div>
-    
-      <div class="col">
-      <div class="card">
-        <img src="book1.jpg" class="card-img-top" alt="Book 1">
-        <div class="card-body">
-          <h5 class="card-title">Book Title 1</h5>
-          <p class="card-text">Book description goes here.</p>
-        </div>
-      </div>
-    </div>
-    
-     <div class="col">
-      <div class="card">
-        <img src="book1.jpg" class="card-img-top" alt="Book 1">
-        <div class="card-body">
-          <h5 class="card-title">Book Title 1</h5>
-          <p class="card-text">Book description goes here.</p>
-        </div>
-      </div>
-    </div>
-     <div class="col">
-      <div class="card">
-        <img src="book1.jpg" class="card-img-top" alt="Book 1">
-        <div class="card-body">
-          <h5 class="card-title">Book Title 1</h5>
-          <p class="card-text">Book description goes here.</p>
-        </div>
-      </div>
-    </div>
-     <div class="col">
-      <div class="card">
-        <img src="book1.jpg" class="card-img-top" alt="Book 1">
-        <div class="card-body">
-          <h5 class="card-title">Book Title 1</h5>
-          <p class="card-text">Book description goes here.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+    <c:forEach var="bk" items="${book_list }">
+        <table  class="boardMain">
+            <c:choose>
+			<c:when test="${fn:length(book_list) eq 0}">
+				<tr>
+					<td colspan="3" align="center" class="boardTableTitle">등록된 책이 없습니다</td>
+				</tr>
+			</c:when>
+			<c:otherwise>
+		            <tr>
+		                <td colspan=2 class="contentStyle">
+		                <div class="boardTableContent">
+		                <a href="detail.bk?bk_num=${bk.bk_num }&pageNumber=${pageInfo.pageNumber}"><img src="<%=request.getContextPath()%>/resources/book/${bk.b_image1 }"></a>
+		               </div>
+		               </td>
+		            </tr>
+		            
+		            <tr class="card-body">
+		               <td class="card-title"><b>${bk.title }</b></td>
+		            </tr>
+		            
+		            <tr>
+		                <td class="card-text" colspan=2>#태그</td>
+		            </tr>
+			</c:otherwise>
+		</c:choose>
+        </table>
+   </c:forEach>
 </div>
-<center>
-${pageInfo.pagingHtml }
+<br><br><br><br><br>
+<center >
+<div style="font-size: 15px; margin-right: 110px">${pageInfo.pagingHtml }</div>
 </center>
 
 <!-- 부트스트랩 JS 및 팝퍼 라이브러리 -->
