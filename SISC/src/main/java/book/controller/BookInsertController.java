@@ -90,7 +90,7 @@ public class BookInsertController {
 		bb.setSeller_pnum(seller_pnum1+"-"+seller_pnum2+"-"+seller_pnum3);
 		bb.setKind(kind1+kind2+kind3+kind4+kind5+kind6);
 		
-		String uploadPath = servletContext.getRealPath("/resources/bookimg/");
+		String uploadPath = servletContext.getRealPath("/resources/book/");
 		System.out.println("uploadPath:"+uploadPath);
 		int cnt = bok_dao.insertBookMarket(bb);
 		
