@@ -4,24 +4,6 @@
  
  function checkBook(){
 		
-		if($('input[name="seller_name"]').val()==""){
-			alert('판매자 이름이 누락되었습니다');
-			$('input[name="seller_name"]').focus();
-			return false;
-		}
-		
-		if($('input[name="seller_pnum1"]').val()==""||$('input[name="seller_pnum2"]').val()==""||$('input[name="seller_pnum3"]').val()==""){
-			alert('판매자 연락처가 누락되었습니다');
-			$('input[name="seller_pnum1"]').focus();
-			return false;
-		}
-		
-		if(isNaN($('input[name="seller_pnum2"]').val() || $('input[name="seller_pnum3"]').val())) {
-			alert('핸드폰 번호는 숫자로 입력해주세요');
-			$('input[name="seller_pnum2"]').select();
-			return false;
-		}
-		
 		if($('input[name="upload1"]').val()==""){
 			alert('대표 겉표지 사진은 필수적으로 업로드 하셔야합니다');
 			$('input[name="upload1"]').focus();
@@ -109,12 +91,6 @@
 		if(!$('input[name="kind6"]').is(':checked')){
 			alert('페이지 훼손이 누락되었습니다');
 			$('input[name="kind6"]').focus();
-			return false;
-		}
-		
-		if($('textarea[name="sell_content"]').val()==""){
-			alert('판매 코멘트가 누락되었습니다');
-			$('textarea[name="sell_content"]').focus();
 			return false;
 		}
 		

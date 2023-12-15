@@ -389,9 +389,8 @@ html {
          <td style="padding-top: 10px;">
          <div class="form-group col-md-4">
          	<label>주소</label>
-            <input type="text" class="form-control" name="address_main" maxlength="10" placeholder="주소">
-         </div>
-         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+            <input type="text" id="address_kakao" class="form-control" name="address_main" maxlength="10" placeholder="주소">
+            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
             <script>
             window.onload = function(){
                 document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
@@ -405,6 +404,7 @@ html {
                 });
             }
          </script>
+         </div>
          </td>
       </tr>
       

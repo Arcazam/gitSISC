@@ -26,7 +26,7 @@ public class BookListController {
 	@Autowired
 	private BookDao bok_dao;
 	
-	public final String command = "/list.bk";
+	public final String command = "list.bk";
 	public final String viewPage = "BookList";
 	public final String sessionID = "loginInfo";
 	
@@ -41,15 +41,15 @@ public class BookListController {
 				HttpServletRequest request
 			) {
 		
-		// 사용자 세션값 불러와서 BoardList.jsp에 저장해 놓을 객체를 모델로 주입 준비
-		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
+	
+				MemberBean mb = (MemberBean)session.getAttribute(sessionID); 
 		
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("whatColumn", whatColumn);
 		map.put("keyword", "%"+keyword+"%");
 		
-		// 해당 url에 출력될 페이징 선택
-		String url = request.getContextPath()+command;
+		
+		String url = request.getContextPath()+"/"+command;
 
 		int bookCount = bok_dao.getCountBook();
 		BookPaging pageInfo = new BookPaging(pageNumber,null,bookCount,url,whatColumn,keyword);
@@ -58,7 +58,7 @@ public class BookListController {
 		model.addAttribute("book_list",book_list);
 		model.addAttribute("pageInfo",pageInfo);
 		model.addAttribute("bookCount",bookCount);
-		model.addAttribute("mb",mb);
+		 model.addAttribute("mb",mb); 
 		
 		return viewPage;
 	}

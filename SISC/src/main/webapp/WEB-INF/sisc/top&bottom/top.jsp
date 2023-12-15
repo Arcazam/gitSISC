@@ -16,6 +16,7 @@
    justify-content: space-evenly;
    margin-top: 10px;
    font-family: 'TAEBAEKfont';
+   font-size: 15px;
 }
 
 @font-face {

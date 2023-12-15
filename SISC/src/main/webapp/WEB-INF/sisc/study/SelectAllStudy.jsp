@@ -127,7 +127,7 @@ ServletContext servletContext = null;
 String img = request.getContextPath() + "/resources/member/pro_img/";
 File updateImg = (File)session.getAttribute("updateImg");
 
-String fullPath = "C:\\Users\\rudgu\\Spring_ngh\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\SISC\\resources\\member\\pro_img\\la.png";
+String fullPath = "C:\\Users\\rudgu\\Spring_ngh\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\SISC\\resources\\member\\pro_img\\";
 String fileName = new File(fullPath).getName(); // "la.png"
 
 %>

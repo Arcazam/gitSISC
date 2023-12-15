@@ -17,7 +17,9 @@
 		</select>
 		
 		<insert id="insertBookMarket">
-			insert into book values(book_seq.nextval,#{seller},#{seller_name},#{seller_pnum},#{writer},#{title},#{publisher},#{b_image1},#{b_image2},#{b_image3},#{pub_date},#{sell_date},#{sell_content},#{pri_price},#{dis_price},#{kind},#{tradeway},#{tradeplace},'Yet')
+			insert into book values(book_seq.nextval,#{seller},#{seller_name},#{seller_pnum},#{writer},
+			#{title},#{publisher},#{b_image1},#{b_image2},#{b_image3},#{pub_date},#{sell_date},#{sell_content},
+			#{pri_price},#{dis_price},#{kind},#{tradeway},#{tradeplace},'Yet')
 		</insert>
 	
 	</mapper>

@@ -42,6 +42,12 @@ public class BookInsertController {
 			) {
 		// 사용자 세션값 불러와서 BoardList.jsp에 저장해 놓을 객체를 모델로 주입 준비
 		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
+		
+		if(mb == null) {
+			session.setAttribute("destination", "redirect:insert.bk");
+			
+			return "redirect:login.mb";
+		}
 		model.addAttribute("mb",mb);
 		return viewPage;
 	}
@@ -49,22 +55,34 @@ public class BookInsertController {
 	@RequestMapping(value=command,method=RequestMethod.POST)
 	public String toInsertBookProc(
 				@ModelAttribute("bb") BookBean bb,
-				@RequestParam("upload1") MultipartFile upload1,
+				@RequestParam(value = "upload1", required = false) MultipartFile upload1,
 				HttpServletResponse response,
 				HttpSession session,
 				@RequestParam(value = "upload2", required = false) MultipartFile upload2,
 				@RequestParam(value = "upload3", required = false) MultipartFile upload3,
-				@RequestParam("seller_pnum1") String seller_pnum1,
-				@RequestParam("seller_pnum2") String seller_pnum2,
-				@RequestParam("seller_pnum3") String seller_pnum3,
-				@RequestParam("kind1") String kind1,
-				@RequestParam("kind2") String kind2,
-				@RequestParam("kind3") String kind3,
-				@RequestParam("kind4") String kind4,
-				@RequestParam("kind5") String kind5,
-				@RequestParam("kind6") String kind6,
+				@RequestParam(value = "seller_pnum1", required = false) String seller_pnum1,
+				@RequestParam(value = "seller_pnum2", required = false) String seller_pnum2,
+				@RequestParam(value = "seller_pnum3", required = false) String seller_pnum3,
+				@RequestParam(value = "kind1", required = false) String kind1,
+				@RequestParam(value = "kind2", required = false) String kind2,
+				@RequestParam(value = "kind3", required = false) String kind3,
+				@RequestParam(value = "kind4", required = false) String kind4,
+				@RequestParam(value = "kind5", required = false) String kind5,
+				@RequestParam(value = "kind6", required = false) String kind6,
 				Model model
 			) throws IOException {
+		System.out.println("upload1:"+upload1);
+		System.out.println("upload2:"+upload2);
+		System.out.println("upload3:"+upload3);
+		System.out.println("seller_pnum1:"+seller_pnum1);
+		System.out.println("seller_pnum2:"+seller_pnum2);
+		System.out.println("seller_pnum3:"+seller_pnum3);
+		System.out.println("kind1:"+kind1);
+		System.out.println("kind2:"+kind2);
+		System.out.println("kind3:"+kind3);
+		System.out.println("kind4:"+kind4);
+		System.out.println("kind5:"+kind5);
+		System.out.println("kind6:"+kind6);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -72,8 +90,8 @@ public class BookInsertController {
 		bb.setSeller_pnum(seller_pnum1+"-"+seller_pnum2+"-"+seller_pnum3);
 		bb.setKind(kind1+kind2+kind3+kind4+kind5+kind6);
 		
-		String uploadPath = servletContext.getRealPath("/resources/book/");
-		
+		String uploadPath = servletContext.getRealPath("/resources/bookimg/");
+		System.out.println("uploadPath:"+uploadPath);
 		int cnt = bok_dao.insertBookMarket(bb);
 		
 		if(cnt == 1) {

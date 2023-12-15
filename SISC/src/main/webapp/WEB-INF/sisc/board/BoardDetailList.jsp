@@ -113,7 +113,15 @@ if(loginInfo == null){%>
             <div>
                 <table class="table">      
                 <tr>
-					<td width="50">작성자 : ${bd.writer }
+					<td width="50">작성자 : 
+						<c:choose>
+						    <c:when test="${empty mb.name}">
+						        로그인을 해야 댓글을 쓸수 있습니다
+						    </c:when>
+						    <c:otherwise>
+						        ${mb.name}
+						    </c:otherwise>
+						</c:choose>
 					</td>
 				</tr>
                     <tr>

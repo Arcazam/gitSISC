@@ -29,15 +29,22 @@
 		<tr>
 			<th>판매자 이름</th>
 			<td>
-				<input type="text" name="seller_name" placeholder="판매자 이름을 입력해주세요" value="${ bb.seller_name }">
+				<input type="text" name="seller_name" placeholder="판매자 이름을 입력해주세요" value="${ mb.name }">
 			</td>
 		</tr>
 		<tr>
 			<th>판매자 번호</th>
 			<td>
-				<input type="tel" name="seller_pnum1" size="3" maxlength="3" value="010"> -
-				<input type="tel" name="seller_pnum2" size="4" maxlength="4"> -
-				<input type="tel" name="seller_pnum3" size="4" maxlength="4">
+				<c:set var="seller_pnum" value="${mb.phone}" />
+				<c:set var="seller_pnum_arr" value="${fn:split(seller_pnum, '-')}"/>
+				
+				<c:set var="seller_pnum1" value="${seller_pnum_arr[0]}" />
+				<c:set var="seller_pnum2" value="${seller_pnum_arr[1]}" />
+				<c:set var="seller_pnum3" value="${seller_pnum_arr[2]}" />
+
+				<input type="tel" name="seller_pnum1" size="3" maxlength="3" value="${seller_pnum1 }"> -
+				<input type="tel" name="seller_pnum2" size="4" maxlength="4" value="${seller_pnum2 }"> -
+				<input type="tel" name="seller_pnum3" size="4" maxlength="4" value="${seller_pnum3 }">
 			</td>
 		</tr>
 		<tr>
@@ -114,8 +121,8 @@
 				
 				겉 표지
 				<!-- 3 : 겉 표지 -->
-				<input type="radio" name="kind3" value="A">없음
-				<input type="radio" name="kind3" value="B">연필/샤프<br>
+				<input type="radio" name="kind3" value="A">기스없음
+				<input type="radio" name="kind3" value="B">기스있음<br>
 				
 				이름 기입
 				<!-- 4 : 이름 기입 -->
@@ -136,7 +143,7 @@
 		<tr>
 			<th>판매 코멘트</th>
 			<td>
-				<textarea name="sell_content" rows="30" cols="50">${ bb.sell_content }</textarea>
+				<textarea name="sell_content" rows="15" cols="30">${ bb.sell_content }</textarea>
 			</td>
 		</tr>
 		<tr>
@@ -153,7 +160,7 @@
 		</tr>
 		<tr>
 			<th colspan=2>
-				<input type="submit" value="판매등록" onClick="return checkBook()">
+				<input type="submit" value="판매등록" ">
 				<input type="reset" value="취   소">
 			</th>
 		</tr>

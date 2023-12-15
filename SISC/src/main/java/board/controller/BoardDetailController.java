@@ -37,7 +37,7 @@ public class BoardDetailController {
 				@RequestParam(value="whatColumn",required = false) String whatColumn,
 				@RequestParam(value="keyword",required = false) String keyword,
 				@RequestParam(value="pageNumber",required = false) String pageNumber,
-				@RequestParam(value="boardName") String boardName
+				@RequestParam(value="board") String board
 			) {
 		
 		String url = request.getContextPath()+command;
@@ -64,7 +64,7 @@ public class BoardDetailController {
 		model.addAttribute("bb",modelAttBor);
 		model.addAttribute("pageNumber",pageNumber);
 		model.addAttribute("mb",mb);
-		model.addAttribute("boardName",boardName);
+		model.addAttribute("board",board);
 		
 		return viewPage;
 	}
