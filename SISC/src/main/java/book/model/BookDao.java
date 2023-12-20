@@ -40,6 +40,7 @@ public class BookDao {
 
 	public int insertBookMarket(BookBean bb) {
 		int cnt = 0;
+		
 		try {
 			sqlSessionTemplate.insert(namespace+"insertBookMarket",bb);
 		} catch(UncategorizedSQLException e) {
@@ -58,5 +59,17 @@ public class BookDao {
 	public void deleteBook(int bk_num) {
 		sqlSessionTemplate.delete(namespace+"deleteBook", bk_num);
 		
+	}
+	
+	public int updateBook(BookBean bb) {
+		System.out.println(bb.getB_image1());
+		System.out.println(bb.getB_image2());
+		System.out.println(bb.getB_image3());
+		System.out.println(bb.getBk_num());
+		System.out.println(bb.getSeller_pnum());
+		
+		int cnt = sqlSessionTemplate.update(namespace+"updateBook",bb);
+		      
+		return cnt;
 	}
 }

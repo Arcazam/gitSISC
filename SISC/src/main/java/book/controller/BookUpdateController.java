@@ -1,53 +1,119 @@
 package book.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import board.model.BoardBean;
+
 import book.model.BookBean;
 import book.model.BookDao;
 import member.model.MemberBean;
 
 @Controller
 public class BookUpdateController {
+   @Autowired
+   private BookDao bok_dao;
 
-	@Autowired
-	private BookDao bok_dao;
-	
-	@Autowired
-	ServletContext servletContext;
-	
-	public final String command = "/update.bk";
-	public final String viewPage = "BookUpdate";
-	public final String sessionID = "loginInfo";
-	public final String gotoPage = "redirect:/list.bk";
-	
-	@RequestMapping(value=command,method=RequestMethod.GET)
-	public String toUpdateBookForm(
-				Model model,
-				@RequestParam("bk_num") int bk_num,
-				BookBean bb,
-				HttpSession session
-			) {
-		// 사용자 세션값 불러와서 BoardList.jsp에 저장해 놓을 객체를 모델로 주입 준비
-		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
-		
-		// 사용자가 쓴 게시판
-		bb.setBk_num(bk_num);
-		bb.setWriter(mb.getId());
-		
-		BookBean modelDetailBoard = bok_dao.getWriterNumDetail(bb);
-		
-		model.addAttribute("mb",mb);
-		model.addAttribute("bb",modelDetailBoard);
-		return viewPage;
-	}
-	
+   @Autowired
+   ServletContext servletContext;
+
+   public final String command = "/update.bk";
+   public final String viewPage = "BookUpdate";
+   public final String sessionID = "loginInfo";
+   public final String gotoPage = "redirect:/list.bk";
+
+   @RequestMapping(value=command, method=RequestMethod.GET)
+   public String toUpdateBookForm(
+       Model model,
+       @RequestParam("bk_num") int bk_num,
+       HttpSession session
+   ) {
+       MemberBean mb = (MemberBean)session.getAttribute(sessionID);
+       
+       if (mb == null) {
+           session.setAttribute("destination", "redirect:/update.bk?bk_num=" + bk_num);
+           return "redirect:login.mb";
+       }
+
+       // 여기서 BookBean을 생성하거나 초기화해야 합니다.
+       // 예를 들어,
+       BookBean bb = new BookBean();
+       bb.setBk_num(bk_num);
+       bb.setWriter(mb.getId());
+
+       BookBean modelDetailBook = bok_dao.getWriterNumDetail(bb);
+
+       model.addAttribute("mb", mb);
+       model.addAttribute("bb", modelDetailBook);
+       
+       return viewPage;
+   }
+
+   
+   @RequestMapping(value = command, method = RequestMethod.POST)
+   public String update(
+       HttpServletRequest request, 
+       HttpServletResponse response,
+       @ModelAttribute("bb") @Valid BookBean bb,
+       @RequestParam("pageNumber") String pageNumber, 
+       Model model,
+       HttpSession session) throws IOException {
+     
+	   bok_dao.updateBook(bb);
+     
+     
+      String uploadPath = servletContext.getRealPath("/resources/book/");
+      System.out.println("uploadPath:"+uploadPath);
+      int cnt = bok_dao.insertBookMarket(bb);
+      
+      PrintWriter out = response.getWriter();
+      if(cnt == 1) {
+         out.println("<script>alert('글자수 제한을 초과하였습니다!');</script>");
+         out.flush();
+         MemberBean mb = (MemberBean)session.getAttribute(sessionID);
+         model.addAttribute("mb",mb);
+         return viewPage;
+      }
+      
+      File destination1 = new File(uploadPath + File.separator + bb.getPrevUpload1());
+      File destination2 = new File(uploadPath + File.separator + bb.getPrevUpload2());
+      File destination3 = new File(uploadPath + File.separator + bb.getPrevUpload3());
+      
+      File existing1 = new File(uploadPath + File.separator + bb.getB_image1());
+      File existing2 = new File(uploadPath + File.separator + bb.getB_image2());
+      File existing3 = new File(uploadPath + File.separator + bb.getB_image3());
+      
+      MultipartFile multi1 = bb.getUpload1();
+      MultipartFile multi2 = bb.getUpload2();
+      MultipartFile multi3 = bb.getUpload3();
+      
+      try {
+          multi1.transferTo(existing1);
+          multi2.transferTo(existing2);
+          multi3.transferTo(existing3);
+          
+          destination1.delete(); 
+          destination2.delete(); 
+          destination3.delete(); 
+      } catch (IllegalStateException | IOException e) {
+          e.printStackTrace();
+      }
+     
+     return gotoPage+"?pageNumber="+pageNumber; 
+     } 
 }

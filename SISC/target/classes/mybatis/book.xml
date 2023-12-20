@@ -5,7 +5,7 @@
 	<mapper namespace="book">
 		
 		<select id="selectAllToMainBook" resultType="SiscBook">
-			select * from book order by sell_date desc fetch first 5 rows only
+			select * from book order by sell_date desc fetch first 12 rows only
 		</select>
 		
 		<select id="getCountBook" resultType="int">
@@ -29,6 +29,13 @@
 		<delete id="deleteBook">
 			delete from book where bk_num = #{bk_num}
 		</delete>
+		
+		<update id="updateBook">
+	      update book set seller=#{seller}, seller_name=#{seller_name}, seller_pnum=#{seller_pnum}, 
+	      writer=#{writer}, title=#{title}, publisher=#{publisher}, b_image1=#{b_image1} ,b_image2=#{b_image2},b_image3=#{b_image3},
+	      pub_date=#{pub_date}, sell_date=#{sell_date},sell_content=#{sell_content},pri_price=#{pri_price},dis_price=#{dis_price},
+	      kind=#{kind},tradeway=#{tradeway},tradeplace=#{tradeplace} where bk_num=#{bk_num} 
+      </update>
 	</mapper>
 <!-- selectAllToMainBook : 메인화면에 출력될 5개 레코드만 제한출력 -->
 <!-- getBookList : 책방 페이지에 출력될 책 전체 레코드 -->		

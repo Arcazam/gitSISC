@@ -43,7 +43,7 @@ public class StudyListController {
 		
 		int totalCount = sdao.getTotalCount(map); 
 		
-		File updateImg = (File)session.getAttribute("updateImg");
+		Object updateImg = (Object) session.getAttribute("updateImg");
 		
 		String pageSize = "5"; 
 		BoardPaging pageInfo = new BoardPaging(pageNumber,pageSize,totalCount,url,whatColumn,keyword);

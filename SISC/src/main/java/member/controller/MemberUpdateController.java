@@ -65,14 +65,12 @@ public class MemberUpdateController {
 	public String updateImg2(MemberBean mb, HttpSession session) {
 		mdao.updateProImg(mb);
 		
-		String uploadPath = servletContext.getRealPath("/resources/member/pro_img/");
+		String uploadPath = servletContext.getRealPath("/resources/member/"+mb.getId()+"/pro_img/");
 		File destination = new File(uploadPath+File.separator+mb.getPro_img());
 		File destination2 = new File(uploadPath+File.separator + mb.getUpload2());
 		
 		MultipartFile multi = mb.getUpload();
 		
-		System.out.println("destination:"+destination);
-		System.out.println("destination2:"+destination);
 		try {
 			
 			// 웹서버폴더의 새 이미지 업로드 
@@ -86,8 +84,7 @@ public class MemberUpdateController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} // 파일업로드
-		session.setAttribute("updateImg", destination);
-		
+		session.setAttribute("updateImg", mb.getPro_img());
 		return gotoPage2;
 	}
 }

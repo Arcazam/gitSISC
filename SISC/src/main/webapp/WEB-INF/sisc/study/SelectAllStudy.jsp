@@ -120,30 +120,29 @@ if(loginInfo == null){%>
 	function openProfileUpdate(userId) {
     	window.open("updateImg.mb?id=" + userId, "프로필 수정", "width=500,height=500");
     }
+	window.onload = function() {
+        window.opener.location.reload(); // 부모 창 새로고침
+    };
 </script>
 
 <%
 ServletContext servletContext = null;
 String img = request.getContextPath() + "/resources/member/pro_img/";
-File updateImg = (File)session.getAttribute("updateImg");
+Object updateImg = (Object)session.getAttribute("updateImg");
 
-String fullPath = "C:\\Users\\rudgu\\Spring_ngh\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\SISC\\resources\\member\\pro_img\\";
-String fileName = new File(fullPath).getName(); // "la.png"
-
+System.out.print("updateImg12312321:"+updateImg);
 %>
 <div class="card">
     <div class="card_load">
-    	<!-- 문제점 : 새로고침해도 안바뀌고 로그아웃하고 로그인해야지 프로필 사진이 바뀐다 해결해야함 -->
-		<c:choose>
-		    <c:when test="${empty updateImg}">
-		        <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${loginInfo.pro_img}" />
-		    </c:when>
-		    <c:otherwise>
-		        <c:if test="${not empty updateImg}">
-				    <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/<%= fileName %>" />
-				</c:if>
-		    </c:otherwise>
-		</c:choose>
+    	<c:if test="${updateImg eq null }">
+			<img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/${loginInfo.id }/pro_img/${loginInfo.pro_img}" />
+		</c:if>
+		<c:if test="${updateImg ne null }">
+			<img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/${loginInfo.id }/pro_img/${updateImg}" />
+		</c:if>
+		<c:if test="${loginInfo.pro_img eq 'defaultImg.png' }">
+			<img class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/defaultImage.png">
+		</c:if>
 	</div>
     <div class="card_load_extreme_title">이름 - ${loginInfo.name }</div>
     <div class="card_load_extreme_descripion">

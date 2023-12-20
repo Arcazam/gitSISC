@@ -3,6 +3,9 @@ package book.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
@@ -71,18 +74,6 @@ public class BookInsertController {
 				@RequestParam(value = "kind6", required = false) String kind6,
 				Model model
 			) throws IOException {
-		System.out.println("upload1:"+upload1);
-		System.out.println("upload2:"+upload2);
-		System.out.println("upload3:"+upload3);
-		System.out.println("seller_pnum1:"+seller_pnum1);
-		System.out.println("seller_pnum2:"+seller_pnum2);
-		System.out.println("seller_pnum3:"+seller_pnum3);
-		System.out.println("kind1:"+kind1);
-		System.out.println("kind2:"+kind2);
-		System.out.println("kind3:"+kind3);
-		System.out.println("kind4:"+kind4);
-		System.out.println("kind5:"+kind5);
-		System.out.println("kind6:"+kind6);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -90,9 +81,23 @@ public class BookInsertController {
 		bb.setSeller_pnum(seller_pnum1+"-"+seller_pnum2+"-"+seller_pnum3);
 		bb.setKind(kind1+kind2+kind3+kind4+kind5+kind6);
 		
-		String uploadPath = servletContext.getRealPath("/resources/book/");
+		String uploadPath = servletContext.getRealPath("/resources/member/"+ bb.getWriter() +"/book/");
 		System.out.println("uploadPath:"+uploadPath);
 		int cnt = bok_dao.insertBookMarket(bb);
+		
+		try {
+            // 폴더를 생성할 경로를 나타내는 Path 객체 생성
+            Path folder = Paths.get(uploadPath);
+
+            // 폴더가 존재하지 않으면 폴더를 생성
+            if (!Files.exists(folder)) {
+                Files.createDirectories(folder);
+            } else {
+                System.out.println("폴더가 이미 존재합니다.");
+            }
+        } catch (IOException e) {
+            System.err.println("폴더 생성 중 오류 발생: " + e.getMessage());
+        }
 		
 		if(cnt == 1) {
 			out.println("<script>alert('글자수 제한을 초과하였습니다!');</script>");

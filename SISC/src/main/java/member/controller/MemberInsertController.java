@@ -4,6 +4,9 @@ import org.springframework.stereotype.Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.servlet.ServletContext;
 
@@ -45,9 +48,25 @@ public class MemberInsertController {
 			@RequestParam(value = "hp2") String hp2,
 			@RequestParam(value = "hp3") String hp3) throws IllegalStateException, IOException {
 
-		String uploadPath = servletContext.getRealPath("/resources/member/pro_img/");
+		String uploadPath = servletContext.getRealPath("/resources/member/"+ mb.getId() +"/pro_img/");
+		System.out.println("uploadPath:"+uploadPath);
 		// uploadPath : F:\쌍용강북\팀프로젝트\WorkSpace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SISC\resources
+		
+		 try {
+	            // 폴더를 생성할 경로를 나타내는 Path 객체 생성
+	            Path folder = Paths.get(uploadPath);
 
+	            // 폴더가 존재하지 않으면 폴더를 생성
+	            if (!Files.exists(folder)) {
+	                Files.createDirectories(folder);
+	            } else {
+	                System.out.println("폴더가 이미 존재합니다.");
+	            }
+	        } catch (IOException e) {
+	            System.err.println("폴더 생성 중 오류 발생: " + e.getMessage());
+	        }
+
+		
 		// 메인주소와 상세주소 합치기
 		mb.setAddress(address_main + " " + address_detail);
 
@@ -56,7 +75,7 @@ public class MemberInsertController {
 
 		// 핸드폰 번호 합치기
 		mb.setPhone(hp1 + "-" + hp2 + "-" + hp3);
-
+		
 		if (upload.isEmpty()) {
 			mb.setPro_img("defaultImg.png");
 			mdao.insertMember(mb);

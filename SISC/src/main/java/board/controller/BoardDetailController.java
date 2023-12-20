@@ -65,8 +65,9 @@ public class BoardDetailController {
 		model.addAttribute("pageNumber",pageNumber);
 		model.addAttribute("mb",mb);
 		model.addAttribute("board",board);
+		model.addAttribute("originalb_num",b_num);
+		model.addAttribute("pageInfo",pageInfo);
 		
 		return viewPage;
 	}
-		
 }

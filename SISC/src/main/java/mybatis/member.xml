@@ -14,7 +14,7 @@
 		
 		<insert id="insertMember">
          insert into member values 
-         (#{id},#{password},#{name},#{pro_img},#{joomin},#{birth},#{gender},#{address},#{division},#{code},#{start_day},#{end_day},#{phone},#{point},#{m_class},#{curriculum})
+         (#{id},#{password},#{name},#{pro_img},#{joomin},#{birth},#{gender},#{address},#{division},#{code},#{start_day},#{end_day},#{phone},#{m_class},#{curriculum})
       </insert>
 		
 		<select id="findMemberID" resultType="SiscMember">

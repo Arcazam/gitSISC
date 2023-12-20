@@ -36,7 +36,8 @@ public class BoardUpdateController {
 				HttpSession session,
 				@RequestParam(value = "b_num", required = false) int b_num,
 				@RequestParam(value = "pageNumber", required = false) int pageNumber,
-				@RequestParam(value = "board", required = false) String board
+				@RequestParam(value = "board", required = false) String board,
+				@RequestParam(value = "writer", required = false) String writer
 			) {
 		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
 		

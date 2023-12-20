@@ -9,46 +9,47 @@
     }
 </style>
 
-<script>
-    function previewImage(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+ <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
-            reader.onload = function(e) {
-                $('#preview').attr('src', e.target.result);
+                reader.onload = function(e) {
+                    $('#preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // 읽어온 파일을 Data URL로 변환하여 이미지에 적용
             }
-
-            reader.readAsDataURL(input.files[0]); // 읽어온 파일을 Data URL로 변환하여 이미지에 적용
         }
-    }
 
-    function saveAndClose() {
-        var formData = new FormData(document.getElementById("updateForm"));
+        function saveAndClose() {
+            var formData = new FormData(document.getElementById("updateForm"));
 
-        $.ajax({
-            url: "updateImg.mb",
-            type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                // 업데이트 성공 시 부모 창으로 이미지 URL 전달
-                var updatedImageUrl = $('#preview').attr('src');
-                window.close();
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
-
-
-</script>
-
-<form id="updateForm" action="updateImg.mb" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="id" value="${mb.id}">
-    <img id="preview" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${loginInfo.pro_img}"><br>
-    <input type="file" name="upload" value="${mb.pro_img}" onchange="previewImage(this);">
-    <input type="hidden" name="upload2" value="${mb.pro_img}" onchange="previewImage(this);"><br>
-    <input type="button" value="수정하기" onclick="saveAndClose()" id="save">
-</form>
+            $.ajax({
+                url: "updateImg.mb",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // 업데이트 성공 시 부모 창으로 이미지 URL 전달
+                    var updatedImageUrl = $('#preview').attr('src');
+                    window.opener.location.reload(); // 부모 창 새로고침
+                    window.close();
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <form id="updateForm" action="updateImg.mb" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="${mb.id}">
+        <img id="preview" class="img-option" src="<%= request.getContextPath() %>/resources/member/${loginInfo.id }/pro_img/${loginInfo.pro_img}"><br>
+        <input type="file" name="upload" value="${mb.pro_img}" onchange="previewImage(this);">
+        <input type="hidden" name="upload2" value="${mb.pro_img}" onchange="previewImage(this);"><br>
+        <input type="button" value="수정하기" onclick="saveAndClose()" id="save">
+    </form>
+</body>

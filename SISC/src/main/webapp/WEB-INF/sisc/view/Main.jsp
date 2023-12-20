@@ -25,7 +25,7 @@ Object loginInfo = session.getAttribute("loginInfo");
     
     .carousel-inner img {
     width: 100%;
-    height: auto;
+    height: 100%;
     }
     
     /* "상단 메뉴 5개" 설정 */
@@ -58,6 +58,7 @@ Object loginInfo = session.getAttribute("loginInfo");
       border-style : hidden;
       box-shadow : 0 0 0 1px #666;
       font-family: 'TAEBAEKfont';
+      height: 10px;
       }
    
       /* "지식, 수료생 게시판" 설정 */
@@ -69,6 +70,7 @@ Object loginInfo = session.getAttribute("loginInfo");
       border-style : hidden;
       box-shadow : 0 0 0 1px #666;
       font-family: 'TAEBAEKfont';
+      height: 10px;
       }
    
       /* "게시판 이름" 설정 */
@@ -122,6 +124,14 @@ Object loginInfo = session.getAttribute("loginInfo");
       margin-left: 300px;
     }
     
+      .word {
+        font-weight: bolder !important;
+        text-overflow: ellipsis;
+        white-space: normal;
+        text-align: left;
+        word-wrap: break-word;
+    }
+    
     /* "중고 책방 글씨" 설정 */
     .usedBook1{
     margin-left: 300px;
@@ -138,73 +148,84 @@ Object loginInfo = session.getAttribute("loginInfo");
    
    /* 중고 책방 게시판 설정 */
    .book {
-  position: relative;
-  border-radius: 10px;
-  width: 150px;
-  height: 200px;
-  background-color: whitesmoke;
-  -webkit-box-shadow: 1px 1px 12px #000;
-  box-shadow: 1px 1px 12px #000;
-  -webkit-transform: preserve-3d;
-  -ms-transform: preserve-3d;
-  transform: preserve-3d;
-  -webkit-perspective: 2000px;
-  perspective: 2000px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  color: #000;
-  margin-right: 40px;
-}
-img{
-   width: 150px;
-     height: 200px;
-}
-.cover {
-  top: 0;
-  position: absolute;
-  background-color: lightgray;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  cursor: pointer;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  -webkit-transform-origin: 0;
-  -ms-transform-origin: 0;
-  transform-origin: 0;
-  -webkit-box-shadow: 1px 1px 12px #000;
-  box-shadow: 1px 1px 12px #000;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.book:hover .cover {
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-  -webkit-transform: rotatey(-80deg);
-  -ms-transform: rotatey(-80deg);
-  transform: rotatey(-80deg);
-}
-
-p {
-  font-size: 20px;
-  font-weight: bolder;
-}
-    </style>
+	  position: relative;
+	  border-radius: 10px;
+	  width: 150px;
+	  height: 200px;
+	  background-color: whitesmoke;
+	  -webkit-box-shadow: 1px 1px 12px #000;
+	  box-shadow: 1px 1px 12px #000;
+	  -webkit-transform: preserve-3d;
+	  -ms-transform: preserve-3d;
+	  transform: preserve-3d;
+	  -webkit-perspective: 2000px;
+	  perspective: 2000px;
+	  display: -webkit-box;
+	  display: -ms-flexbox;
+	  display: flex;
+	  -webkit-box-align: center;
+	  -ms-flex-align: center;
+	  align-items: center;
+	  -webkit-box-pack: center;
+	  -ms-flex-pack: center;
+	  justify-content: center;
+	  color: #000;
+	  margin-right: 40px;
+	  display: inline-block;
+	}
+	.clear{
+	        clear: both;
+	    }
+	img{
+	   width: 150px;
+	     height: 200px;
+	}
+	.cover {
+	  top: 0;
+	  position: absolute;
+	  background-color: lightgray;
+	  width: 100%;
+	  height: 100%;
+	  border-radius: 10px;
+	  cursor: pointer;
+	  -webkit-transition: all 0.5s;
+	  transition: all 0.5s;
+	  -webkit-transform-origin: 0;
+	  -ms-transform-origin: 0;
+	  transform-origin: 0;
+	  -webkit-box-shadow: 1px 1px 12px #000;
+	  box-shadow: 1px 1px 12px #000;
+	  display: -webkit-box;
+	  display: -ms-flexbox;
+	  display: flex;
+	  -webkit-box-align: center;
+	  -ms-flex-align: center;
+	  align-items: center;
+	  -webkit-box-pack: center;
+	  -ms-flex-pack: center;
+	  justify-content: center;
+	}
+	
+	.book:hover .cover {
+	  -webkit-transition: all 0.5s;
+	  transition: all 0.5s;
+	  -webkit-transform: rotatey(-80deg);
+	  -ms-transform: rotatey(-80deg);
+	  transform: rotatey(-80deg);
+	}
+	
+	p {
+	  font-size: 20px;
+	  font-weight: bolder;
+	}
+	a{
+		color: black;
+		text-decoration: none;
+	}
+	a:hover {
+		color: #BDBDBD;
+	}
+</style>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap.min.js"></script>
@@ -226,7 +247,7 @@ p {
   </head>
     
     <!-- 이 위부터는 style과 script 설정입니다 -->
-    
+    <input type="hidden" name="loginInfo" value="${loginInfo }">
      <div class="container" style="padding-left: 0px; padding-right: 0px;">
         <div id="carousel-example-generic" class="carousel slide">
             <ol class="carousel-indicators">
@@ -353,113 +374,159 @@ p {
      </div> <!-- 인기태그 끝 -->
      
      <br><br>
-    
     <div class="middle">
-      <table class="board_table" border=1>
-         <tr>
-            <td colspan=4 class="tableBoard">자유</td>
-         </tr>
-         
-         <c:forEach var="i" begin="0" end="4" step="1">
-        <tr>
-            <td style="border-bottom: none;">
-            <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
-            <span style="padding-top: 5px;"><a href="" id="more">작성자</a></span>
-            <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">7
-            </td>
-         </tr>
-         <tr>
-            <td class="tableTitle">
-            <a href="" id="more">제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다.</a>
-            </td>
-         </tr>
-         </c:forEach>
-         
-         <tr>
+      <table class="board_table" border="1">
+	    <tr>
+	        <td colspan="4" class="tableBoard">자유</td>
+	    </tr>
+	   <c:choose>
+            <c:when test="${fn:length(free_board_list) == 0}">
+                <tr>
+                    <td>
+                        아무런 게시글이 없습니다
+                    </td>
+                </tr>
+            </c:when>
+            <c:otherwise>
+                <c:forEach var="free" items="${free_board_list}" varStatus="loop">
+                    <c:if test="${loop.index < 5}">
+                        <tr>
+                            <td style="border-bottom: none;">
+                                <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
+                                <span style="padding-top: 5px;"><a href="" id="more">작성자 :${free.writer}</a></span>
+                                <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">${free.readcount}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableTitle">
+                                <a href="" id="more">${free.subject}</a>
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+    	<tr>
             <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
          </tr>
       </table>
-      
-      
+
       <table class="board_table2" border=1>
          <tr>
             <td colspan=4 class="tableBoard">지식</td>
          </tr>
          
-         <c:forEach var="i" begin="0" end="4" step="1">
-        <tr>
-            <td style="border-bottom: none;">
-            <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
-            <span style="padding-top: 5px;"><a href="" id="more">작성자</a></span>
-            <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">7
-            </td>
-         </tr>
-         <tr>
-            <td class="tableTitle">
-            <a href="" id="more">제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다.</a>
-            </td>
-         </tr>
-         </c:forEach>
-
-         <tr>
+         <c:choose>
+            <c:when test="${fn:length(free_board_list) == 0}">
+                <tr>
+                    <td>
+                        아무런 게시글이 없습니다
+                    </td>
+                </tr>
+            </c:when>
+            <c:otherwise>
+                <c:forEach var="know" items="${know_board_list}" varStatus="loop">
+                    <c:if test="${loop.index < 5}">
+                        <tr>
+                            <td style="border-bottom: none;">
+                                <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
+                                <span style="padding-top: 5px;"><a href="" id="more">작성자 :${know.writer}</a></span>
+                                <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">${know.readcount}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableTitle">
+                                <a href="" id="more">${know.subject}</a>
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+    	<tr>
             <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
          </tr>
       </table>
-      </div> <!-- 자유 지식 게시글 끝 -->
-      
+</div>
+	    
       <br><br><br>
     
     <div class="middle">
-      <table class="board_table" border=1>
-         <tr>
-            <td colspan=4 class="tableBoard">Q&A</td>
-         </tr>
-         
-         <c:forEach var="i" begin="0" end="4" step="1">
+    <table class="board_table" border="1">
         <tr>
-            <td style="border-bottom: none;">
-            <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
-            <span style="padding-top: 5px;"><a href="" id="more">작성자</a></span>
-            <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">7
-            </td>
-         </tr>
-         <tr>
-            <td class="tableTitle">
-            <a href="" id="more">코딩 뉴비 질문드립니다!</a>
-            </td>
-         </tr>
-         </c:forEach>
-         
-         <tr>
+            <td colspan="4" class="tableBoard">Q&A</td>
+        </tr>
+        <c:choose>
+            <c:when test="${fn:length(qna_board_list) == 0}">
+                <tr>
+                    <td>
+                        아무런 게시글이 없습니다
+                    </td>
+                </tr>
+            </c:when>
+            <c:otherwise>
+                <c:forEach var="qa" items="${qna_board_list}" varStatus="loop">
+                    <c:if test="${loop.index < 5}">
+                        <tr>
+                            <td style="border-bottom: none;">
+                                <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
+                                <span style="padding-top: 5px;"><a href="" id="more">작성자 :${qa.writer}</a></span>
+                                <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">${qa.readcount}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableTitle">
+                                <a href="" id="more">${qa.subject}</a>
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+    	<tr>
             <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
          </tr>
       </table>
+
+         
       
       <table class="board_table2" border=1>
          <tr>
             <td colspan=4 class="tableBoard">수료생</td>
          </tr>
          
-         <c:forEach var="i" begin="0" end="4" step="1">
-        <tr>
-            <td style="border-bottom: none;">
-            <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
-            <span style="padding-top: 5px;"><a href="" id="more">작성자</a></span>
-            <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">7
-            </td>
-         </tr>
-         <tr>
-            <td class="tableTitle">
-            <a href="" id="more">제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다. 제목 자리입니다.</a>
-            </td>
-         </tr>
-         </c:forEach>
-         
-         <tr>
+        <c:choose>
+            <c:when test="${fn:length(grad_board_list) == 0}">
+                <tr>
+                    <td>
+                        아무런 게시글이 없습니다
+                    </td>
+                </tr>
+            </c:when>
+            <c:otherwise>
+                <c:forEach var="grad" items="${grad_board_list}" varStatus="loop">
+                    <c:if test="${loop.index < 5}">
+                        <tr>
+                            <td style="border-bottom: none;">
+                                <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
+                                <span style="padding-top: 5px;"><a href="" id="more">작성자 :${grad.writer}</a></span>
+                                <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">${grad.readcount}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tableTitle">
+                                <a href="" id="more">${grad.subject}</a>
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
+    	<tr>
             <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
          </tr>
       </table>
-      </div> <!-- Q&A 수료생 게시글 끝 -->
+	</div> <!-- Q&A 수료생 게시글 끝 -->
     
     <br><br>
     
@@ -467,33 +534,28 @@ p {
     <span class="usedBook2"><a href="list.bk" id="more">더보기</a></span>
     <br><br>
     
-    <div class="bottom">
-    <c:forEach var="i" begin="0" end="5" step="1">
-    <c:if test="${i < 6 }">
-       <div class="book">
-         <p>asd</p>
-         <div class="cover">
-            <p><img src="<%=request.getContextPath()%>/resources/bookImg/1.webp"></p>
-          </div>
-      </div>
-    </c:if>
+    <div class="bottom word">
+    <c:forEach var="book" items="${book_list}" varStatus="loop">
+        <div class="book" style="text-align: center; margin-top: 10px; font-size: 15px;">
+        <a href="detail.bk?bk_num=${book.bk_num }&pageNumber=1">
+        <br><br><br>
+            <strong>${book.title}</strong><br><br>
+            <strong>${book.dis_price}원</strong>
+            <div class="cover">
+                <p><a href="detail.bk?bk_num=${book.bk_num }&pageNumber=1"><img src="<%=request.getContextPath()%>/resources/book/${book.b_image1}"></a></p>
+            </div>
+        </a>
+        </div>
+        
+        <c:if test="${(loop.index + 1) % 6 == 0 && loop.index != fn:length(book_list) - 1}">
+            </div>
+            <br><br><br>
+            <div class="bottom">
+        </c:if>
     </c:forEach>
-    </div>
-    <br><br>
-    <div class="bottom">
-    <c:forEach var="i" begin="0" end="5" step="1">
-    <c:if test="${i < 6 }">
-       <div class="book">
-         <p>qwe</p>
-         <div class="cover">
-            <p><img src="<%=request.getContextPath()%>/resources/bookImg/2.webp"></p>
-          </div>
-      </div>
-    </c:if>
-    </c:forEach>
-    </div>
-    
-    <br>
+</div>
+
+    <br><br><br>
         
      <hr>
         

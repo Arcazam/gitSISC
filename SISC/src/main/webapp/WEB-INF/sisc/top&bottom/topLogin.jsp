@@ -55,7 +55,7 @@ input[type="button"]:hover{
       <span class="top_menu"><a href="board.bd?board=Know" id="design">지식</a></span>
       <span class="top_menu"><a href="board.bd?board=QnA" id="design">Q&A</a></span>
       <span class="top_menu"><a href="board.bd?board=Grad" id="design">수료생</a></span>
-      <span class="top_menu"><a href="board.bd?board=Quiz" id="design">퀴즈</a></span>
+      <span class="top_menu"><a href="QuizSelect.qz" id="design">퀴즈</a></span>
       <span class="top_menu"> | </span>
       <span class="top_menu">학생</span>
       <form>

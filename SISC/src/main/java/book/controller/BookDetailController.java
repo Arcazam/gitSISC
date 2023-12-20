@@ -21,7 +21,7 @@ public class BookDetailController {
 	
 	@RequestMapping(value = command)
 	public String detail(@RequestParam("bk_num") int bk_num, 
-						@RequestParam("pageNumber") int pageNumber, Model model) {
+						@RequestParam(value ="pageNumber", required = false) int pageNumber, Model model) {
 
 		BookBean bb = new BookBean();
 		bb.setBk_num(bk_num);

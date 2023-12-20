@@ -17,7 +17,8 @@
 
 </style>
 
-<form:form name="BookInsertForm" commandName="bb" action="insert.bk" method="post" enctype="multipart/form-data">
+<form:form name="BookInsertForm" commandName="bb" action="update.bk" method="post" enctype="multipart/form-data">
+<input type="hidden" name="pageNumber" value="${pageNumber }">
 	<table id="bookInsertTable" border=1>
 		<tr>
 			<th colspan=2>판매자 정보</th>
@@ -39,6 +40,7 @@
 				<input type="tel" name="seller_pnum1" size="3" maxlength="3" value="${seller_pnum_split[0]}"> -
 				<input type="tel" name="seller_pnum2" size="4" maxlength="4" value="${seller_pnum_split[1]}"> -
 				<input type="tel" name="seller_pnum3" size="4" maxlength="4" value="${seller_pnum_split[2]}">
+				<input type="hidden" name="seller_pnum" value="${bb.seller_pnum }">
 			</td>
 		</tr>
 		<tr>
@@ -48,15 +50,15 @@
 			<th>책 사진</th>
 			<td>
 				<b>책의 사진은 최대 3장의 사진을 올리실수 있습니다</b><br>
-				<img src="<%=request.getContextPath()%>/resources/uploadFolder/${ bb.b_image1 }" width="150"><br><br>
+				<img src="<%= request.getContextPath() %>/resources/member/${loginInfo.id }/book/${bb.b_image1}" width="150px;"><br><br>
 				<input type="hidden" name="prevUpload1" value="${ bb.b_image1 }">
 				1)겉표지 <input type="file" name="upload1" value="${ bb.b_image1 }"><br>
 				
-				<img src="<%=request.getContextPath()%>/resources/uploadFolder/${ bb.b_image2 }" width="150"><br><br>
+				<img src="<%= request.getContextPath() %>/resources/member/${loginInfo.id }/book/${bb.b_image2}" width="150px;"><br><br>
 				<input type="hidden" name="prevUpload2" value="${ bb.b_image2 }">
 				2)내부1 <input type="file" name="upload2" value="${ bb.b_image2 }"><br>
 				
-				<img src="<%=request.getContextPath()%>/resources/uploadFolder/${ bb.b_image3 }" width="150"><br><br>
+				<img src="<%= request.getContextPath() %>/resources/member/${loginInfo.id }/book/${bb.b_image3}" width="150px;"><br><br>
 				<input type="hidden" name="prevUpload3" value="${ bb.b_image3 }">
 				3)내부2 <input type="file" name="upload3" value="${ bb.b_image3 }"><br>
 				<font color="red"><b>책의 표지가 잘 나와야하고, 화질이 너무 흐릿한 사진을 올려서는 안됩니다</b></font>

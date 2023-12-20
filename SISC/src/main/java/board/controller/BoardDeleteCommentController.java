@@ -22,17 +22,21 @@ public class BoardDeleteCommentController {
 	public final String command = "/deleteComments.bd";
 	public final String gotoPage = "redirect:/detailList.bd";
 	
-	@RequestMapping(value=command,method=RequestMethod.POST)
+	@RequestMapping(value=command)
 	public String toDeleteComments(
 			Model model,
 			@ModelAttribute("bb") BoardBean bb,
 			HttpServletResponse response,
-			@RequestParam("pageNumber") int pageNumber
+			@RequestParam(value = "pageNumber", required = false) int pageNumber,
+			@RequestParam(value = "board", required = false) String board,
+			@RequestParam(value = "b_num", required = false) int b_num,
+			@RequestParam(value = "ref", required = false) int ref,
+			@RequestParam(value = "originalb_num", required = false) int originalb_num
 			) {
 		
-		bor_dao.deleteCommentsProc(bb);
+		int cnt = bor_dao.deleteCommentsProc(bb);
 		
-		return gotoPage;
+		return gotoPage + "?b_num=" + originalb_num + "&ref=" + ref + "&pageNumber=" + pageNumber + "&board=" + board;
 	}
 	
 }

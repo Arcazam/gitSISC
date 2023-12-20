@@ -26,9 +26,9 @@ public class BookBean {
 	private String tradeway; // 거래 방식
 	private String tradeplace; // 거래 장소
 	private String sellstatus;
-	private MultipartFile prevUpload1;
-	private MultipartFile prevUpload2;
-	private MultipartFile prevUpload3;
+	private String prevUpload1;
+	private String prevUpload2;
+	private String prevUpload3;
 
 	public BookBean() {
 
@@ -38,7 +38,7 @@ public class BookBean {
 			String publisher, String b_image1, String b_image2, String b_image3, String pub_date, String sell_date,
 			String sell_content, int pri_price, int dis_price, String kind, MultipartFile upload1,
 			MultipartFile upload2, MultipartFile upload3, String tradeway, String tradeplace, String sellstatus,
-			MultipartFile prevUpload1, MultipartFile prevUpload2, MultipartFile prevUpload3) {
+			String prevUpload1, String prevUpload2, String prevUpload3) {
 		super();
 		this.bk_num = bk_num;
 		this.seller = seller;
@@ -252,36 +252,36 @@ public class BookBean {
 		this.sellstatus = sellstatus;
 	}
 
-	public MultipartFile getPrevUpload1() {
+	public String getPrevUpload1() {
 		return prevUpload1;
 	}
 
-	public void setPrevUpload1(MultipartFile prevUpload1) {
+	public void setPrevUpload1(String prevUpload1) {
 		this.prevUpload1 = prevUpload1;
 		if (this.prevUpload1 != null) {
-			b_image1 = prevUpload1.getOriginalFilename();
+			//b_image1 = prevUpload1.getOriginalFilename();
 		}
 	}
 
-	public MultipartFile getPrevUpload2() {
+	public String getPrevUpload2() {
 		return prevUpload2;
 	}
 
-	public void setPrevUpload2(MultipartFile prevUpload2) {
+	public void setPrevUpload2(String prevUpload2) {
 		this.prevUpload2 = prevUpload2;
 		if (this.prevUpload2 != null) {
-			b_image2 = prevUpload2.getOriginalFilename();
+			//b_image2 = prevUpload2.getOriginalFilename();
 		}
 	}
 
-	public MultipartFile getPrevUpload3() {
+	public String getPrevUpload3() {
 		return prevUpload3;
 	}
 
-	public void setPrevUpload3(MultipartFile prevUpload3) {
+	public void setPrevUpload3(String prevUpload3) {
 		this.prevUpload3 = prevUpload3;
 		if (this.prevUpload3 != null) {
-			b_image3 = prevUpload3.getOriginalFilename();
+			//b_image3 = prevUpload3.getOriginalFilename();
 		}
 	}
 

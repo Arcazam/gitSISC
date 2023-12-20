@@ -164,13 +164,7 @@ public class BoardDao {
 		int cnt = 0;
 		
 		try {
-			
-			sqlSessionTemplate.update(namespace+"findStep",bb);
-			
 			bb.setSubject("comments");
-			bb.setRe_step(bb.getRe_step()+1);
-			bb.setRe_level(bb.getRe_level()+1);
-			
 			sqlSessionTemplate.insert(namespace+"insertComments",bb);
 			
 		} catch (UncategorizedSQLException e) {
@@ -185,6 +179,7 @@ public class BoardDao {
 		int cnt = 0;
 		try {
 			sqlSessionTemplate.update(namespace+"updateCommentsProc",bb);
+			
 		} catch (UncategorizedSQLException e) {
 			cnt = 1;
 		}
@@ -192,8 +187,9 @@ public class BoardDao {
 		
 	}
 
-	public void deleteCommentsProc(BoardBean bb) {
-		sqlSessionTemplate.delete(namespace+"deleteCommentsProc",bb);
+	public int deleteCommentsProc(BoardBean bb) {
+		int cnt = sqlSessionTemplate.delete(namespace+"deleteCommentsProc",bb);
+		return cnt;
 	}
 
 	public int getTotalCount(Map<String, String> map) {
@@ -204,15 +200,5 @@ public class BoardDao {
 	public int readcountUpdate(BoardBean bb) {
 		int cnt = sqlSessionTemplate.update(namespace+"readcountUpdate", bb);
 		return cnt;
-	}
-	
-	public void updateReply(BoardBean bb) {
-		
-		sqlSessionTemplate.update(namespace+"updateReply", bb);
-		
-	}
-	public void insertReply(BoardBean bb) {
-		
-		sqlSessionTemplate.insert(namespace+"insertReply", bb);		
 	}
 }

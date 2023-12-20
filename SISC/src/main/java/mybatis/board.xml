@@ -154,10 +154,10 @@
 		</select>
 		
 		<select id="getAllCommentsLists" resultType="SiscBoard">
-			select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+			select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content		        
 			from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
 			from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
-			from board where ref = #{ref} and re_level > 0
+			from board where re_level > 0
 			order by ref desc, re_step asc ))
 		</select>
 		
@@ -179,38 +179,25 @@
 			where b_num = #{b_num} and writer=#{writer} and re_level=#{re_level}
 		</update>
 		
-		<update id="findStep">
+		<update id="updateCommentsProc">
 			update board set re_step=re_step+1 where ref=#{ref} and re_step > #{re_step}
 		</update>
 		
 		<insert id="insertComments">
 			insert into board(b_num,b_cate,writer,subject,reg_date,ref,re_step,re_level,content)
-			values(board_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},#{ref},#{re_step},#{re_level},#{content})
+			values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},#{ref},#{re_step}+1,#{re_level}+1,#{content})
 		</insert>
 		
-		<update id="updateCommentsProc">
-			update board set b_cate = #{b_cate}, writer=#{writer}, subject=#{subject}, reg_date=#{reg_date}, content=#{content} 
-			where b_num = #{b_num} and writer=#{writer} and ref=#{ref} and re_level=#{re_level}
-		</update>
 		
 		<delete id="deleteBoardContent">
 			delete from board where b_num = #{b_num}
 		</delete>
 		
 		<delete id="deleteCommentsProc">
-			delete from board where b_num = #{b_num} and ref=#{ref} and re_level = #{re_level}
+			delete from board where b_num = #{b_num} and ref=#{ref} 
 		</delete>
 		
 		<update id="readcountUpdate">
 			update board SET readcount = readcount + 1 WHERE b_num = #{b_num}
 		</update>
-		
-		<update id="updateReply" parameterType="SiscBoard">
-			 update board set re_step=re_step+1 where ref=#{ref} and re_step > #{re_step}
-		</update>
-	
-		<insert id="insertReply" parameterType="SiscBoard">
-		    insert into board
-		    values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},#{readcount},#{ref},#{re_step}+1,#{re_level}+1,#{content})
-		</insert>
 	</mapper>

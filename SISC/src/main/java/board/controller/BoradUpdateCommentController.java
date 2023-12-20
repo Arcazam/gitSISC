@@ -26,7 +26,7 @@ public class BoradUpdateCommentController {
 	public final String command = "/updateComments.bd";
 	public final String gotoPage = "redirect:/detailList.bd";
 
-	@RequestMapping(value=command,method=RequestMethod.POST)
+	@RequestMapping(value=command)
 	public String toUpdateComments(
 				Model model,
 				@ModelAttribute("bb") BoardBean bb,
