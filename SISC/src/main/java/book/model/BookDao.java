@@ -62,14 +62,14 @@ public class BookDao {
 	}
 	
 	public int updateBook(BookBean bb) {
-		System.out.println(bb.getB_image1());
-		System.out.println(bb.getB_image2());
-		System.out.println(bb.getB_image3());
-		System.out.println(bb.getBk_num());
-		System.out.println(bb.getSeller_pnum());
-		
 		int cnt = sqlSessionTemplate.update(namespace+"updateBook",bb);
 		      
+		return cnt;
+	}
+	public int SaleComple(int bk_num) {
+		
+		int cnt = sqlSessionTemplate.update(namespace+"SaleComple",bk_num);
+		
 		return cnt;
 	}
 }

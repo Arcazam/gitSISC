@@ -370,7 +370,7 @@ Object loginInfo = session.getAttribute("loginInfo");
 		            <tr>
 		                <td colspan=2 class="contentStyle">
 		                <div class="boardTableContent">
-		                ${bd.content }
+		                <span>${bd.content }</span>
 		               </div>
 		               </td>
 		            </tr>

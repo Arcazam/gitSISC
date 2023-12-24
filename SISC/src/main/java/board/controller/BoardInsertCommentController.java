@@ -26,9 +26,11 @@ public class BoardInsertCommentController {
 	private BoardDao bor_dao;
 	
 	public final String command = "/insertComments.bd";
+	public final String command2 = "/insertComments2.bd";
 	public final String gotoPage = "redirect:/detailList.bd";
 	public final String sessionID = "loginInfo";
 	
+	//댓글
 	@RequestMapping(value=command,method=RequestMethod.POST)
 	public String toInsertComments(
 				Model model,
@@ -46,33 +48,18 @@ public class BoardInsertCommentController {
 			
 			return "redirect:login.mb";
 		}
-		
-		response.setContentType("text/html; charset=UTF-8");
-	    PrintWriter out = response.getWriter();
-		
 	    bb.setReg_date(new Timestamp(System.currentTimeMillis()));
-	    
-	    bor_dao.updateCommentsProc(bb);
-	    System.out.println("level1:"+bb.getRe_level());
-	    int cnt = bor_dao.insertCommentsProc(bb);
-	    System.out.println("level2:"+bb.getRe_level());
-	    System.out.println("cnt:"+cnt);
-	    
-	    if(cnt == 1) {
-			out.println("<script>alert('내용 글자수 제한을 초과하였습니다!');</script>");
-			out.flush();
-			model.addAttribute("b_num",bb.getB_num());
-			model.addAttribute("pageNumber",pageNumber);
-		}
+	    bor_dao.insertCommentsProc(bb);
 	    
 	    model.addAttribute("b_num",bb.getB_num());
+	    model.addAttribute("step",bb.getRe_step());
 		model.addAttribute("pageNumber",pageNumber);
-		
 		return gotoPage + "?b_num=" + bb.getB_num() + "&ref=" + bb.getRef() + "&board=" + board;
 	}
 	
+	//대댓글
 	@RequestMapping(value = "insertComments2.bd")
-	public String isnert(		Model model,
+	public String reply(Model model,
 			HttpSession session,
 			@ModelAttribute("bb") BoardBean bb,
 			HttpServletResponse response,
@@ -88,23 +75,10 @@ public class BoardInsertCommentController {
 		
 		return "redirect:login.mb";
 	}
-	
-	response.setContentType("text/html; charset=UTF-8");
-    PrintWriter out = response.getWriter();
-	
     bb.setReg_date(new Timestamp(System.currentTimeMillis()));
     bb.setRe_level(bb.getRe_level());
     bor_dao.updateCommentsProc(bb);
-    System.out.println(re_level);
-    int cnt = bor_dao.insertCommentsProc(bb);
-    System.out.println("level2:"+bb.getRe_level());
-    
-    if(cnt == 1) {
-		out.println("<script>alert('내용 글자수 제한을 초과하였습니다!');</script>");
-		out.flush();
-		model.addAttribute("b_num",bb.getB_num());
-		model.addAttribute("pageNumber",pageNumber);
-	}
+    bor_dao.insertCommentsProc(bb);
     
     model.addAttribute("b_num",bb.getB_num());
 	model.addAttribute("pageNumber",pageNumber);

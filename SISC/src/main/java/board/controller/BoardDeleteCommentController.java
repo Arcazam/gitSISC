@@ -20,7 +20,9 @@ public class BoardDeleteCommentController {
 	private BoardDao bor_dao;
 	
 	public final String command = "/deleteComments.bd";
+	public final String command2 = "/deleteMyComments.bd";
 	public final String gotoPage = "redirect:/detailList.bd";
+	public final String gotoPage2 = "redirect:/mycomment.st";
 	
 	@RequestMapping(value=command)
 	public String toDeleteComments(
@@ -39,4 +41,20 @@ public class BoardDeleteCommentController {
 		return gotoPage + "?b_num=" + originalb_num + "&ref=" + ref + "&pageNumber=" + pageNumber + "&board=" + board;
 	}
 	
+	@RequestMapping(value=command2)
+	public String toDeleteMyComments(
+			Model model,
+			@ModelAttribute("bb") BoardBean bb,
+			HttpServletResponse response,
+			@RequestParam(value = "pageNumber", required = false) int pageNumber,
+			@RequestParam(value = "writer", required = false) String writer,
+			@RequestParam(value = "id", required = false) String id,
+			@RequestParam(value = "pro_img", required = false) String pro_img
+			) {
+		
+		int cnt = bor_dao.deleteCommentsProc(bb);
+		System.out.println("ASdsadkjashdjkashdasjdajdhkahkjd:" + cnt);
+		
+		return gotoPage2 + "?id=" + id + "&pro_img=" + pro_img + "&writer=" + id;
+	}
 }

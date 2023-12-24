@@ -124,14 +124,57 @@ if(loginInfo == null){%>
 </body>
 <script>
 $(document).ready(function() {
-	$('.summernote').summernote({
- 		placeholder: '내용',
+	  $('.summernote').summernote({
+	    placeholder: '내용',
 	    minHeight: 370,
-	    maxHeight: null,
-	    focus: true, 
-	    lang : 'ko-KR'
+	    maxHeight: 1000,
+	    focus: true,
+	    lang: 'ko-KR',
+	    callbacks: {
+	      onImageUpload: function(files) {
+	        // 이미지 업로드 콜백
+	        for (var i = 0; i < files.length; i++) {
+	          uploadImage(files[i]);
+	        }
+	      }
+	    }
+	  });
 	});
-});
+
+	function uploadImage(file) {
+	  var reader = new FileReader();
+	  reader.onloadend = function() {
+	    var img = new Image();
+	    img.src = reader.result;
+	    img.onload = function() {
+	      var maxWidth = 600; // 이미지 최대 폭
+	      var maxHeight = 400; // 이미지 최대 높이
+
+	      var ratio = 1; // 비율 초기화
+	      if (img.width > maxWidth) {
+	        ratio = maxWidth / img.width; // 너비에 따른 비율 계산
+	      } else if (img.height > maxHeight) {
+	        ratio = maxHeight / img.height; // 높이에 따른 비율 계산
+	      }
+
+	      // 새로운 크기 계산
+	      var newWidth = img.width * ratio / 3;
+	      var newHeight = img.height * ratio / 3;
+
+	      var canvas = document.createElement('canvas');
+	      var ctx = canvas.getContext('2d');
+	      canvas.width = newWidth;
+	      canvas.height = newHeight;
+	      ctx.drawImage(img, 0, 0, newWidth, newHeight);
+
+	      var dataURL = canvas.toDataURL('image/jpeg');
+
+	      // Summernote에 이미지 삽입
+	      $('.summernote').summernote('editor.insertImage', dataURL);
+	    };
+	  };
+	  reader.readAsDataURL(file);
+	}
 
 </script>
 </html>

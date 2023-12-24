@@ -12,16 +12,20 @@ import study.model.StudyDao;
 public class StudyDeleteController {
 	private final String command = "delete.st";
 	private final String gotoPage = "redirect:SelectAllStudy.st";
+	private final String command2 = "delete2.st";
+	private final String gotoPage2 = "redirect:myboard.st";
 	
 	@Autowired
 	private StudyDao sdao;
 	
 	@RequestMapping(command)
 	public String delete(@RequestParam("s_num") int s_num, 
-						@RequestParam("pageNumber") int pageNumber){
+						@RequestParam("pageNumber") int pageNumber,
+						@RequestParam("id") String id,
+						@RequestParam("pro_img") String pro_img){
 		
 		sdao.deleteStudy(s_num);
 		
-		return gotoPage + "?pageNumber=" + pageNumber;
+		return gotoPage + "?id=" + id +"&pro_img=" + pro_img + "&pageNumber=" + pageNumber;
 	}
 }

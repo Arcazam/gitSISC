@@ -63,8 +63,7 @@ input[type="button"]:hover{
          <input class="top_menu" type="button" value="검색">
       </form>
 
-      <input type="hidden" name="loginInfo" value="${loginInfo }">
-      <span class="top_menu"><a href="SelectAllStudy.st">${loginInfo.id }</a>님</span>
+      <span class="top_menu"><a href="SelectAllStudy.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}">${loginInfo.id }</a>님</span>
    </div>
 
    <hr>

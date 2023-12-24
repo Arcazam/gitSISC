@@ -88,7 +88,7 @@ img{
    <table class="insert">
       <tr>
          <td>
-         <img src="<%= request.getContextPath() %>/resources/member/pro_img/${loginInfo.pro_img }"><br>
+         <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/${loginInfo.id}/pro_img/${loginInfo.pro_img}" /><br>
          [프로필 사진]
          </td>
       </tr>

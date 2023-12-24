@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -81,7 +82,7 @@ public class BookInsertController {
 		bb.setSeller_pnum(seller_pnum1+"-"+seller_pnum2+"-"+seller_pnum3);
 		bb.setKind(kind1+kind2+kind3+kind4+kind5+kind6);
 		
-		String uploadPath = servletContext.getRealPath("/resources/member/"+ bb.getWriter() +"/book/");
+		String uploadPath = servletContext.getRealPath("/resources/member/"+ bb.getSeller() +"/book/");
 		System.out.println("uploadPath:"+uploadPath);
 		int cnt = bok_dao.insertBookMarket(bb);
 		

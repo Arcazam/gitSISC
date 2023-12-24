@@ -55,6 +55,7 @@ public class MemberLoginController {
 				session.setAttribute("loginInfo", contrastMB);
 				
 				String gotoPage = (String)session.getAttribute("destination");
+				session.removeAttribute("destination");
 				if(gotoPage == null) {
 					return tempPage;
 				}else {

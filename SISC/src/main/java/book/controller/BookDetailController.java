@@ -13,6 +13,7 @@ import book.model.BookDao;
 public class BookDetailController {
 
 	private final String command = "detail.bk";
+	private final String command2 = "Mydetail.bk";
 	private final String gotoPage = "BookDetail";
 	public final String sessionID = "loginInfo";
 	
@@ -35,5 +36,22 @@ public class BookDetailController {
 		
 		return gotoPage;
 	}
+	
+	@RequestMapping(value = command2)
+	public String Mydetail(@RequestParam("bk_num") int bk_num, 
+						@RequestParam(value ="pageNumber", required = false) int pageNumber,
+						Model model) {
+
+		BookBean bb = new BookBean();
+		bb.setBk_num(bk_num);
 		
+		BookBean detail = bdao.getWriterNumDetail(bb);
+		 
+		//System.out.println("detail:"+detail.getBk_num());
+		
+		model.addAttribute("bb",detail);
+		model.addAttribute("pageNumber",pageNumber);
+		
+		return gotoPage;
+	}
 }

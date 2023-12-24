@@ -17,7 +17,9 @@ public class BoardPaging {
 	private String pagingHtml = "";//하단의 숫자 페이지 링크
 	private String whatColumn = "" ; //검색 모드(작성자, 글제목)
 	private String keyword = "" ; //검색할 단어 
-
+	private String id = "";
+	private String pro_img = "";
+	
 	public int getTotalCount() {
 		return totalCount;
 	}
@@ -176,8 +178,11 @@ public class BoardPaging {
 			int totalCount,
 			String url, 
 			String whatColumn, 
-			String keyword) {		
-
+			String keyword, String id, String pro_img) {	
+		
+		this.id = id;
+		this.pro_img = pro_img;
+		
 		if(  _pageNumber == null || _pageNumber.equals("null") || _pageNumber.equals("")  ){
 			System.out.println("_pageNumber:"+_pageNumber); // null
 			_pageNumber = "1" ;
@@ -235,7 +240,7 @@ public class BoardPaging {
 		System.out.println("getPagingHtml url:"+url); 
 		
 		String result = "" ;
-		String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword ;
+		String added_param = "&id=" + id + "&pro_img=" + pro_img +"&whatColumn=" + whatColumn + "&keyword=" + keyword ;
 		
 		if (this.beginPage != 1) {
 			result += "&nbsp;<a href='" + url  

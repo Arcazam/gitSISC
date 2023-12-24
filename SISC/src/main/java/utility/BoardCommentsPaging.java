@@ -17,6 +17,9 @@ public class BoardCommentsPaging {
 	private String pagingHtml = "";//하단의 숫자 페이지 링크
 	private String whatColumn = "" ; //검색 모드(작성자, 글제목)
 	private String keyword = "" ; //검색할 단어 
+	private int b_num = 0;
+	private int ref = 0;
+	private String board = "";
 
 	public int getTotalCount() {
 		return totalCount;
@@ -176,7 +179,11 @@ public class BoardCommentsPaging {
 			int totalCount,
 			String url, 
 			String whatColumn, 
-			String keyword) {		
+			String keyword, int b_num, int ref, String board) {	
+		
+		this.b_num = b_num;
+		this.ref = ref;
+		this.board = board;
 
 		if(  _pageNumber == null || _pageNumber.equals("null") || _pageNumber.equals("")  ){
 			System.out.println("_pageNumber:"+_pageNumber); // null
@@ -229,6 +236,7 @@ public class BoardCommentsPaging {
 		this.pagingHtml = getPagingHtml(url) ;
 		// 맨처음 이전 1 2 3 다음 맨 끝
 		
+		
 	} // 생성자의 끝
 	
 	private String getPagingHtml( String url ){ //페이징 문자열을 만든다.
@@ -239,11 +247,12 @@ public class BoardCommentsPaging {
 		
 		if (this.beginPage != 1) {
 			result += "&nbsp;<a href='" + url  
-					+ "?pageNumber=" + ( 1 ) + "&pageSize=" + this.pageSize 
-					+ added_param + "'>맨 처음</a>&nbsp;" ;
-			result += "&nbsp;<a href='" + url 
-					+ "?pageNumber=" + (this.beginPage - 1 ) + "&pageSize=" + this.pageSize 
-					+ added_param + "'>이전</a>&nbsp;" ;
+		            + "?pageNumber=" + (1) + "&pageSize=" + this.pageSize 
+		            + added_param + "'>맨 처음</a>&nbsp;";
+
+			result += "&nbsp;<a href='" + url
+	                + "?b_num=" + this.b_num + "&ref=" + this.ref + "&pageNumber=" + (this.beginPage - 1) + "&board=" + this.board + "&pageSize=" + this.pageSize
+	                + added_param + "'>이전</a>&nbsp;";
 		}
 		
 		//가운데
@@ -253,7 +262,7 @@ public class BoardCommentsPaging {
 						
 			} else {
 				result += "&nbsp;<a href='" + url   
-						+ "?pageNumber=" + i + "&pageSize=" + this.pageSize 
+						+ "?b_num=" + this.b_num + "&ref=" + this.ref + "&pageNumber=" + i + "&board=" + this.board + "&pageSize=" + this.pageSize 
 						+ added_param + "'>" + i + "</a>&nbsp;" ;
 				
 			}

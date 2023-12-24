@@ -9,15 +9,15 @@
 		</insert>
 		
 		<select id="getAllStudy" resultType="SiscStudy">
-			select * from study_memo
+			select * from study_memo where s_writer = #{id}
 			<if test="whatColumn == 'memoTitle'">
-				where memoTitle like #{ keyword}
+				and memoTitle like #{ keyword}
 			</if>
 			<if test="whatColumn == 'subTitle'">
-				where subTitle like #{ keyword}
+				and subTitle like #{ keyword}
 			</if>
 			<if test="whatColumn == 'memoDate'">
-				where memoDate like #{ keyword}
+				and memoDate like #{ keyword}
 			</if>
 		</select>
 		
@@ -47,4 +47,29 @@
 			memoCate = #{memoCate}, memoTitle = #{memoTitle}, subTitle = #{subTitle}, s_content = #{s_content}
 			where s_num = #{s_num}
 		</update>
+		
+		<select id="getTotalCountForSpecificMember" parameterType="map" resultType="int">
+		    SELECT COUNT(*) FROM study_memo WHERE s_writer = #{id}
+		</select>
+		
+		<select id="getTotalCountComment" resultType="int">
+		    SELECT COUNT(*) FROM board WHERE writer = #{writer} and subject != 'comments'
+		</select>
+		
+		<select id="getMyBoard" resultType="SiscBoard">
+			select * from board where writer = #{writer} and subject != 'comments'
+		</select>
+		
+		<select id="getMyComment" resultType="SiscBoard">
+			select * from board where writer = #{writer} and subject = 'comments'
+		</select>
+		
+		<select id="getMyBook" resultType="SiscBook">
+			select * from book where seller = #{writer} 
+		</select>
+		
+		<select id="getTotalCountBook" resultType="int">
+		    SELECT COUNT(*) FROM book WHERE seller = #{writer}
+		</select>
+		
 	</mapper>

@@ -17,6 +17,8 @@ public class StudyPaging {
 	private String pagingHtml = "";//하단의 숫자 페이지 링크
 	private String whatColumn = "" ; //검색 모드(작성자, 글제목)
 	private String keyword = "" ; //검색할 단어 
+	private String id = "";
+	private String pro_img = "";
 
 	public int getTotalCount() {
 		return totalCount;
@@ -176,7 +178,11 @@ public class StudyPaging {
 			int totalCount,
 			String url, 
 			String whatColumn, 
-			String keyword) {		
+			String keyword,
+			String id,
+			String pro_img) {	
+		this.id = id;
+		this.pro_img = pro_img;
 
 		if(  _pageNumber == null || _pageNumber.equals("null") || _pageNumber.equals("")  ){
 			System.out.println("_pageNumber:"+_pageNumber); // null
@@ -185,7 +191,7 @@ public class StudyPaging {
 		this.pageNumber = Integer.parseInt( _pageNumber ) ; 
 
 		if( _pageSize == null || _pageSize.equals("null") || _pageSize.equals("") ){
-			_pageSize = "5" ; 
+			_pageSize = "15" ; 
 		}		
 		this.pageSize = Integer.parseInt( _pageSize ) ;
 		
@@ -235,14 +241,14 @@ public class StudyPaging {
 		System.out.println("getPagingHtml url:"+url); 
 		
 		String result = "" ;
-		String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword ;
+		String added_param = "?whatColumn=" + whatColumn + "&keyword=" + keyword ;
 		
 		if (this.beginPage != 1) {
 			result += "&nbsp;<a href='" + url  
-					+ "?pageNumber=" + ( 1 ) + "&pageSize=" + this.pageSize 
+					+ "?id=" + id + "&pro_img=" + pro_img + "&pageNumber=" + ( 1 ) + "&pageSize=" + this.pageSize 
 					+ added_param + "'>맨 처음</a>&nbsp;" ;
 			result += "&nbsp;<a href='" + url 
-					+ "?pageNumber=" + (this.beginPage - 1 ) + "&pageSize=" + this.pageSize 
+					+ "?id=" + id + "&pro_img=" + pro_img + "&pageNumber=" + (this.beginPage - 1 ) + "&pageSize=" + this.pageSize 
 					+ added_param + "'>이전</a>&nbsp;" ;
 		}
 		
@@ -253,7 +259,7 @@ public class StudyPaging {
 						
 			} else {
 				result += "&nbsp;<a href='" + url   
-						+ "?pageNumber=" + i + "&pageSize=" + this.pageSize 
+						+ "?id=" + id + "&pro_img=" + pro_img + "&pageNumber=" + i + "&pageSize=" + this.pageSize 
 						+ added_param + "'>" + i + "</a>&nbsp;" ;
 				
 			}
@@ -265,11 +271,11 @@ public class StudyPaging {
 		if ( this.endPage != this.totalPage) { 
 			
 			result += "&nbsp;<a href='" + url  
-					+ "?pageNumber=" + (this.endPage + 1 ) + "&pageSize=" + this.pageSize 
+					+ "?id=" + id + "&pro_img=" + pro_img + "&pageNumber=" + (this.endPage + 1 ) + "&pageSize=" + this.pageSize 
 					+ added_param + "'>다음</a>&nbsp;" ;
 			
 			result += "&nbsp;<a href='" + url  
-					+ "?pageNumber=" + (this.totalPage ) + "&pageSize=" + this.pageSize 
+					+ "?id=" + id + "&pro_img=" + pro_img + "&pageNumber=" + (this.totalPage ) + "&pageSize=" + this.pageSize 
 					+ added_param + "'>맨 끝</a>&nbsp;" ;
 		}		
 		System.out.println("result2:"+result);

@@ -38,6 +38,8 @@ public class BookListController {
 				@RequestParam(value="whatColumn",required = false) String whatColumn,
 				@RequestParam(value="keyword",required = false) String keyword,
 				@RequestParam(value="pageNumber",required = false) String pageNumber,
+				@RequestParam(value="id",required = false) String id,
+				@RequestParam(value="pro_img",required = false) String pro_img,
 				HttpServletRequest request
 			) {
 		
@@ -52,7 +54,7 @@ public class BookListController {
 		String url = request.getContextPath()+"/"+command;
 
 		int bookCount = bok_dao.getCountBook();
-		BookPaging pageInfo = new BookPaging(pageNumber,null,bookCount,url,whatColumn,keyword);
+		BookPaging pageInfo = new BookPaging(pageNumber,null,bookCount,url,whatColumn,keyword,id,pro_img);
 		List<BookBean> book_list = bok_dao.getBookList(pageInfo,map);
 		
 		model.addAttribute("book_list",book_list);

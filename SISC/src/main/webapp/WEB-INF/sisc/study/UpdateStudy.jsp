@@ -37,7 +37,7 @@ if(loginInfo == null){%>
 </head>
 
 <c:set var="st" value="${sb }"/>
-<form action="update.st?s_num=${st.s_num }&pageNumber=${pageNumber}" method="post">
+<form action="update.st?s_num=${st.s_num }&id=${id}&pro_img=${pro_img}&pageNumber=${pageNumber}" method="post">
 	<table border="1" class="detailTable">
 	<tr>
 		<td height="50px;">

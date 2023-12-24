@@ -30,7 +30,10 @@ public class BoardListController {
                   Model model, HttpServletRequest request,
       			@RequestParam(value="whatColumn", required = false) String whatColumn,
     			@RequestParam(value="keyword", required = false) String keyword,
-    			@RequestParam(value="pageNumber", required = false) String pageNumber) {
+    			@RequestParam(value="pageNumber", required = false) String pageNumber,
+    			@RequestParam(value="id", required = false) String id,
+    			@RequestParam(value="pro_img", required = false) String pro_img
+    			) {
       
       //각 게시판의 리스트를 받기 위함
       List<BoardBean> list = null;
@@ -57,8 +60,9 @@ public class BoardListController {
 		
       int totalCount = boarddao.getTotalCount(map); 
 		
-      String pageSize = "5"; 
-      BoardPaging pageInfo = new BoardPaging(pageNumber,pageSize,totalCount,url,whatColumn,keyword);
+      String pageSize = "10"; 
+      int boarTotaldSize = boarddao.getBoardCount(map,board);
+      BoardPaging pageInfo = new BoardPaging(pageNumber,pageSize,boarTotaldSize,url,whatColumn,keyword, id, pro_img);
       
       if(board.equals("Free")) {
          list = boarddao.getAllFreeBoard(map);

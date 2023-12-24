@@ -188,7 +188,7 @@ public class BoardDao {
 	}
 
 	public int deleteCommentsProc(BoardBean bb) {
-		int cnt = sqlSessionTemplate.delete(namespace+"deleteCommentsProc",bb);
+		int cnt = sqlSessionTemplate.delete(namespace+"deleteBoardContent",bb);
 		return cnt;
 	}
 
@@ -201,4 +201,18 @@ public class BoardDao {
 		int cnt = sqlSessionTemplate.update(namespace+"readcountUpdate", bb);
 		return cnt;
 	}
+
+	public int getBoardCount(Map<String, String> map, String board) {
+		map.put("board", board);
+		System.out.println("board:"+board);
+        int cnt = sqlSessionTemplate.selectOne(namespace + "getBoardCount", map);
+        return cnt;
+	}
+
+	public int getCommentCount(int ref) {
+        int cnt = sqlSessionTemplate.selectOne(namespace + "getCommentCount", ref);
+        return cnt;
+	}
+	
+	
 }

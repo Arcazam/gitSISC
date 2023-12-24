@@ -2,6 +2,9 @@ package member.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -53,30 +56,45 @@ public class MemberUpdateController {
 	}
 	
 	@RequestMapping(value = command2, method = RequestMethod.GET)
-	public String updateImg(@RequestParam("id") String id, Model model) {
+	public String updateImg(@RequestParam("id") String id,
+			@RequestParam("pro_img") String pro_img,
+			Model model) {
 		
 		MemberBean mb =  mdao.selectGetById(id);
 		model.addAttribute("mb",mb);
+		model.addAttribute("id",id);
+		model.addAttribute("pro_img",pro_img);
 		
 		return viewPage2;
 	}
 	
 	@RequestMapping(value = command2, method = RequestMethod.POST)
-	public String updateImg2(MemberBean mb, HttpSession session) {
+	public String updateImg2(MemberBean mb, HttpSession session,
+			@RequestParam("id") String id,
+			@RequestParam("pro_img") String pro_img) {
 		mdao.updateProImg(mb);
 		
 		String uploadPath = servletContext.getRealPath("/resources/member/"+mb.getId()+"/pro_img/");
-		File destination = new File(uploadPath+File.separator+mb.getPro_img());
-		File destination2 = new File(uploadPath+File.separator + mb.getUpload2());
 		
 		MultipartFile multi = mb.getUpload();
 		
 		try {
+			Path folder = Paths.get(uploadPath);
 			
+			// 폴더가 존재하지 않으면 폴더를 생성
+            if (!Files.exists(folder)) {
+                Files.createDirectories(folder);
+            } else {
+                
+            }
+				
 			// 웹서버폴더의 새 이미지 업로드 
-			multi.transferTo(destination);
+            File destination = new File(uploadPath+File.separator+mb.getPro_img());
+            destination.delete(); 
+            multi.transferTo(destination);
 			
 			// 웹서버폴더의 기존 이미지 삭제 
+			File destination2 = new File(uploadPath+File.separator + mb.getUpload2());
 			destination2.delete(); 
 			
 		} catch (IllegalStateException e) {
@@ -85,6 +103,7 @@ public class MemberUpdateController {
 			e.printStackTrace();
 		} // 파일업로드
 		session.setAttribute("updateImg", mb.getPro_img());
-		return gotoPage2;
+		
+		return gotoPage2 + "?id=" + id + "&pro_img=" + pro_img;
 	}
 }

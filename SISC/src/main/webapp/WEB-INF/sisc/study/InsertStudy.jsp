@@ -40,8 +40,9 @@ Object loginInfo = session.getAttribute("loginInfo");
 
 <body>
 <br><br>
+<c:set var="st" value="${list }"/>
 <form class="container" method="post" action="insert.st">
-	<input type="text" name="s_writer" style="width: 20%;" placeholder="작성자"/> <!-- member의 id값과 같아야함 -->
+	<input type="hidden" name="s_writer" value="${id }"/> <!-- member의 id값과 같아야함 -->
 	<select name="memoCate" style="float: right;">
 		<c:set var="cates" value="${fn:split('선택하세요,Java,Jsp,Js,Html,Css,Servlet,Spring',',')}"></c:set>
 		<c:forEach var="mecates" items="${cates }">
@@ -51,6 +52,7 @@ Object loginInfo = session.getAttribute("loginInfo");
 	<br><br>
 	<input type="text" name="memoTitle" style="width: 40%;" placeholder="제목"/><br><br>
 	<input type="text" name="subTitle" style="width: 40%;" placeholder="소제목"/><br><br>
+	<input type="hidden" name="pro_img" value="${pro_img }">
 	<textarea class="summernote" name="s_content"></textarea> 
 	<br><br>
 	<input type="submit" value="저장하기" class="studysave">

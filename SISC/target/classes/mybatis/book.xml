@@ -36,6 +36,9 @@
 	      pub_date=#{pub_date}, sell_date=#{sell_date},sell_content=#{sell_content},pri_price=#{pri_price},dis_price=#{dis_price},
 	      kind=#{kind},tradeway=#{tradeway},tradeplace=#{tradeplace} where bk_num=#{bk_num} 
       </update>
+      <update id="SaleComple">
+			update book set sellstatus = 'Done' where bk_num = #{bk_num}
+		</update>
 	</mapper>
 <!-- selectAllToMainBook : 메인화면에 출력될 5개 레코드만 제한출력 -->
 <!-- getBookList : 책방 페이지에 출력될 책 전체 레코드 -->		

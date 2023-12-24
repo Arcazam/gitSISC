@@ -1,6 +1,5 @@
 package study.controller;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,17 +13,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import board.model.BoardBean;
-import board.model.BoardDao;
+import member.model.MemberBean;
 import study.model.StudyBean;
 import study.model.StudyDao;
-import utility.BoardPaging;
+import utility.StudyPaging;
 
 @Controller
 public class StudyListController {
 	
 	private final String command = "SelectAllStudy.st";
 	private final String viewPage = "SelectAllStudy";
+	public final String sessionID = "loginInfo";
 	
 	@Autowired
 	private StudyDao sdao;
@@ -33,7 +32,17 @@ public class StudyListController {
 	public String list(Model model, HttpServletRequest request, HttpSession session,
 			@RequestParam(value="whatColumn", required = false) String whatColumn,
 			@RequestParam(value="keyword", required = false) String keyword,
-			@RequestParam(value="pageNumber", required = false) String pageNumber) {
+			@RequestParam(value="pageNumber", required = false) String pageNumber,
+			@RequestParam("id") String id,
+			@RequestParam("pro_img") String pro_img) {
+		
+		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
+		
+		if(mb == null) {
+			session.setAttribute("destination", "redirect:SelectAllStudy.st?id="+id + "&pro_img=" + pro_img);
+			
+			return "redirect:login.mb";
+		}
 		
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn);
@@ -41,17 +50,19 @@ public class StudyListController {
 		
 		String url = request.getContextPath()+"/"+command;
 		
-		int totalCount = sdao.getTotalCount(map); 
-		
 		Object updateImg = (Object) session.getAttribute("updateImg");
 		
-		String pageSize = "5"; 
-		BoardPaging pageInfo = new BoardPaging(pageNumber,pageSize,totalCount,url,whatColumn,keyword);
+		String pageSize = "15"; 
+		int totalCountForMember = sdao.getTotalCountForSpecificMember(map, id); 
+		StudyPaging pageInfo = new StudyPaging(pageNumber,pageSize,totalCountForMember,url,whatColumn,keyword,id,pro_img);
 		
-		List<StudyBean> lists = sdao.getAllStudy(pageInfo, map);
+		List<StudyBean> lists = sdao.getAllStudy(pageInfo, map, id);
 		model.addAttribute("list",lists);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("updateImg", updateImg);
+		model.addAttribute("id",id);
+		model.addAttribute("pro_img",pro_img);
+		model.addAttribute("totalCountForMember",totalCountForMember);
 		
 		return viewPage;
 		

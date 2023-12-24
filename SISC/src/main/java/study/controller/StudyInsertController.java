@@ -28,16 +28,24 @@ public class StudyInsertController {
 	ServletContext servletcontext;
 
 	@RequestMapping(value = command, method = RequestMethod.GET)
-	public String editor() {
+	public String editor(@RequestParam("id") String id,
+			@RequestParam("pro_img") String pro_img,
+			Model model) {
+		model.addAttribute("id",id);
+		model.addAttribute("pro_img",pro_img);
+		
 		return viewPage;
 	}
 
 	@RequestMapping(value = command, method = RequestMethod.POST)
-	public String editorInsert(@ModelAttribute("st") @Valid StudyBean st, Model model) {
-		
-		sdao.insertStudy(st); 
+	public String editorInsert(@ModelAttribute("st") @Valid StudyBean st, 
+			Model model,
+			@RequestParam("s_writer") String id,
+			@RequestParam("pro_img") String pro_img) {
+		sdao.insertStudy(st);
 		model.addAttribute("list", st);
+		model.addAttribute("pro_img", pro_img);
 		
-		return gotoPage;
+		return gotoPage + "?id=" + id;
 	}
 }
