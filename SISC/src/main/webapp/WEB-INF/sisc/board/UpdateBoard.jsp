@@ -77,7 +77,9 @@ if(loginInfo == null){%>
 	<input type="hidden" name="b_num" value="${ bb.b_num }">
 	<input type="hidden" name="board" value="${ board }">
 	<input type="hidden" name="pageNumber" value="${ pageNumber }">
-	<input type="text" name="writer" style="width: 40%;" value="${ mb.id }" readonly><br><br>${board }
+	
+	<input type="text" name="writer" style="width: 40%;" value="${ id }" readonly><br><br>${board }
+	
 <%
 	String[] b_cateList = {"Free","Know","QnA","Grad"};
 %>

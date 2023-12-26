@@ -55,6 +55,7 @@ public class BoardUpdateController {
 		model.addAttribute("bb",bb);
 		model.addAttribute("mb",mb);
 		model.addAttribute("board",board);
+		model.addAttribute("id",mb.getId());
 		
 		return viewPage;
 	}
@@ -101,24 +102,14 @@ public class BoardUpdateController {
 				HttpSession session,
 				@RequestParam(value = "b_num", required = false) int b_num,
 				@RequestParam(value = "pageNumber", required = false) int pageNumber,
-				@RequestParam(value = "board", required = false) String board,
 				@RequestParam(value = "writer", required = false) String writer,
 				@RequestParam(value = "id", required = false) String id,
 				@RequestParam(value = "pro_img", required = false) String pro_img
 			) {
-		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
-		
-		Object loginInfo = session.getAttribute("loginInfo");
-	    if(loginInfo == null) {
-	    	session.setAttribute("destination", "redirect:update.bd?b_num=" + b_num + "&board=" + board + "&pageNumber=" + pageNumber);
-	        return "redirect:login.mb";
-	    }
 		
 		BoardBean bb = bor_dao.getBoardInfoWriter(b_num);
 		model.addAttribute("pageNumber",pageNumber);
 		model.addAttribute("bb",bb);
-		model.addAttribute("mb",mb);
-		model.addAttribute("board",board);
 		model.addAttribute("id",id);
 		model.addAttribute("pro_img",pro_img);
 		
@@ -130,7 +121,7 @@ public class BoardUpdateController {
 				@ModelAttribute("bb") BoardBean bb,
 				@RequestParam(value = "b_num", required = false) int b_num,
 				@RequestParam(value = "pageNumber", required = false) int pageNumber,
-				@RequestParam(value = "board", required = false) String board,
+				@RequestParam(value = "writer", required = false) String writer,
 				@RequestParam(value = "id", required = false) String id,
 				@RequestParam(value = "pro_img", required = false) String pro_img,
 				HttpServletResponse response,
@@ -142,7 +133,6 @@ public class BoardUpdateController {
 		
 		bb.setB_num(b_num);
 		bb.setReg_date(new Timestamp(System.currentTimeMillis()));
-		
 		cnt = bor_dao.updateBoardContent(bb);
 		
 		response.setContentType("text/html; charset=UTF-8");
@@ -154,7 +144,6 @@ public class BoardUpdateController {
 			MemberBean mb = (MemberBean)session.getAttribute(sessionID);
 			model.addAttribute("mb",mb);
 			model.addAttribute("pageNumber",pageNumber);
-			model.addAttribute("board",board);
 			
 			return viewPage2;
 		}

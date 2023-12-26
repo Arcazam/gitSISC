@@ -241,7 +241,7 @@ public class StudyPaging {
 		System.out.println("getPagingHtml url:"+url); 
 		
 		String result = "" ;
-		String added_param = "?whatColumn=" + whatColumn + "&keyword=" + keyword ;
+		String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword ;
 		
 		if (this.beginPage != 1) {
 			result += "&nbsp;<a href='" + url  

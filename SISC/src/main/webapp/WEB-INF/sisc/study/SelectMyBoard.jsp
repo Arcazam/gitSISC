@@ -40,7 +40,7 @@ if(loginInfo == null){%>
 						<td style="width: 300px; height: 50px;"><a href = "detailList.bd?b_num=${st.b_num }&ref=${st.ref }&pageNumber=${pageInfo.pageNumber}&board=${st.b_cate}">${st.subject }</a></td>
 						<td style="width: 200px; height: 50px;">${st.b_cate }</td>
 						<td style="width: 50px; height: 50px;">
-							<a href="update2.bd?b_num=${st.b_num}&pageNumber=1&board=${st.b_cate}&writer=${st.writer}&id=${id}&pro_img=${loginInfo.pro_img}">수정</a>
+							<a href="update2.bd?b_num=${st.b_num}&pageNumber=1&writer=${st.writer}&id=${id}&pro_img=${loginInfo.pro_img}">수정</a>
 						</td>
 						<td style="width: 50px; height: 50px;">
 							<a href="delete2.bd?b_num=${st.b_num}&pageNumber=1&board=${st.b_cate}&writer=${st.writer}&id=${id}&pro_img=${loginInfo.pro_img}">삭제</a>
