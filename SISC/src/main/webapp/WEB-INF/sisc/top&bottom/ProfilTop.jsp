@@ -4,7 +4,7 @@
 /* css파일에다 따로하면 스타일이 적용이 안되서 이부분에 스타일 적용 */
 .card {
   width: 700px;
-  height: 200px;
+  height: 240px;
   background: #ffff;
   box-shadow: 0 1px 25px rgba(0,0,0,0.2);
   transform: translate(-50%, -50%);

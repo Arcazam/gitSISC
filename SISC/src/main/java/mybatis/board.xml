@@ -198,21 +198,22 @@
       
 
 	<!-- 글쓰기 -->
-	<insert id="insertBoardContent">
+	<!-- <insert id="insertBoardContent">
 		insert into board(b_num, b_cate, writer, subject, reg_date, readcount, ref,
 		re_step, re_level, content)
 		values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,bor_seq.currval,0,0,#{content})
-	</insert> 
-	<!-- <insert id="insertBoardContent">
+	</insert>  -->
+	<insert id="insertBoardContent">
 			insert into board(b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist)
 			values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,bor_seq.currval,0,0,#{content},#{taglist})
-		</insert> -->
+		</insert>
 
 	<!-- 수정구문 (Free, Know, QnA, Grad) -->
 
 	 <!--  수정구문 (Free, Know, QnA, Grad)  -->
       <update id="updateBoardContent">
-      update board set b_cate=#{b_cate}, subject=#{subject}, reg_date=#{reg_date}, content=#{content} where b_num = #{b_num} and writer=#{writer} and re_level=#{re_level}
+      		update board set b_cate=#{b_cate}, subject=#{subject}, reg_date=#{reg_date}, content=#{content}, taglist=#{taglist} 
+      		where b_num = #{b_num} and writer=#{writer} and re_level=#{re_level}
       </update>
 
 	<insert id="insertComments">

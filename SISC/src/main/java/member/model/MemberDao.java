@@ -33,6 +33,7 @@ public class MemberDao {
 
 	public MemberBean findMemberPW(MemberBean mb) {
 		MemberBean findMB = sqlSessionTemplate.selectOne(namespace+"findMemberPw",mb);
+		
 		return findMB;
 	}
 

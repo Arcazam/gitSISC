@@ -363,6 +363,10 @@ Object loginInfo = session.getAttribute("loginInfo");
 				</tr>
 			</c:when>
 			<c:otherwise>
+		            <tr>
+		               <td class="boardTableWriter"><b>작성자 : ${bd.writer }</b></td>
+		            </tr>
+		            
 					<tr>
 		                <td class="boardTableTitle"><b><font size="5">
 		                	<a href = "detailList.bd?b_num=${bd.b_num }&ref=${bd.ref }&pageNumber=${pageInfo.pageNumber}&board=${boardName}">${bd.subject }</a></font></b>
@@ -370,19 +374,7 @@ Object loginInfo = session.getAttribute("loginInfo");
 		            </tr>
 		            
 		            <tr>
-		                <td colspan=2 class="contentStyle">
-		                <div class="boardTableContent">
-		                <span>${bd.content }</span>
-		               </div>
-		               </td>
-		            </tr>
-		            
-		            <tr>
-		               <td class="boardTableWriter"><b>${bd.writer }</b></td>
-		            </tr>
-		            
-		            <tr>
-		                <td class="boardTableTag" colspan=2>#태그</td>
+		                <td class="boardTableTag" colspan=2>#현재 태그 안나오는중(오류) ${bd.taglist } </td>
 		            </tr>
 			</c:otherwise>
 		</c:choose>

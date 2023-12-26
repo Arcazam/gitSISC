@@ -3,10 +3,11 @@
     
 <%@ include file="../common/common.jsp" %>
 
-<link href="<%=request.getContextPath() %>/resources/js/bootstrap.min.js" rel="stylesheet" type="text/css" />
-<link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/bootstrap-select.min.css">
+<link href="<%=request.getContextPath() %>/resources/css/style.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/resources/css/main2.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/resources/css/forms.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/resources/css/tabs.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/resources/css/ui-css.css" rel="stylesheet" type="text/css" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/i18n/defaults-ko_KR.min.js"></script>
 <%
@@ -26,20 +27,17 @@ if(loginInfo == null){%>
    font-weight: normal;
    font-style: normal;
 }
+.body-container {
+	max-width: 800px;
+	margin-left: 200px;
+}
 
-.insert{
-border-collapse : collapse;
-margin: auto;
-margin-top: 50px;
-margin-left: 650px;
-padding: 0px;
-/* font-family: 'TAEBAEKfont'; */
+input{
+	margin-bottom: 20px;
 }
-label {
-    padding-left: 0; /* 왼쪽 패딩을 없애줍니다 */
-}
-html {
-  font-size: 101%;
+
+.col-sm-3.fix {
+    width: 40%;
 }
 
 </style>
@@ -294,193 +292,198 @@ html {
 
 </script>
 
-<form name="insertMemberForm" method="post" action="insertMember.mb" enctype="multipart/form-data">
-   <table class="insert">
-      <tr>
-         <td>
-         <img id="previewImage" src="<%=request.getContextPath()%>/resources/member/pro_img/defaultImage.png" style="margin-left:22px; width:50px; height: 50px;">
-         [프로필 사진]
-         <br>
-         <input type="file" name="upload" style="margin-left: 30px;">
-         <br>
-         <font color="red">프로필 사진을 고르지 않을 시, 기본프로필 사진으로 대체됩니다</font>
-         </td>
-      </tr>
-      
-      <tr>
-         <td style="padding-top: 10px;">
-         <div class="form-group col-md-4">
-                <label>아이디</label>
-                <input type="text" class="form-control" name="id" size="12" maxlength="12" placeholder="아이디" style="width: 300px;">
-         <input type="button" id="idCheck" value="중복확인" style="height: 35px;">
-         <span id="idmessage" style="display:none;"></span>
-            </div>
-         </td>
-      </tr>
-      
-      <tr>
-         <td style="padding-top: 10px;">   
-         <div class="form-group col-md-4">
-                <label>비밀번호</label>
-                <input type="password" class="form-control" name="password" maxlength="12" placeholder="비밀번호" style="width: 300px">
-            </div>
-         </td>
-      </tr>
-      
-      <tr>
-         <td style="padding-top: 10px;">
-         <div class="form-group col-md-4">
-         	<label>이름</label>
-            <input type="text" class="form-control" name="name" maxlength="10" placeholder="이름">
-         </div>
-         </td>
-      </tr>   
-      
-      <tr>
-         <td style="padding-top: 10px;">
-         <div class="form-group col-md-4">
-         	<div class="form-check">
-			  <input class="form-check-input" type="radio" name="gender" value="M">
-			  <label class="form-check-label" style="margin-left: 15px; margin-right: 10px;">
-			    남성
-			  </label>
-			  <input class="form-check-input" type="radio" name="gender" value="W">
-			  <label class="form-check-label" style="margin-left: 15px;">
-			    여성
-			  </label>
-			</div>
-         </div>
-         </td>
-      </tr>
-      <tr>
-         <td style="padding-top: 10px;">     
-         <label style="margin-left: 20px;">생년월일</label><br>
-         <input type="date" name="birth" style="width: 130px; height: 35px; margin-left: 20px;">
-         </td>
-      </tr>
-      <tr>
-         <td style="padding-top: 10px;">
-         <div class="form-group col-md-6">
-             <label>주민등록번호</label>
-             <div class="input-group-prepend">
-                 <input type="text" class="form-control" name="joomin1" maxlength="6" placeholder="주민번호 앞자리" style="width: 500px;">
-                 <label style="margin-top: 6px; margin-left: 10px; margin-right: 10px;"> - </label>
-                 <input type="password" class="form-control" name="joomin2" maxlength="7" placeholder="주민번호 뒷자리" style="width: 500px;">
-             </div>
-         </div>
-         </td>
-      </tr>
-      <tr>
-         <td style="padding-top: 10px;">
-         <div class="form-group col-md-6">
-             <label>핸드폰번호</label>
-             <div class="input-group-prepend">
-                 <input type="text" class="form-control" name=hp1 maxlength="6" value="010" style="width: 55px;">
-                 <label style="margin-top: 6px; margin-left: 10px; margin-right: 10px;"> - </label>
-                 <input type="text" class="form-control" name="hp2" maxlength="4" style="width: 60px;">
-                 <label style="margin-top: 6px; margin-left: 10px; margin-right: 10px;"> - </label>
-                 <input type="text" class="form-control" name="hp3" maxlength="4" style="width: 60px;">
-             </div>
-         </div>
-         </td>
-      </tr>
-      
-      <tr>
-         <td style="padding-top: 10px;">
-         <div class="form-group col-md-4">
-         	<label>주소</label>
-            <input type="text" id="address_kakao" class="form-control" name="address_main" maxlength="10" placeholder="주소">
-            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-            <script>
-            window.onload = function(){
-                document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
-                    //카카오 지도 발생
-                    new daum.Postcode({
-                        oncomplete: function(data) { //선택시 입력값 세팅
-                            document.getElementById("address_kakao").value = data.address; // 주소 넣기
-                            document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
-                        }
-                    }).open();
-                });
-            }
-         </script>
-         </div>
-         </td>
-      </tr>
-      
-      <tr>
-         <td style="padding-top: 10px;">
-         <div class="form-group col-md-4">
-         	<label>상세주소</label>
-            <input type="text" class="form-control" name="address_detail" maxlength="10" placeholder="상세주소">
-         </div>
-         </td>
-      </tr>   
-      
-      <tr>
-         <td style="padding-top: 10px;">
-         <div class="form-group col-md-4">
-         	<div class="form-check">
-			  <input class="form-check-input" type="radio" name="division" value="student" onclick="showMenu(division.value)">
-			  <label class="form-check-label" style="margin-left: 15px; margin-right: 10px;">
-			    학생
-			  </label>
-			  <input class="form-check-input" type="radio" name="division" value="manager" onclick="showMenu(division.value)">
-			  <label class="form-check-label" style="margin-left: 15px; margin-right: 10px;">
-			    매니저
-			  </label>
-			  <input class="form-check-input" type="radio" name="division" value="lecturer" onclick="showMenu(division.value)">
-			  <label class="form-check-label" style="margin-left: 15px;">
-			    강사
-			  </label>
-			</div>
-         </div>
-         </td>
-      </tr>        
-      
-      <tr>
-       <td style="padding-top: 10px;">
-        <div id="allMenu" style="display: none;">
-           <select name="curriculum" style="width: 150px; height: 35px; margin-left: 20px;">
-           		<option value="">커리큘럼 선택</option>
-           		<option value="자바&스프링기반 AWS클라우드 융합 개발자 양성과정">자바&스프링기반 AWS클라우드 융합 개발자 양성과정</option>
-           		<option value="실무 프로젝트 기반 빅데이터 서비스 솔루션 개발자 양성과정">실무 프로젝트 기반 빅데이터 서비스 솔루션 개발자 양성과정</option>
-           		<option value="AWS 클라우드와 Elasticsearch를 활용한 Java(자바) Full-Stack 개발자 양성과정">AWS 클라우드와 Elasticsearch를 활용한 Java(자바) Full-Stack 개발자 양성과정</option>
-           		<option value="(디지털컨버전스)AWS 클라우드 활용 자바(Java) Full-Stack 개발자 양성 과정">(디지털컨버전스)AWS 클라우드 활용 자바(Java) Full-Stack 개발자 양성 과정</option>
-           </select>
-            <select name="m_class" style="width: 150px; height: 35px;">
-                <option value="">현재 소속된 반 선택</option>
-                <option value="A">A</option>
-                <option value="B">B</option>
-                <option value="C">C</option>
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option>
-                <option value="G">G</option>
-                <option value="H">H</option>
-                <option value="I">I</option>
-             </select>
-             <br><br>
-            <label style = "margin-left: 20px;">교육시작일</label>
-            <input type="date" name="start_day" style="width: 150px; height: 35px;"> - 
-            <label>교육종료일</label>
-            <input type="date" name="end_day" style="width: 150px; height: 35px;">
-        </div>
-        <div id="managerLecturerMenu" style="display: none;">
-           <br>
-           <input type="text" name="code" value="코드 입력" style="width: 150px; height: 35px; margin-left: 20px;">
-        </div>
-       </td>
-      </tr>
-      
-      <tr>
-         <td style="padding-top: 10px;">           
-          <div class="col-md-12 submit-btn">
-             <input class="btn btn-primary" type="submit" value="회원 가입" onClick="return check()" style="width: 300px; height: 35px; background: #C4FDFF; color: black; border: none;">
-         </div>
-         </td>
-      </tr>
-   </table>
-   
-   <br><br><br><br>     
-</form>
+<div class = "container">
+	<div class="body-container">
+		<div class="body-title">
+			<h3><i class="bi bi-person-square"></i> 회원가입 </h3>
+		</div>
+		
+		<div class="body-main">
+				<form name="insertMemberForm" method="post" action="insertMember.mb" enctype="multipart/form-data">
+				         <div class="row">
+				         	<img id="previewImage" src="<%=request.getContextPath()%>/resources/member/pro_img/defaultImage.png" style="margin-left:22px; width:50px; height: 50px;">
+					         [프로필 사진]
+					         <input type="file" name="upload" style="margin-left: 30px;">
+					         <font color="red" style="margin-left: 15px; font-size: 9px;">프로필 사진을 고르지 않을 시, 기본프로필 사진으로 대체됩니다</font>
+				         </div>
+				      
+				      	 <div class="row" style="margin-top: 20px;">
+				         	<div class="input-group-prepend">
+				         		<label class="col-sm-2 col-form-label">아이디</label>
+				                 <div class="col-sm-3 pe-1">
+									<input type="text" class="form-control" name="id" maxlength="12" placeholder="아이디">
+								</div>
+								<div class="pe-1 col-sm-3.fix">
+									<input type="button" id="idCheck" value="중복확인" style="height: 35px; width: 100px; background-color: white;">
+						         	<span id="idmessage" style="display:none; dis"></span>
+								</div>
+							</div>  
+						</div>
+				      
+				         <div class="row">
+				         	<div class="input-group-prepend">
+				         		<label class="col-sm-2 col-form-label">비밀번호</label>
+				                 <div class="col-sm-3 pe-1">
+									<input type="password" class="form-control" name="password" maxlength="12" placeholder="비밀번호">
+								</div>
+							</div>  
+						</div>
+				      
+				         <div class="row">
+				         	<label class="col-sm-2 col-form-label">이름</label>
+				         	<div class="col-sm-3 pe-1">
+				            	<input type="text" class="form-control" name="name" maxlength="10" placeholder="이름">
+				         	</div>
+				         </div>
+				      
+				         <div class="row" style="margin-bottom: 20px;">
+				         	<label class="col-sm-2 col-form-label">성 별</label>
+				         	<div class="form-check">
+				         		<div class="col-sm-3 pe-1">
+								  <input class="form-check-input" type="radio" name="gender" value="M">
+								  <label class="form-check-label">남성</label>
+								 </div>
+								 <div class="col-sm-3 pe-1">
+								 	<input class="form-check-input" type="radio" name="gender" value="W">
+							  		<label class="form-check-label">여성</label>
+								 </div>
+							</div>
+				         </div>
+				         
+				         <div class="row mb-3">
+					        <label class="col-sm-2 col-form-label">생년월일</label>
+					        <div class="col-sm-10">
+					            <input type="date" name="birth" id="birth" class="form-control" value="${dto.birth}" placeholder="생년월일">
+					            <small class="form-control-plaintext" style="margin-bottom: 10px;">생년월일은 2000-01-01 형식으로 입력 합니다.</small>
+					        </div>
+					    </div>
+				         
+				         <div class="row">
+				             <label class="col-sm-2 col-form-label">주민등록번호</label>
+				             <div class="input-group-prepend">
+				                 	<div class="col-sm-3 pe-1">
+										<input type="text" class="form-control" name="joomin1" maxlength="6" placeholder="주민번호 앞자리">
+									</div>
+									<div class="col-sm-1 px-1" style="width: 2%;">
+										<p class="form-control-plaintext text-center">-</p>
+									</div>
+									<div class="col-sm-3 pe-1">
+										<input type="text" class="form-control" name="joomin2" maxlength="7" placeholder="주민번호 뒷자리">
+									</div>
+							  </div>
+				         </div>
+				         
+				         <div class="row">
+				             <label class="col-sm-2 col-form-label">핸드폰번호</label>
+				             <div class="input-group-prepend">
+				                 	<div class="col-sm-3 pe-1">
+										<input type="text" name="hp1" class="form-control" maxlength="3">
+									</div>
+									<div class="col-sm-1 px-1" style="width: 2%;">
+										<p class="form-control-plaintext text-center">-</p>
+									</div>
+									<div class="col-sm-3 pe-1">
+										<input type="text" name="hp2" class="form-control" maxlength="4">
+									</div>
+									<div class="col-sm-1 px-1" style="width: 2%;">
+										<p class="form-control-plaintext text-center">-</p>
+									</div>
+									<div class="col-sm-3 pe-1">
+										<input type="text" name="hp3" class="form-control" maxlength="4">
+									</div>
+							  </div>
+						 </div>
+				         <div class="row mb-3">
+				         	<label class="col-sm-2 col-form-label">주소</label>
+				            <div class="col-sm-10">
+				            	<input type="text" id="address_kakao" class="form-control" name="address_main" maxlength="10" placeholder="주소">
+					            <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+					            <script>
+					            window.onload = function(){
+					                document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
+					                    //카카오 지도 발생
+					                    new daum.Postcode({
+					                        oncomplete: function(data) { //선택시 입력값 세팅
+					                            document.getElementById("address_kakao").value = data.address; // 주소 넣기
+					                            document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+					                        }
+					                    }).open();
+					                });
+					            }
+					         </script>
+				            </div>
+				         </div>
+				         <div class="row mb-3">
+				         	<label class="col-sm-2 col-form-label"></label>
+				            <div class="col-sm-10">
+				            	<input type="text" class="form-control" name="address_detail" maxlength="10" placeholder="상세주소">
+				            </div>
+				         </div>
+				         
+				        <div class="row" style="margin-bottom: 20px;">
+						    <label class="col-sm-2 col-form-label">직급</label>
+						    <div class="form-check">
+						        <div class="col-sm-3 pe-1">
+						            <input class="form-check-input" type="radio" name="division" value="student" onclick="showMenu(division.value)">
+						            <label class="form-check-label">학생</label>
+						        </div>
+						        <div class="col-sm-3 pe-1">
+						            <input class="form-check-input" type="radio" name="division" value="manager" onclick="showMenu(division.value)">
+						            <label class="form-check-label">매니저</label>
+						        </div>
+						        <div class="col-sm-3 pe-1">
+						            <input class="form-check-input" type="radio" name="division" value="lecturer" onclick="showMenu(division.value)">
+						            <label class="form-check-label">강사</label>
+						        </div>
+						    </div>
+						</div>
+				         
+				        <div class="row" id="allMenu" style="display: none;">
+				        	<label class="col-sm-2 col-form-label">커리큘럼</label>
+				           <select name="curriculum" style="width: 330px; height: 35px; margin-left: 20px;">
+				           		<option value="">커리큘럼 선택</option>
+				           		<option value="자바&스프링기반 AWS클라우드 융합 개발자 양성과정">자바&스프링기반 AWS클라우드 융합 개발자 양성과정</option>
+				           		<option value="실무 프로젝트 기반 빅데이터 서비스 솔루션 개발자 양성과정">실무 프로젝트 기반 빅데이터 서비스 솔루션 개발자 양성과정</option>
+				           		<option value="AWS 클라우드와 Elasticsearch를 활용한 Java(자바) Full-Stack 개발자 양성과정">AWS 클라우드와 Elasticsearch를 활용한 Java(자바) Full-Stack 개발자 양성과정</option>
+				           		<option value="(디지털컨버전스)AWS 클라우드 활용 자바(Java) Full-Stack 개발자 양성 과정">(디지털컨버전스)AWS 클라우드 활용 자바(Java) Full-Stack 개발자 양성 과정</option>
+				           </select>
+				           
+				            <select name="m_class" style="width: 330px; height: 35px;">
+				                <option value="">현재 소속된 반 선택</option>
+				                <option value="A">A</option>
+				                <option value="B">B</option>
+				                <option value="C">C</option>
+				                <option value="D">D</option>
+				                <option value="E">E</option>
+				                <option value="F">F</option>
+				            </select>
+				            <br><br>
+				            
+				            <div class="row mb-3">
+					            <label class="col-sm-2 col-form-label">교육시작일</label>
+					            <div class="col-sm-10">
+					            <input type="date" class="form-control" name="start_day" style="margin-left: 15px;">
+					            </div>
+				            </div> 
+				            
+				            <div class="row mb-3">
+					            <label class="col-sm-2 col-form-label">교육종료일</label>
+					            <div class="col-sm-10">
+					            	<input type="date" class="form-control" name="end_day" style="margin-left: 15px;">
+					            </div>
+				            </div>
+				        </div>
+				        
+				        <div class = "row" id="managerLecturerMenu" style="display: none;">
+				           <br>
+				           <input type="text" name="code" value="코드 입력" style="width: 150px; height: 35px; margin-left: 20px;">
+				        </div>
+				          <div class="text-center">
+				             <input class="btn btn-primary" type="submit" value="회원가입" onClick="return check()">
+				         	 <input type="button" class="btn btn-danger" value="가입취소" onclick="location.href='SiscMain.view'">
+				         </div>
+				   <br><br><br><br>     
+				</form>
+		</div>
+	</div>
+</div>

@@ -50,9 +50,83 @@ input[type="submit"]:hover {
 #join:hover {
     color: black;
 }
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 50%;
+  margin-top: 30px;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid #9b9b9b;
+  outline: 0;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+  margin-left: 140px;
+}
+
+.form__field::placeholder {
+  color: transparent;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+  font-size: 1.0rem;
+  cursor: text;
+  top: 20px;
+  
+}
+
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #9b9b9b;
+  margin-left: 140px;
+}
+
+.form__field:focus ~ .form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: #0095FF;
+  font-weight: 700;
+}
+
+.form__field:focus {
+  padding-bottom: 6px;
+  font-weight: 700;
+  border-width: 3px;
+  border-image: linear-gradient(to right, #0095FF, #38ef7d);
+  border-image-slice: 1;
+}
+
+/* reset input */
+.form__field:required,
+.form__field:invalid {
+  box-shadow: none;
+}
+
+/* demo */
+body {
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
 </style>
 
-
+<title>SISC</title>
 <form name="loginForm" action="login.mb" method="post">
    <table class="login">
       <tr>
@@ -68,11 +142,21 @@ input[type="submit"]:hover {
       </tr>
    
       <tr>
-         <td style="padding-top: 30px;"><input type="text" name="id" placeholder="아이디" class="textSize"></td>
+         <td>
+         <div class="form__group field" >
+         	<input type="text" name="id" class="form__field" placeholder="아이디" class="textSize" required>
+         	<label class="form__label">아이디</label>
+         </div>
+         </td>
       </tr>
       
       <tr>
-         <td style="padding-top: 5px;"><input type="password" name="password" placeholder="비밀번호" class="textSize"></td>
+         <td >
+         <div class="form__group field">
+         	<input type="password" name="password" class="form__field" placeholder="비밀번호" class="textSize" required>
+         	<label class="form__label">비밀번호</label>
+         </div>
+         </td>
       </tr>
       
       <tr>
@@ -83,9 +167,6 @@ input[type="submit"]:hover {
          <td style="padding-top: 30px;">
          <a href="findMemberID.mb" id="find">아이디 찾기</a> | 
          <a href="findMemberPW.mb" id="find">비밀번호 찾기</a> | 
-         <a href="https://kauth.kakao.com/oauth/authorize?client_id=b5049642bcf23574480831643502b112&redirect_uri=http://localhost:8080/ex/SiscRedirect.mb&response_type=code" id = "kakao">
-			카카오 로그인
-		</a> |
 		<a href="insertMember.mb" id="join">회원가입</a>
          </td>
       </tr>

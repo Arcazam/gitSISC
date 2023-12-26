@@ -29,7 +29,6 @@ if(loginInfo == null){%>
 
 	function insertBoardcheck(){
 		
-		
 		if ($('select option:selected').val() == "") {
 			alert('게시판 카테고리를 선택하셔야합니다');
 			return false;

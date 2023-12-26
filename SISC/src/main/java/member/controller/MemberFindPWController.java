@@ -48,7 +48,8 @@ public class MemberFindPWController {
 		MemberBean findMB = mdao.findMemberPW(mb);
 		
 		if(findMB != null) {
-			model.addAttribute("id",findMB.getId());
+			out.println("<script>alert('비밀번호는 "+findMB.getPassword()+"입니다');</script>");
+		    out.flush();
 		    return gotoPage;
 		} else {
 			out.println("<script>alert('가입 정보가 없습니다');</script>");

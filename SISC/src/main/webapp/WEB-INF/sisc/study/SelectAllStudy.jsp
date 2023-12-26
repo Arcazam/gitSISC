@@ -7,6 +7,16 @@
 <%@include file="./../common/common.jsp"%>
 <html xmlns:th="http://www.thymeleaf.org">
 
+<style>
+
+ .learn-more {
+        text-align: center;
+    }
+    .button-text {
+        display: inline-block; /* 인라인 요소를 블록 요소처럼 처리하여 가운데 정렬 */
+        vertical-align: middle; /* 수직 가운데 정렬 */
+    }</style>
+
 <%
 Object loginInfo = session.getAttribute("loginInfo");
 if(loginInfo == null){%>
@@ -28,10 +38,10 @@ if(loginInfo == null){%>
 <div>
 <c:set var="id" value="${loginInfo.id}"/>
 <button class="learn-more" type="button" onclick="insert('${id}','<%= pro_img %>')">
-	<span class="circle" aria-hidden="true">
-		<span class="icon arrow"></span>
-	</span>
-	<span class="button-text">추가하기</span>
+    <span class="circle" aria-hidden="true">
+        <span class="icon arrow"></span>
+    </span>
+    <span class="button-text">추가하기</span>
 </button>
 	<table style="margin: auto;">
 		<c:choose>
