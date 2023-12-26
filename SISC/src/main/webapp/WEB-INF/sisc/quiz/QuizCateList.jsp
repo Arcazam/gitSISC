@@ -41,7 +41,7 @@
 			</table>
 		</td>
 		<td id="quizShow">
-			<!-- ajax로 받아온 jsp를 출력 -->
+			
 		</td>
 	</tr>
 

@@ -24,7 +24,7 @@ public class QuizAnswerCheckController {
 
 		qb.setQz_num(questionNumber);
 		qb.setAnswer(selectedValue);
-
+		
 		int checkAnswer = qdao.checkAnswer(qb);
 
 		if (checkAnswer == 1) {

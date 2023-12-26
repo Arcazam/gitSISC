@@ -37,7 +37,6 @@ public class QuizDao {
 
 	public int checkAnswer(QuizBean qb) {
 		int checkAnswer = sqlSessionTemplate.selectOne(namespace+"checkAnswer",qb);
-		System.out.println("checkAnswer °ª : "+checkAnswer);
 		return checkAnswer;
 	}
 	
