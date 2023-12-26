@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="study">
+		<insert id="insertStudy">
+			insert into study_memo
+			values(st_seq.nextval,#{s_writer},#{memoCate},#{memoTitle},#{subTitle},sysdate,#{s_content})
+		</insert>
+		
+		<select id="getAllStudy" resultType="SiscStudy">
+			select * from study_memo
+			<if test="whatColumn == 'memoTitle'">
+				where memoTitle like #{ keyword}
+			</if>
+			<if test="whatColumn == 'subTitle'">
+				where subTitle like #{ keyword}
+			</if>
+			<if test="whatColumn == 'memoDate'">
+				where memoDate like #{ keyword}
+			</if>
+		</select>
+		
+		<select id="getDetailStudy" resultType="SiscStudy">
+			select * from study_memo where s_num = #{s_num}
+		</select>
+		
+		<delete id="deleteStudy">
+			delete from study_memo where s_num = #{s_num}
+		</delete>
+		
+		<select id="getTotalCount" resultType="int">
+			select count(*) from study_memo
+			<if test="whatColumn == 'memoTitle'">
+				where memoTitle like #{ keyword}
+			</if>
+			<if test="whatColumn == 'subTitle'">
+				where subTitle like #{ keyword}
+			</if>
+			<if test="whatColumn == 'memoDate'">
+				where memoDate like #{ keyword}
+			</if>
+		</select>
+		
+		<update id="updateStudy" parameterType="SiscStudy">
+			update study_memo set 
+			memoCate = #{memoCate}, memoTitle = #{memoTitle}, subTitle = #{subTitle}, s_content = #{s_content}
+			where s_num = #{s_num}
+		</update>
+	</mapper>

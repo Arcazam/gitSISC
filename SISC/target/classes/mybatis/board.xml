@@ -163,8 +163,8 @@
 		<!-- 삽입구문 (Free, Know, QnA, Grad) -->
 		
 		<insert id="insertBoardContent">
-			insert into board(b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content)
-			values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,bor_seq.currval,0,0,#{content})
+			insert into board(b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist)
+			values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,bor_seq.currval,0,0,#{content},#{taglist})
 		</insert>
 		
 		<!-- 수정구문 (Free, Know, QnA, Grad) -->

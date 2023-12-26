@@ -94,6 +94,9 @@ public class BookInsertController {
 		
 		File destination3 = new File(uploadPath + File.separator + bb.getB_image3());
 		MultipartFile multi3 = bb.getUpload3();
+		/*	
+java.io.IOException: Destination file [F:\½Ö¿ë°­ºÏ\ÆÀÇÁ·ÎÁ§Æ®\WorkSpace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\SISC\resources\book] already exists and could not be deleted	*/
+		// ¿À·ù ÇØ°á
 		multi3.transferTo(destination3);
 		
 		return gotoPage;

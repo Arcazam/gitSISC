@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+  <configuration>
+  	<typeAliases>
+  		<typeAlias type="book.model.BookBean" alias="SiscBook"/>
+  		<typeAlias type="board.model.BoardBean" alias="SiscBoard"/>
+  		<typeAlias type="community.model.CommunityBean" alias="SiscCommunity"/>
+  		<typeAlias type="survey.model.SurveyBean" alias="SiscSurvey"/>
+  		<typeAlias type="manager.model.ManagerBean" alias="SiscManager"/>
+  		<typeAlias type="quiz.model.QuizBean" alias="SiscQuiz"/>
+  		<typeAlias type="study.model.StudyBean" alias="SiscStudy"/>
+  		<typeAlias type="member.model.MemberBean" alias="SiscMember"/>
+  	</typeAliases>
+  	
+  	<mappers>
+  		<mapper resource="mybatis/member.xml"/>
+  		<mapper resource="mybatis/board.xml"/>
+  		<mapper resource="mybatis/community.xml"/>
+  		<mapper resource="mybatis/survey.xml"/>
+  		<mapper resource="mybatis/manager.xml"/>
+  		<mapper resource="mybatis/quiz.xml"/>
+  		<mapper resource="mybatis/study.xml"/>
+  		<mapper resource="mybatis/book.xml"/>
+  	</mappers>
+  	
+  </configuration>

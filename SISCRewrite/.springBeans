@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.9.18.202109140629-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[true]]></enableImports>
+	<configs>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/book-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/quiz-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/manager-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/study-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/member-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/board-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/community-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/survey-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/view-servlet.xml</config>
+	</configs>
+	<autoconfigs>
+		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/root-context.xml</config>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>

@@ -20,7 +20,7 @@
 			<url>http://maven.jahia.org/maven2</url>
 		</repository> 
 	</repositories>
-	<dependencies>
+	<dependencies> 
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -178,10 +178,18 @@
    
    <!-- jackson -->
    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.13.2.2</version>
-   </dependency>
+    	<groupId>com.fasterxml.jackson.core</groupId>
+    	<artifactId>jackson-databind</artifactId>
+    	<version>2.13.3</version>
+	</dependency>
+   
+   <!-- webSocket -->
+   <dependency>
+   		<groupId>org.springframework</groupId>
+    	<artifactId>spring-websocket</artifactId>
+    	<version>5.3.18</version>
+	</dependency>
+   
    
 	</dependencies>
     <build>

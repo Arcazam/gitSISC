@@ -13,6 +13,7 @@
   		<typeAlias type="quiz.model.QuizBean" alias="SiscQuiz"/>
   		<typeAlias type="study.model.StudyBean" alias="SiscStudy"/>
   		<typeAlias type="member.model.MemberBean" alias="SiscMember"/>
+  		<typeAlias type="board.model.TagBean" alias="SiscTag"/>
   	</typeAliases>
   	
   	<mappers>
@@ -24,6 +25,7 @@
   		<mapper resource="mybatis/quiz.xml"/>
   		<mapper resource="mybatis/study.xml"/>
   		<mapper resource="mybatis/book.xml"/>
+  		<mapper resource="mybatis/tag.xml"/>
   	</mappers>
   	
   </configuration>

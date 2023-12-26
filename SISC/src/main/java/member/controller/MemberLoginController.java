@@ -23,7 +23,7 @@ public class MemberLoginController {
 	public final String command = "/login.mb";
 	public final String viewPage = "memberlogin";
 	
-	public final String tempPage = "redirect:insert.bk";
+	public final String tempPage = "redirect:insert.bd";
 	
 	public final String gotoPage = "redirect:/list.view";
 	

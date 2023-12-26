@@ -5,22 +5,21 @@ public class QuizBean {
 	private int qz_num;
 	private String que_cate;
 	private String question;
+	private String qz_view;
 	private String answer;
 	private String interpre; // 문제풀이 해석
-	private int point;
 
 	public QuizBean() {
 
 	}
 
-	public QuizBean(int qz_num, String que_cate, String question, String answer, String interpre, int point) {
-		super();
+	public QuizBean(int qz_num, String que_cate, String question, String qz_view, String answer, String interpre) {
 		this.qz_num = qz_num;
 		this.que_cate = que_cate;
 		this.question = question;
+		this.qz_view = qz_view;
 		this.answer = answer;
 		this.interpre = interpre;
-		this.point = point;
 	}
 
 	public int getQz_num() {
@@ -47,6 +46,14 @@ public class QuizBean {
 		this.question = question;
 	}
 
+	public String getQz_view() {
+		return qz_view;
+	}
+
+	public void setQz_view(String qz_view) {
+		this.qz_view = qz_view;
+	}
+
 	public String getAnswer() {
 		return answer;
 	}
@@ -61,14 +68,6 @@ public class QuizBean {
 
 	public void setInterpre(String interpre) {
 		this.interpre = interpre;
-	}
-
-	public int getPoint() {
-		return point;
-	}
-
-	public void setPoint(int point) {
-		this.point = point;
 	}
 
 }

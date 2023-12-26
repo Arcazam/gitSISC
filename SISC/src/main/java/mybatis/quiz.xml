@@ -4,4 +4,24 @@
 	
 	<mapper namespace="quiz">
 		
+		<select id="getCateQuizList" resultType="SiscQuiz">
+			select distinct que_cate from quiz
+		</select>
+		
+		<select id="makeAQuestion" resultType="SiscQuiz">
+			select * from quiz where qz_num=#{qz_num} and que_cate=#{que_cate}
+		</select>
+		
+		<select id="getStartPoint" resultType="int">
+			select min(qz_num) from quiz where que_cate = #{que_cate}
+		</select>
+		
+		<select id="getEndPoint" resultType="int">
+			select max(qz_num) from quiz where que_cate = #{que_cate}
+		</select>
+		
+		<select id="checkAnswer" resultType="int">
+			select count(*) from quiz where qz_num = #{qz_num} and answer=#{answer}
+		</select>
+		
 	</mapper>

@@ -15,13 +15,14 @@ public class BoardBean {
 	private int re_step;
 	private int re_level;
 	private String content;
+	private String taglist;
 	
 	public BoardBean() {
 		
 	}
 
 	public BoardBean(int b_num, String b_cate, String writer, String subject, String passwd, Timestamp reg_date,
-			int readcount, int ref, int re_step, int re_level, String content) {
+			int readcount, int ref, int re_step, int re_level, String content, String taglist) {
 		super();
 		this.b_num = b_num;
 		this.b_cate = b_cate;
@@ -34,6 +35,7 @@ public class BoardBean {
 		this.re_step = re_step;
 		this.re_level = re_level;
 		this.content = content;
+		this.taglist = taglist;		
 	}
 
 	public int getB_num() {
@@ -122,6 +124,14 @@ public class BoardBean {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getTaglist() {
+		return taglist;
+	}
+
+	public void setTaglist(String taglist) {
+		this.taglist = taglist;
 	}
 
 }
