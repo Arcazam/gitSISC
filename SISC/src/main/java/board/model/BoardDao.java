@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import member.model.MemberBean;
 import utility.BoardCommentsPaging;
 import utility.BoardPaging;
+import utility.ManagerPaging;
 
 @Component("myBoard")
 public class BoardDao {
@@ -97,6 +98,34 @@ public class BoardDao {
 		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectGradDetailCate",map,rowBounds);
 		return board_cateList;	
 	}
+	
+		// 자유게시판 페이징처리 검색
+		public List<BoardBean> selectFreeDetailCate(ManagerPaging pageInfo, Map<String, String> map) {
+			RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+			List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectFreeDetailCate",map,rowBounds);
+			return board_cateList;	
+		}
+		
+		// 지식게시판 페이징처리 검색
+		public List<BoardBean> selectKnowDetailCate(ManagerPaging pageInfo, Map<String, String> map) {
+			RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+			List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectKnowDetailCate",map,rowBounds);
+			return board_cateList;	
+		}
+		
+		// QnA게시판 페이징처리 검색
+		public List<BoardBean> selectQnADetailCate(ManagerPaging pageInfo, Map<String, String> map) {
+			RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+			List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectQnADetailCate",map,rowBounds);
+			return board_cateList;	
+		}
+		
+		// 수료생게시판 페이징처리 검색
+		public List<BoardBean> selectGradDetailCate(ManagerPaging pageInfo, Map<String, String> map) {
+			RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+			List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectGradDetailCate",map,rowBounds);
+			return board_cateList;	
+		}
 
 	// 게시판 삽입 작업
 	public int insertBoardContent(BoardBean bb) {

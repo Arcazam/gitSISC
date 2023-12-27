@@ -11,15 +11,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import member.model.MemberBean;
 import quiz.model.QuizBean;
@@ -42,7 +39,6 @@ public class QuizMakeController {
 				HttpSession session, Model model
 			) throws JsonProcessingException {
 
-		ObjectMapper objectMapper = new ObjectMapper();
 		
 		// 사용자 세션값 불러와서 BoardList.jsp에 저장해 놓을 객체를 모델로 주입 준비
 		MemberBean mb = (MemberBean) session.getAttribute(sessionID);
@@ -81,7 +77,6 @@ public class QuizMakeController {
 
 		for (int i = 0; i < 5;) {
 			int randomQzNum = (int) (Math.random() * (b - a + 1)) + a;
-
 			if (chosenNumbers.add(randomQzNum)) {
 				questionList[i] = randomQzNum;
 				i++;
@@ -96,17 +91,6 @@ public class QuizMakeController {
 		qb.setQue_cate(que_cate);
 		QuizBean sendBean = qdao.makeAQuestion(qb);
 		return sendBean;
-	}
-
-	@RequestMapping(value = command, method = RequestMethod.POST)
-	public String toCorrectQuestion(@ModelAttribute("qb") QuizBean qb, HttpSession session, Model model) {
-
-		// 사용자 세션값 불러와서 BoardList.jsp에 저장해 놓을 객체를 모델로 주입 준비
-		MemberBean mb = (MemberBean) session.getAttribute(sessionID);
-
-		model.addAttribute("mb", mb);
-
-		return gotoPage;
 	}
 
 }

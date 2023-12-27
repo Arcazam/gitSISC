@@ -41,8 +41,7 @@
 			</table>
 		</td>
 		<td id="quizShow">
-			
+
 		</td>
 	</tr>
-
 </table>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import board.model.BoardBean;
 import utility.BookPaging;
+import utility.ManagerPaging;
 
 @Component("myBook")
 public class BookDao {
@@ -33,6 +34,12 @@ public class BookDao {
 	}
 
 	public List<BookBean> getBookList(BookPaging pageInfo, Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		List<BookBean> book_list = sqlSessionTemplate.selectList(namespace+"getBookList",map,rowBounds);
+		return book_list;
+	}
+	
+	public List<BookBean> getBookList(ManagerPaging pageInfo, Map<String, String> map) {
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
 		List<BookBean> book_list = sqlSessionTemplate.selectList(namespace+"getBookList",map,rowBounds);
 		return book_list;

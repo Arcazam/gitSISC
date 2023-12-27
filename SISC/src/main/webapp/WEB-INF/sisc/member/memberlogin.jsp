@@ -1,10 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<a href="https://kauth.kakao.com/oauth/authorize?client_id=b5049642bcf23574480831643502b112&redirect_uri=http://localhost:8080/ex/SiscRedirect.mb&response_type=code">
-	카카오 로그인
-</a>
-
 <form name="loginForm" action="login.mb" method="post">
 
 	아이디 : <input type="text" name="id"><br>
