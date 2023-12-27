@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ include file="../common/common.jsp" %>
-
 <link href="<%=request.getContextPath() %>/resources/css/style.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath() %>/resources/css/main2.css" rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath() %>/resources/css/forms.css" rel="stylesheet" type="text/css" />

@@ -58,9 +58,9 @@ public class StudyDao {
 		int cnt = sqlSessionTemplate.update(namespace+"updateStudy", sb);
 		return cnt;
 	}
-	public int getTotalCountForSpecificMember(Map<String, String> map, String id) {
+	public int getTotalCountForMember(Map<String, String> map, String id) {
         map.put("id", id);
-        int cnt = sqlSessionTemplate.selectOne(namespace + "getTotalCountForSpecificMember", map);
+        int cnt = sqlSessionTemplate.selectOne(namespace + "getTotalCountForMember", map);
         return cnt;
     }
 

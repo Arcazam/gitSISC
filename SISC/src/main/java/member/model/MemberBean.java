@@ -1,5 +1,7 @@
 package member.model;
 
+import java.sql.Date;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class MemberBean {
@@ -9,7 +11,7 @@ public class MemberBean {
 	private String name;
 	private String pro_img;
 	private String joomin;
-	private String birth;
+	private Date birth;
 	private String gender;
 	private String address;
 	private String division;
@@ -26,7 +28,7 @@ public class MemberBean {
 
 	}
 
-	public MemberBean(String id, String password, String name, String pro_img, String joomin, String birth,
+	public MemberBean(String id, String password, String name, String pro_img, String joomin, Date birth,
 			String gender, String address, String division, String code, String start_day, String end_day, String phone,
 			String m_class, MultipartFile upload, String upload2, String curriculum) {
 		super();
@@ -89,11 +91,11 @@ public class MemberBean {
 		this.joomin = joomin;
 	}
 
-	public String getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(String birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 

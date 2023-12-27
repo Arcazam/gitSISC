@@ -13,9 +13,6 @@
 			<if test="whatColumn == 'memoTitle'">
 				and memoTitle like #{ keyword}
 			</if>
-			<if test="whatColumn == 'subTitle'">
-				and subTitle like #{ keyword}
-			</if>
 			<if test="whatColumn == 'memoDate'">
 				and memoDate like #{ keyword}
 			</if>
@@ -34,9 +31,6 @@
 			<if test="whatColumn == 'memoTitle'">
 				where memoTitle like #{ keyword}
 			</if>
-			<if test="whatColumn == 'subTitle'">
-				where subTitle like #{ keyword}
-			</if>
 			<if test="whatColumn == 'memoDate'">
 				where memoDate like #{ keyword}
 			</if>
@@ -48,8 +42,14 @@
 			where s_num = #{s_num}
 		</update>
 		
-		<select id="getTotalCountForSpecificMember" parameterType="map" resultType="int">
+		<select id="getTotalCountForMember" parameterType="map" resultType="int">
 		    SELECT COUNT(*) FROM study_memo WHERE s_writer = #{id}
+		    <if test="whatColumn == 'memoTitle'">
+				and memoTitle like #{ keyword}
+			</if>
+			<if test="whatColumn == 'memoDate'">
+				and memoDate like #{ keyword}
+			</if>
 		</select>
 		
 		<select id="getTotalCountComment" resultType="int">

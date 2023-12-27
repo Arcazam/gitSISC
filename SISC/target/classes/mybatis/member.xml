@@ -34,7 +34,7 @@
 		</delete>
 		
 		<update id="updateMember" parameterType="SiscMember">
-			update member set password = #{password}, name = #{name}, gender = #{gender}, birth = #{birth}, 
+			update member set password = #{password}, birth = #{birth},  joomin = #{joomin}, phone = #{phone},
 			address = #{address} where id = #{id}
 		</update>
 		

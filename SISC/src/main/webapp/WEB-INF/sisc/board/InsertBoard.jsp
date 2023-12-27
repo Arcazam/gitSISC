@@ -31,6 +31,7 @@ if(loginInfo == null){%>
         display: inline-block;
         margin-right: 5px;
     }
+    
 </style>
 
 <script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery.js"></script>

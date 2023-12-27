@@ -14,7 +14,7 @@ import study.model.StudyDao;
 @Controller
 public class StudyUpdateController {
 	private final String command = "update.st";
-	private final String viewPage = "UpdateStudy";
+	private final String viewPage = "UpdateMyStudy";
 	private final String gotoPage = "redirect:SelectAllStudy.st";
 	
 	@Autowired
@@ -22,8 +22,8 @@ public class StudyUpdateController {
 	
 	@RequestMapping(value = command, method = RequestMethod.GET)
 	public String updateGet(@RequestParam("s_num") int s_num,
-							@RequestParam("id") String id,
-							@RequestParam("pro_img") String pro_img,
+							@RequestParam(value = "id", required = false) String id,
+							@RequestParam(value="pro_img", required = false) String pro_img,
 							@RequestParam(value = "pageNumber", required = false) int pageNumber, Model model) {
 		
 		StudyBean sb = sdao.getDetailStudy(s_num);

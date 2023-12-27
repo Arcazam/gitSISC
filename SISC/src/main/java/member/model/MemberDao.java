@@ -45,6 +45,12 @@ public class MemberDao {
 	}
 
 	public int updateMember(MemberBean mb) {
+		System.out.println("id:" + mb.getId());
+		System.out.println("password:" + mb.getPassword());
+		System.out.println("birth:" + mb.getBirth());
+		System.out.println("joomin:" + mb.getJoomin());
+		System.out.println("phone:" + mb.getPhone());
+		System.out.println("address:" + mb.getAddress());
 		
 		int cnt = sqlSessionTemplate.update(namespace+"updateMember", mb);
 		return cnt;

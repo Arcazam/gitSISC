@@ -25,18 +25,20 @@ if(loginInfo == null){%>
 	<%@ include file="../top&bottom/topLogin.jsp"%>
 <%}%>
 <%@ include file="../top&bottom/ProfilTop.jsp"%>
+<c:set var="id" value="${loginInfo.id}"/>
 
 <form action="SelectAllStudy.st" method="get" class="search-form">
 	<select name="whatColumn" class="search-select">
 		<option value="all">전체검색</option>
 		<option value="memoTitle">제목</option>
-		<option value="subTitle">소제목</option>
 		<option value="memoDate">작성날짜</option>
-	</select> <input type="text" name="keyword" class="search-input"> <input
-		type="submit" class="search-submit" value="검색">
+	</select> 
+	<input type="text" name="keyword" class="search-input">
+	<input type="hidden" name="id" class="search-input" value="${id }"> 
+	<input type="hidden" name="pro_img" class="search-input" value="${pro_img}"> 
+	<input type="submit" class="search-submit" value="검색">
 </form>
 <div>
-<c:set var="id" value="${loginInfo.id}"/>
 <button class="learn-more" type="button" onclick="insert('${id}','<%= pro_img %>')">
     <span class="circle" aria-hidden="true">
         <span class="icon arrow"></span>

@@ -26,7 +26,7 @@ public class MemberUpdateController {
 	private final String command2 = "updateImg.mb";
 	private final String viewPage = "updateMember";
 	private final String viewPage2 = "updateProImg";
-	private final String gotoPage = "redirect:SiscLoginMain.view";
+	private final String gotoPage = "redirect:SelectAllStudy.st";
 	private final String gotoPage2 = "redirect:SelectAllStudy.st";
 	
 	@Autowired
@@ -46,13 +46,25 @@ public class MemberUpdateController {
 	
 	@RequestMapping(value = command, method = RequestMethod.POST)
 	public String update2(MemberBean mb, @RequestParam(value = "address_main") String address_main,
-	         @RequestParam(value = "address_detail") String address_detail) {
+	         @RequestParam(value = "address_detail") String address_detail,
+	         @RequestParam(value = "joomin1") String joomin1, 
+			 @RequestParam(value = "joomin2") String joomin2,
+			 @RequestParam(value = "hp1") String hp1, 
+			 @RequestParam(value = "hp2") String hp2,
+			 @RequestParam(value = "hp3") String hp3) {
+		
 		// 메인주소와 상세주소 합치기
-	      mb.setAddress(address_main + " " + address_detail);
-	      
+		mb.setAddress(address_main + " " + address_detail);
+
+		// 주민등록번호 앞,뒤 합치기
+		mb.setJoomin(joomin1 + "-" + joomin2);
+
+		// 핸드폰 번호 합치기
+		mb.setPhone(hp1 + "-" + hp2 + "-" + hp3);
+		
 		mdao.updateMember(mb); 
-		System.out.println("2");
-		return gotoPage;
+		
+		return gotoPage + "?id=" + mb.getId() + "&pro_img=" + mb.getPro_img();
 	}
 	
 	@RequestMapping(value = command2, method = RequestMethod.GET)

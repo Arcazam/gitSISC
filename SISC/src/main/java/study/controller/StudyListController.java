@@ -34,7 +34,8 @@ public class StudyListController {
 			@RequestParam(value="keyword", required = false) String keyword,
 			@RequestParam(value="pageNumber", required = false) String pageNumber,
 			@RequestParam("id") String id,
-			@RequestParam("pro_img") String pro_img) {
+			@RequestParam("pro_img") String pro_img,
+			@RequestParam(value = "searchCnt", required = false) String searchCnt) {
 		
 		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
 		
@@ -43,7 +44,6 @@ public class StudyListController {
 			
 			return "redirect:login.mb";
 		}
-		
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("whatColumn", whatColumn);
 		map.put("keyword", "%"+keyword+"%");
@@ -53,8 +53,8 @@ public class StudyListController {
 		Object updateImg = (Object) session.getAttribute("updateImg");
 		
 		String pageSize = "15"; 
-		int totalCountForMember = sdao.getTotalCountForSpecificMember(map, id); 
-		StudyPaging pageInfo = new StudyPaging(pageNumber,pageSize,totalCountForMember,url,whatColumn,keyword,id,pro_img);
+		int getTotalCountForMember = sdao.getTotalCountForMember(map, id); 
+		StudyPaging pageInfo = new StudyPaging(pageNumber,pageSize,getTotalCountForMember,url,whatColumn,keyword,id,pro_img);
 		
 		List<StudyBean> lists = sdao.getAllStudy(pageInfo, map, id);
 		model.addAttribute("list",lists);
@@ -62,10 +62,8 @@ public class StudyListController {
 		model.addAttribute("updateImg", updateImg);
 		model.addAttribute("id",id);
 		model.addAttribute("pro_img",pro_img);
-		model.addAttribute("totalCountForMember",totalCountForMember);
 		
 		return viewPage;
 		
 	}
-	
 }
