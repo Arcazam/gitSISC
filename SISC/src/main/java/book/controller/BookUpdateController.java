@@ -33,180 +33,95 @@ public class BookUpdateController {
    ServletContext servletContext;
 
    public final String command = "/update.bk";
-   public final String command2 = "/updateMyBook.bk";
    public final String viewPage = "BookUpdate";
-   public final String viewPage2 = "BookUpdate";
    public final String sessionID = "loginInfo";
    public final String gotoPage = "redirect:/list.bk";
-   public final String gotoPage2 = "redirect:/mybook.bk";
 
-   @RequestMapping(value=command, method=RequestMethod.GET)
+   @RequestMapping(value = command, method = RequestMethod.GET)
    public String toUpdateBookForm(
        Model model,
-       @RequestParam("bk_num") int bk_num,
+       @RequestParam("bk_num") String bk_num,
        HttpSession session
    ) {
        MemberBean mb = (MemberBean)session.getAttribute(sessionID);
-       
+
        if (mb == null) {
            session.setAttribute("destination", "redirect:/update.bk?bk_num=" + bk_num);
            return "redirect:login.mb";
        }
 
        // 여기서 BookBean을 생성하거나 초기화해야 합니다.
-       // 예를 들어,
-       BookBean bb = new BookBean();
-       bb.setBk_num(bk_num);
+       BookBean bb = bok_dao.getWriterNumDetail2(bk_num);
+
+       if (bb == null) {
+           // bk_num에 해당하는 BookBean이 없을 경우 예외 처리 또는 적절한 조치를 취하세요.
+           // 예를 들어, 존재하지 않는 경우 리스트 페이지로 리다이렉트하는 등의 처리를 추가할 수 있습니다.
+           return "redirect:/list.bk";
+       }
+
        bb.setWriter(mb.getId());
 
        BookBean modelDetailBook = bok_dao.getWriterNumDetail(bb);
 
        model.addAttribute("mb", mb);
        model.addAttribute("bb", modelDetailBook);
-       
+       model.addAttribute("bk_num", bk_num); // bk_num을 모델에 추가
+
        return viewPage;
    }
-   
+
+
    @RequestMapping(value = command, method = RequestMethod.POST)
    public String update(
-		   HttpServletRequest request, 
-		   HttpServletResponse response,
-		   @ModelAttribute("bb") @Valid BookBean bb,
-		   @RequestParam("pageNumber") String pageNumber, 
-		   Model model,
-		   HttpSession session) throws IOException {
-     
-	   bok_dao.updateBook(bb);
-     
-     
-      String uploadPath = servletContext.getRealPath("/resources/book/");
-      System.out.println("uploadPath:"+uploadPath);
-      int cnt = bok_dao.insertBookMarket(bb);
-      
-      PrintWriter out = response.getWriter();
-      if(cnt == 1) {
-         out.println("<script>alert('글자수 제한을 초과하였습니다!');</script>");
-         out.flush();
-         MemberBean mb = (MemberBean)session.getAttribute(sessionID);
-         model.addAttribute("mb",mb);
-         return viewPage;
-      }
-      
-      File destination1 = new File(uploadPath + File.separator + bb.getPrevUpload1());
-      File destination2 = new File(uploadPath + File.separator + bb.getPrevUpload2());
-      File destination3 = new File(uploadPath + File.separator + bb.getPrevUpload3());
-      
-      File existing1 = new File(uploadPath + File.separator + bb.getB_image1());
-      File existing2 = new File(uploadPath + File.separator + bb.getB_image2());
-      File existing3 = new File(uploadPath + File.separator + bb.getB_image3());
-      
-      MultipartFile multi1 = bb.getUpload1();
-      MultipartFile multi2 = bb.getUpload2();
-      MultipartFile multi3 = bb.getUpload3();
-      
-      try {
-          multi1.transferTo(existing1);
-          multi2.transferTo(existing2);
-          multi3.transferTo(existing3);
-          
-          destination1.delete(); 
-          destination2.delete(); 
-          destination3.delete(); 
-      } catch (IllegalStateException | IOException e) {
-          e.printStackTrace();
-      }
-     
-     return gotoPage+"?pageNumber="+pageNumber; 
-     } 
-   
-   
-   @RequestMapping(value=command2, method=RequestMethod.GET)
-   public String toUpdateMyBookForm(
-       Model model,
-       @RequestParam("bk_num") int bk_num,
-       @RequestParam("pageNumber") String pageNumber,
-       @RequestParam(value = "board", required = false) String board,
-	   @RequestParam(value = "writer", required = false) String writer,
-	   @RequestParam(value = "id", required = false) String id,
-	   @RequestParam(value = "pro_img", required = false) String pro_img,
-       HttpSession session
-   ) {
-	   
-       MemberBean mb = (MemberBean)session.getAttribute(sessionID);
-       
-       if (mb == null) {
-           session.setAttribute("destination", "redirect:/update.bk?bk_num=" + bk_num);
-           return "redirect:login.mb";
-       }
+           HttpServletRequest request,
+           HttpServletResponse response,
+           @ModelAttribute("bb") @Valid BookBean bb,
+           Model model,
+           HttpSession session,
+           @RequestParam(value = "upload1", required = false) MultipartFile upload1,
+           @RequestParam(value = "upload2", required = false) MultipartFile upload2,
+           @RequestParam(value = "upload3", required = false) MultipartFile upload3
+		   ) throws IOException {
 
-       // 여기서 BookBean을 생성하거나 초기화해야 합니다.
-       // 예를 들어,
-       BookBean bb = new BookBean();
-       bb.setBk_num(bk_num);
-       bb.setWriter(id);
-       BookBean modelDetailBook = bok_dao.getWriterNumDetail(bb);
-       model.addAttribute("mb", mb);
-       model.addAttribute("bb", modelDetailBook);
-       model.addAttribute("board",board);
-	   model.addAttribute("id",id);
-	   model.addAttribute("pro_img",pro_img);
-       
-       return viewPage2;
+       String uploadPath = servletContext.getRealPath("/resources/book/");
+       System.out.println("uploadPath:" + uploadPath);
+      
+       System.out.println("upload1: " + upload1);
+       System.out.println("upload2: " + upload2);
+       System.out.println("upload3: " + upload3);
+       int cnt = bok_dao.updateBook(bb);
+       System.out.println("bok_dao.updateBook(bb) 반환값" + cnt);
+       response.setContentType("text/html; charset=UTF-8");
+
+       deleteFileIfExists(uploadPath, bb.getPrevUpload1());
+       deleteFileIfExists(uploadPath, bb.getPrevUpload2());
+       deleteFileIfExists(uploadPath, bb.getPrevUpload3());
+
+       handleFileUpload(upload1, uploadPath, bb.getB_image1());
+       handleFileUpload(upload2, uploadPath, bb.getB_image2());
+       handleFileUpload(upload3, uploadPath, bb.getB_image3());
+
+       return gotoPage;
    }
-   
-   @RequestMapping(value = command2, method = RequestMethod.POST)
-   public String updateMyBook(
-		   HttpServletRequest request, 
-		   HttpServletResponse response,
-		   @ModelAttribute("bb") @Valid BookBean bb,
-		   @RequestParam("pageNumber") String pageNumber,
-		   @RequestParam(value = "board", required = false) String board,
-		   @RequestParam(value = "writer", required = false) String writer,
-		   @RequestParam(value = "id", required = false) String id,
-		   @RequestParam(value = "pro_img", required = false) String pro_img,
-		   Model model,
-		   HttpSession session) throws IOException {
-     
-	   bok_dao.updateBook(bb);
-     
-     
-      String uploadPath = servletContext.getRealPath("/resources/book/");
-      System.out.println("uploadPath:"+uploadPath);
-      int cnt = bok_dao.insertBookMarket(bb);
-      
-      PrintWriter out = response.getWriter();
-      if(cnt == 1) {
-         out.println("<script>alert('글자수 제한을 초과하였습니다!');</script>");
-         out.flush();
-         MemberBean mb = (MemberBean)session.getAttribute(sessionID);
-         model.addAttribute("mb",mb);
-         return viewPage;
-      }
-      
-      File destination1 = new File(uploadPath + File.separator + bb.getPrevUpload1());
-      File destination2 = new File(uploadPath + File.separator + bb.getPrevUpload2());
-      File destination3 = new File(uploadPath + File.separator + bb.getPrevUpload3());
-      
-      File existing1 = new File(uploadPath + File.separator + bb.getB_image1());
-      File existing2 = new File(uploadPath + File.separator + bb.getB_image2());
-      File existing3 = new File(uploadPath + File.separator + bb.getB_image3());
-      
-      MultipartFile multi1 = bb.getUpload1();
-      MultipartFile multi2 = bb.getUpload2();
-      MultipartFile multi3 = bb.getUpload3();
-      
-      try {
-          multi1.transferTo(existing1);
-          multi2.transferTo(existing2);
-          multi3.transferTo(existing3);
-          
-          destination1.delete(); 
-          destination2.delete(); 
-          destination3.delete(); 
-      } catch (IllegalStateException | IOException e) {
-          e.printStackTrace();
-      }
-     
-     return gotoPage2+"?pageNumber="+pageNumber; 
-     } 
+
+   private void deleteFileIfExists(String uploadPath, String filename) {
+       File file = new File(uploadPath + File.separator + filename);
+       if (file.exists()) {
+           file.delete();
+       }
+   }
+
+   private void handleFileUpload(MultipartFile file, String uploadPath, String existingFilename) {
+       File existingFile = new File(uploadPath + File.separator + existingFilename);
+       try {
+           if (file != null && !file.isEmpty()) {
+               file.transferTo(existingFile);
+           } else {
+               System.out.println("업로드된 파일이 없습니다.");
+           }
+       } catch (IllegalStateException | IOException e) {
+           e.printStackTrace();
+           // 파일 처리 예외에 대한 추가적인 처리 로직이 필요할 경우 여기에 구현
+       }
+   }
 }

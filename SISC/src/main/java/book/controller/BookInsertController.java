@@ -67,12 +67,6 @@ public class BookInsertController {
 				@RequestParam(value = "seller_pnum1", required = false) String seller_pnum1,
 				@RequestParam(value = "seller_pnum2", required = false) String seller_pnum2,
 				@RequestParam(value = "seller_pnum3", required = false) String seller_pnum3,
-				@RequestParam(value = "kind1", required = false) String kind1,
-				@RequestParam(value = "kind2", required = false) String kind2,
-				@RequestParam(value = "kind3", required = false) String kind3,
-				@RequestParam(value = "kind4", required = false) String kind4,
-				@RequestParam(value = "kind5", required = false) String kind5,
-				@RequestParam(value = "kind6", required = false) String kind6,
 				Model model
 			) throws IOException {
 		
@@ -80,7 +74,6 @@ public class BookInsertController {
 		PrintWriter out = response.getWriter();
 		
 		bb.setSeller_pnum(seller_pnum1+"-"+seller_pnum2+"-"+seller_pnum3);
-		bb.setKind(kind1+kind2+kind3+kind4+kind5+kind6);
 		
 		String uploadPath = servletContext.getRealPath("/resources/member/"+ bb.getSeller() +"/book/");
 		System.out.println("uploadPath:"+uploadPath);

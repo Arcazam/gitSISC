@@ -72,4 +72,10 @@ public class BookDao {
 		
 		return cnt;
 	}
+	
+	   public BookBean getWriterNumDetail2(String bk_num) {
+		      BookBean  bb = sqlSessionTemplate.selectOne(namespace+"getWriterNumDetail",bk_num);
+		      
+		      return bb;
+		   }
 }

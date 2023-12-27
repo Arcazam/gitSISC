@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%
 Object loginInfo = session.getAttribute("loginInfo");
 	if(loginInfo == null){%>
@@ -6,47 +7,32 @@ Object loginInfo = session.getAttribute("loginInfo");
 	<%}else{%>
 		<%@ include file="../top&bottom/topLogin.jsp"%>
 	<%}%>
+
 <style>
  .card-title {
-    font-size: 14px; /* 원하는 폰트 크기로 조정하세요 */
+    font-size: 20px; /* 원하는 폰트 크기로 조정하세요 */
   }
-.inner {
-  position: relative;
-  width: 600px;
-  height: 40px;
-  margin: 20px auto;
-  border: 1px solid #bdc1c6;
-  border-radius: 20px;
-}
+  .card-text{
+  	font-size: 16px;
+  }
 
-.search {
-  width: 90%;
-  height: 100%;
-  border-color: #bdc1c6;
-  border: 0px;
-  font-size: 16px;
-  outline: none;
-}
 
-.searching {
-  position: absolute;
-  left: 10px;
-  top: 20%;
-}
 
-i:hover {
-  cursor: pointer;
-}
+  .price-line {
+    display: inline-block;
+    position: relative;
+  }
 
-.icon_ect {
-  position: absolute;
-  right: 10px;
-  top: 20%;
-}
+  .price-line::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 100%;
+    border-bottom: 2px solid red; /* 빨간색 가로 선 */
+    transform: translateX(-50%);
+  }
 
-.fa-keyboard {
-  margin-right: 10px;
-}
 
 img{
 	width: 200px;
@@ -66,58 +52,61 @@ img{
 </head>
 <body>
 
-
-<center>
-  <form action="list.bk" method="get">
-    <div class="inner">
-      <input type="search"  name="keyword" class="search" placeholder="책 제목을 입력하세요.">
-      <div class="searching">
-        <i class="fas fa-search"></i>
-      </div>
-      <div class="icon_ect">
-        <i class="fas fa-keyboard"></i>
-      </div>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+      <form action="list.bk" method="get" class="d-flex justify-content-center">
+        <select name="whatColumn" class="form-select me-2" aria-label="책 검색 조건" style="width: 120px;">
+          <option value="title">책 검색</option>
+          <option value="writer">저자</option>
+        </select>
+        <input type="text" name="keyword" class="form-control" placeholder="검색어" style="width: 300px;">
+        <button type="submit" class="btn btn-primary">검색</button>
+      </form>
     </div>
-      <input type="button" value="추가하기" onclick="insert()">
-  </form>
-</center>
-
-<div class="container mt-5" style="margin-left: 250px;">
-  <div class="row row-cols-1 row-cols-md-4 g-4">
-    <!-- 책 아이템 시작 -->
-    <c:forEach var="bk" items="${book_list }">
-        <table  class="boardMain">
-            <c:choose>
-			<c:when test="${fn:length(book_list) eq 0}">
-				<tr>
-					<td colspan="3" align="center" class="boardTableTitle">등록된 책이 없습니다</td>
-				</tr>
-			</c:when>
-			<c:otherwise>
-		            <tr>
-		                <td colspan=2 class="contentStyle">
-		                <div class="boardTableContent">
-		                <a href="detail.bk?bk_num=${bk.bk_num }&pageNumber=${pageInfo.pageNumber}"><img src="<%=request.getContextPath()%>/resources/book/${bk.b_image1 }"></a>
-		               </div>
-		               </td>
-		            </tr>
-		            
-		            <tr class="card-body">
-		               <td class="card-title"><b>${bk.title }</b></td>
-		            </tr>
-		            
-		            <tr>
-		                <td class="card-text" colspan=2>#태그</td>
-		            </tr>
-			</c:otherwise>
-		</c:choose>
-        </table>
-   </c:forEach>
+  </div>
 </div>
+
+
+
+
+
+<div class="container mt-4" style="margin-right: 100px; width: 80%;">
+    <div class="row row-cols-1 row-cols-md-4 g-5">
+        <!-- 책 아이템 시작 -->
+        <c:forEach var="bk" items="${book_list }">
+            <table class="boardMain">
+                <c:choose>
+                    <c:when test="${fn:length(book_list) eq 0}">
+                        <tr>
+                            <td colspan="3" align="center" class="boardTableTitle">등록된 책이 없습니다</td>
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                        <tr>
+                            <td colspan="2" class="contentStyle">
+                                <div class="boardTableContent">
+                                    <a href="detail.bk?bk_num=${bk.bk_num }&pageNumber=${pageInfo.pageNumber}">
+                                        <img src="<%=request.getContextPath()%>/resources/book/${bk.b_image1 }">
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+
+   <tr class="card-body">
+    <td class="card-title"><b>${bk.title }</b></td>
+</tr>
+                    </c:otherwise>
+                </c:choose>
+            </table>
+        </c:forEach>
+    </div>
+</div>
+
+
 <br><br><br><br><br>
-<center >
-<div style="font-size: 15px; margin-right: 110px">${pageInfo.pagingHtml }</div>
-</center>
+
+<div class="text-center" style="font-size: 15px; margin-right: 50px">${pageInfo.pagingHtml }</div>SS
 
 <!-- 부트스트랩 JS 및 팝퍼 라이브러리 -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -129,9 +118,3 @@ img{
 
 
 <%@ include file="../top&bottom/bookBottom.jsp"%>
-
-<script>
-	function insert(){
-		location.href = "insert.bk"
-	}
-</script>

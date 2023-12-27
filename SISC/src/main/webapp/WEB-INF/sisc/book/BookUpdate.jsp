@@ -1,172 +1,225 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="../common/common.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="./../common/common.jsp" %>
+
+<%
+Object loginInfo = session.getAttribute("loginInfo");
+if (loginInfo == null) {
+    %>
+    <%@ include file="../top&bottom/top.jsp"%>
+<%} else {
+    %>
+    <%@ include file="../top&bottom/topLogin.jsp"%>
+<%}%>
 
 <style>
+    body {
+        margin-left: 10px; /* 필요에 따라 여백 조정 */
+    }
 
-	#bookInsertTable {
-		margin : 0 auto;
-		width:50%;
-		border-spacing:0px;
-	}
+    #BookUpdateForm {
+        margin: 0 auto;
+        width: 70%; /* 전체 너비 조절 */
+        display: flex; /* Flexbox 설정 */
+    }
 
-	#bookInsertTable th {
-		background-color : yellow;
-		color : black;
-	}
+    #BookUpdateForm img {
+        width: 200px;
+        height: 230px;
+        margin: 10px;
+    }
 
+    #BookUpdateForm .updateContainer {
+        width: 50%; /* 오른쪽 테이블 영역 너비 조절 */
+    }
+
+    #BookUpdateForm th {
+        background-color: #007bff; /* 파란색 */
+        color: #fff; /* 흰색 텍스트 */
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .btn-primary {
+        background-color: #007bff; /* 파란색 */
+        color: #fff;
+    }
+
+    .author-publisher-inputs,
+    .price-inputs {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .author-publisher-inputs .form-group,
+    .price-inputs .form-group {
+        flex: 1;
+        margin-right: 10px; /* 입력 필드 간의 간격을 조절하려면 조절하세요 */
+    }
+
+    .author-publisher-inputs .form-group input,
+    #BookUpdateForm input[name="writer"],
+    #BookUpdateForm input[name="publisher"],
+    #BookUpdateForm input[name="dis_price"] {
+        width: 80%;
+    }
+    body {
+        margin-left: 10px;
+    }
+
+    #BookUpdateForm {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #BookUpdateForm .images-container {
+        display: flex;
+        flex-direction: column;
+        margin-right: 20px;
+    }
+
+    #BookUpdateForm .images-container img {
+        width: 250px;
+        height: 250 	px;
+        margin-bottom: 10px;
+    }
+
+    #BookUpdateForm .updateContainer {
+        width: 70%;
+    }
 </style>
 
-<form:form name="BookInsertForm" commandName="bb" action="update.bk" method="post" enctype="multipart/form-data">
-<input type="hidden" name="pageNumber" value="${pageNumber }">
-	<table id="bookInsertTable" border=1>
-		<tr>
-			<th colspan=2>판매자 정보</th>
-		</tr>
-		<tr>
-			<th>아이디</th>
-			<td><input type="text" name="seller" value="${ mb.id }" readonly></td>
-		</tr>
-		<tr>
-			<th>판매자 이름</th>
-			<td>
-				<input type="text" name="seller_name" placeholder="판매자 이름을 입력해주세요" value="${ bb.seller_name }">
-			</td>
-		</tr>
-		<tr>
-			<th>판매자 번호</th>
-			<c:set var="seller_pnum_split" value="${ fn:split(bb.seller_pnum,'-') }"/>
-			<td>
-				<input type="tel" name="seller_pnum1" size="3" maxlength="3" value="${seller_pnum_split[0]}"> -
-				<input type="tel" name="seller_pnum2" size="4" maxlength="4" value="${seller_pnum_split[1]}"> -
-				<input type="tel" name="seller_pnum3" size="4" maxlength="4" value="${seller_pnum_split[2]}">
-				<input type="hidden" name="seller_pnum" value="${bb.seller_pnum }">
-			</td>
-		</tr>
-		<tr>
-			<th colspan=2>책 정보 입력</th>
-		</tr>
-		<tr>
-			<th>책 사진</th>
-			<td>
-				<b>책의 사진은 최대 3장의 사진을 올리실수 있습니다</b><br>
-				<img src="<%= request.getContextPath() %>/resources/member/${loginInfo.id }/book/${bb.b_image1}" width="150px;"><br><br>
-				<input type="hidden" name="prevUpload1" value="${ bb.b_image1 }">
-				1)겉표지 <input type="file" name="upload1" value="${ bb.b_image1 }"><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Book Update</title>
+    <!-- 부트스트랩 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<c:set var="bk" value="${bb}"/>
+
+<div id="BookUpdateForm">
+    <div class="images-container">
+        <img src="<%=request.getContextPath()%>/resources/book/${bk.b_image1 }">
+        <c:choose>
+            <c:when test="${not empty bk.b_image2}">
+                <img src="<%=request.getContextPath()%>/resources/book/${bk.b_image2 }">
+            </c:when>
+            <c:otherwise>
+                <img src="<%=request.getContextPath()%>/resources/images/no.jpg">
+            </c:otherwise>
+        </c:choose>
+        <c:choose>
+            <c:when test="${not empty bk.b_image3}">
+                <img src="<%=request.getContextPath()%>/resources/book/${bk.b_image3 }">
+            </c:when>
+            <c:otherwise>
+                <img src="<%=request.getContextPath()%>/resources/images/no.jpg">
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+   <div class="updateContainer">
+        <form:form name="BookUpdate" commandName="bookBean" action="update.bk" method="post" enctype="multipart/form-data">
+            <table class="table table-bordered" style="width: 80%;">
+          <tr>
+            <th colspan="2" class="text-center">책 정보 입력
+              <input type="hidden" name="seller" value="${mb.id}" readonly>
+                 <input type="hidden" name="bk_num" value="${bk_num}">
+              
+            </th>
+          </tr>
+          <tr>
+            <th>책 사진</th>
+            <td>
+              <b>책의 사진은 최대 3장의 사진을 올리실수 있습니다</b><br>
+              1)겉표지 <input type="file" name="upload1"><br>
+              2)내부1 <input type="file" name="upload2"><br>
+              3)내부2 <input type="file" name="upload3"><br>
+              <font color="red"><b>책의 표지가 잘 나와야하고, 화질이 너무 흐릿한 사진을 올려서는 안됩니다</b></font>
+              <input type="hidden" name="seller_pnum_arr" value="${mb.phone}" readonly>
+              
+              <c:set var="seller_pnum" value="${mb.phone}" />
+				<c:set var="seller_pnum_arr" value="${fn:split(seller_pnum, '-')}"/>
 				
-				<img src="<%= request.getContextPath() %>/resources/member/${loginInfo.id }/book/${bb.b_image2}" width="150px;"><br><br>
-				<input type="hidden" name="prevUpload2" value="${ bb.b_image2 }">
-				2)내부1 <input type="file" name="upload2" value="${ bb.b_image2 }"><br>
-				
-				<img src="<%= request.getContextPath() %>/resources/member/${loginInfo.id }/book/${bb.b_image3}" width="150px;"><br><br>
-				<input type="hidden" name="prevUpload3" value="${ bb.b_image3 }">
-				3)내부2 <input type="file" name="upload3" value="${ bb.b_image3 }"><br>
-				<font color="red"><b>책의 표지가 잘 나와야하고, 화질이 너무 흐릿한 사진을 올려서는 안됩니다</b></font>
-			</td>
-		</tr>
-		<tr>
-			<th>책 제목</th>
-			<td>
-				<input type="text" name="title" placeholder="제목을 입력하세요" value="${ bb.title }">
-			</td>
-		</tr>
-		<tr>
-			<th>저자</th>
-			<td>
-				<input type="text" name="writer" placeholder="저자를 입력하세요" value="${ bb.writer }">
-			</td>
-		</tr>
-		<tr>
-			<th>출판사</th>
-			<td>
-				<input type="text" name="publisher" placeholder="출판사를 입력하세요" value="${ bb.publisher }">
-			</td>
-		</tr>
-		<tr>
-		    <th>출간일</th>
-		    <td>
-		        <input type="date" name="pub_date" placeholder="출간일을 입력하세요" value="${bb.pub_date}">
-		    </td>
-		</tr>
-		<tr>
-		    <th>판매일</th>
-		    <c:set var="currentDate" value="<%= new Date() %>" />
-		    <fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd" var="formattedDate" />
-		    <td>
-		       <input type="date" name="sell_date" placeholder="판매일을 입력하세요" value="${formattedDate}" readonly>
-		    </td>
-		</tr>
-		<tr>
-			<th>원가</th>
-			<td>
-				<input type="text" name="pri_price" placeholder="원가를 입력해주세요" value="${ bb.pri_price }">
-			</td>
-		</tr>
-		<tr>
-			<th>중고판매가</th>
-			<td>
-				<input type="text" name="dis_price" placeholder="판매가를 입력해주세요" value="${ bb.dis_price }">
-			</td>
-		</tr>
-		<tr>
-			<th>책 상태</th>
-			<td>
-				밑줄 흔적 
-				<!-- 1 : 밑줄 흔적 -->
-				<input type="radio" name="kind1" value="A" <c:if test="${ fn:substring(bb.kind,0,1) eq 'A' }">checked</c:if>>없음
-				<input type="radio" name="kind1" value="B" <c:if test="${ fn:substring(bb.kind,0,1) eq 'B' }">checked</c:if>>연필/샤프
-				<input type="radio" name="kind1" value="C" <c:if test="${ fn:substring(bb.kind,0,1) eq 'C' }">checked</c:if>>볼펜/형광펜<br>
-				
-				필기 흔적
-				<!-- 2 : 필기 흔적 -->
-				<input type="radio" name="kind2" value="A" <c:if test="${ fn:substring(bb.kind,0,2) eq 'A' }">checked</c:if>>없음
-				<input type="radio" name="kind2" value="B" <c:if test="${ fn:substring(bb.kind,0,2) eq 'B' }">checked</c:if>>연필/샤프
-				<input type="radio" name="kind2" value="C" <c:if test="${ fn:substring(bb.kind,0,2) eq 'C' }">checked</c:if>>볼펜/형광펜<br>
-				
-				겉 표지
-				<!-- 3 : 겉 표지 -->
-				<input type="radio" name="kind3" value="A" <c:if test="${ fn:substring(bb.kind,0,3) eq 'A' }">checked</c:if>>없음
-				<input type="radio" name="kind3" value="B" <c:if test="${ fn:substring(bb.kind,0,3) eq 'B' }">checked</c:if>>연필/샤프<br>
-				
-				이름 기입
-				<!-- 4 : 이름 기입 -->
-				<input type="radio" name="kind4" value="A" <c:if test="${ fn:substring(bb.kind,0,4) eq 'A' }">checked</c:if>>없음
-				<input type="radio" name="kind4" value="B" <c:if test="${ fn:substring(bb.kind,0,4) eq 'B' }">checked</c:if>>있음<br>
-				
-				페이지 변색
-				<!-- 5 : 페이지 변색 -->
-				<input type="radio" name="kind5" value="A" <c:if test="${ fn:substring(bb.kind,0,5) eq 'A' }">checked</c:if>>없음
-				<input type="radio" name="kind5" value="B" <c:if test="${ fn:substring(bb.kind,0,5) eq 'B' }">checked</c:if>>있음<br>
-				
-				페이지 훼손
-				<!-- 6 : 페이지 훼손 -->
-				<input type="radio" name="kind6" value="A" <c:if test="${ fn:substring(bb.kind,0,6) eq 'A' }">checked</c:if>>없음
-				<input type="radio" name="kind6" value="B" <c:if test="${ fn:substring(bb.kind,0,6) eq 'B' }">checked</c:if>>있음<br>
-			</td>
-		</tr>
-		<tr>
-			<th>판매 코멘트</th>
-			<td>
-				<textarea name="sell_content" rows="30" cols="50">${ bb.sell_content }</textarea>
-			</td>
-		</tr>
-		<tr>
-			<th>거래 방식</th>
-			<td>
-				<input type="text" name="tradeway" placeholder="거래 방식을 입력하세요" value="${ bb.tradeway }">
-			</td>
-		</tr>
-		<tr>
-			<th>거래 장소</th>
-			<td>
-				<input type="text" name="tradeplace" placeholder="거래 장소를 입력하세요" value="${ bb.tradeplace }">
-			</td>
-		</tr>
-		<tr>
-			<th colspan=2>
-				<input type="submit" value="판매등록" onClick="return checkBook()">
-				<input type="reset" value="취   소">
-			</th>
-		</tr>
-	</table>
-</form:form>
+				<c:set var="seller_pnum1" value="${seller_pnum_arr[0]}" />
+				<c:set var="seller_pnum2" value="${seller_pnum_arr[1]}" />
+				<c:set var="seller_pnum3" value="${seller_pnum_arr[2]}" />
+              <input type="hidden" name="seller_pnum1" size="3" maxlength="3" value="${seller_pnum1}">
+              <input type="hidden" name="seller_pnum2" size="4" maxlength="4" value="${seller_pnum2}">
+              <input type="hidden" name="seller_pnum3" size="4" maxlength="4" value="${seller_pnum3}">
+            </td>
+          </tr>
+          <!-- 나머지 부분 추가 -->
+          <tr>
+            <th>책 제목</th>
+            <td>
+              <input type="text" name="title" class="form-control" style="width: 50%" placeholder="제목을 입력하세요" value="${bb.title}">
+            </td>
+          </tr>
+         <tr>
+  <th>저자/출판사</th>
+  <td class="author-publisher-inputs">
+    <div class="form-group">
+      <label for="writer">저자</label>
+      <input type="text" name="writer" id="writer" class="form-control" placeholder="작가를 입력하세요" value="${bb.writer}">
+    </div>
+    <div class="form-group">
+      <label for="publisher">출판사</label>
+      <input type="text" name="publisher" id="publisher" class="form-control" placeholder="출판사를 입력하세요" value="${bb.publisher}">
+    </div>
+  </td>
+</tr>
+          <tr>
+  <th>중고판매가</th>
+  <td class="price-inputs">
+    <div class="form-group">
+      <label for="dis_price">판매가</label>
+      <input type="text" name="dis_price" id="dis_price" class="form-control" placeholder="판매가를 입력해주세요" value="${bb.dis_price}">
+    </div>
+  </td>
+</tr>
+<tr>
+  <th>판매 코멘트</th>
+  <td>
+    <textarea name="sell_content" class="form-control" rows="15" cols="30">${bb.sell_content}</textarea>
+  </td>
+</tr>
+          <tr>
+            <th>거래 방식</th>
+            <td>
+              <!-- 라디오 버튼 추가 -->
+              <label><input type="radio" name="tradeway" value="직거래" ${bb.tradeway == '직거래' ? 'checked' : ''}> 직거래</label>
+              <label><input type="radio" name="tradeway" value="택배" ${bb.tradeway == '택배' ? 'checked' : ''}> 택배</label>
+            </td>
+          </tr>
+          <tr>
+            <th>거래 장소</th>
+            <td>
+              <input type="text" name="tradeplace" class="form-control"   style="width: 40%" placeholder="거래 장소를 입력하세요" value="${bb.tradeplace}">
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2" class="text-center">
+              <input type="submit" value="판매등록" class="btn btn-primary" onClick="return checkBook()">
+              <input type="reset" value="취 소" class="btn btn-secondary">
+          </th>
+          </tr>
+        
+     </table>
+          </form:form>
+    </div>
+</div>
+
+<!-- 부트스트랩 JS 및 팝퍼 라이브러리 -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+<%@ include file="../top&bottom/bookBottom.jsp"%>

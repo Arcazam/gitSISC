@@ -6,7 +6,6 @@ public class BookBean {
 
 	private int bk_num;
 	private String seller; // 판매자 -
-	private String seller_name; // 판매자 이름 -
 	private String seller_pnum; // 판매자 번호 -
 	private String writer; // 저자 -
 	private String title; // 책 제목 -
@@ -14,12 +13,8 @@ public class BookBean {
 	private String b_image1; // 책 사진 -
 	private String b_image2; // 책 사진 -
 	private String b_image3; // 책 사진 -
-	private String pub_date; // 출간일 -
-	private String sell_date; // 판매일 -
 	private String sell_content; // 판매코멘트 -
-	private int pri_price; // 원가 -
 	private int dis_price; // 할인가 -
-	private String kind; // 책 상태 -
 	private MultipartFile upload1;
 	private MultipartFile upload2;
 	private MultipartFile upload3;
@@ -34,15 +29,14 @@ public class BookBean {
 
 	}
 
-	public BookBean(int bk_num, String seller, String seller_name, String seller_pnum, String writer, String title,
-			String publisher, String b_image1, String b_image2, String b_image3, String pub_date, String sell_date,
-			String sell_content, int pri_price, int dis_price, String kind, MultipartFile upload1,
+	public BookBean(int bk_num, String seller, String seller_pnum, String writer, String title,
+			String publisher, String b_image1, String b_image2, String b_image3, 
+			String sell_content, int dis_price, String kind, MultipartFile upload1,
 			MultipartFile upload2, MultipartFile upload3, String tradeway, String tradeplace, String sellstatus,
 			String prevUpload1, String prevUpload2, String prevUpload3) {
 		super();
 		this.bk_num = bk_num;
 		this.seller = seller;
-		this.seller_name = seller_name;
 		this.seller_pnum = seller_pnum;
 		this.writer = writer;
 		this.title = title;
@@ -50,12 +44,8 @@ public class BookBean {
 		this.b_image1 = b_image1;
 		this.b_image2 = b_image2;
 		this.b_image3 = b_image3;
-		this.pub_date = pub_date;
-		this.sell_date = sell_date;
 		this.sell_content = sell_content;
-		this.pri_price = pri_price;
 		this.dis_price = dis_price;
-		this.kind = kind;
 		this.upload1 = upload1;
 		this.upload2 = upload2;
 		this.upload3 = upload3;
@@ -81,14 +71,6 @@ public class BookBean {
 
 	public void setSeller(String seller) {
 		this.seller = seller;
-	}
-
-	public String getSeller_name() {
-		return seller_name;
-	}
-
-	public void setSeller_name(String seller_name) {
-		this.seller_name = seller_name;
 	}
 
 	public String getSeller_pnum() {
@@ -147,22 +129,6 @@ public class BookBean {
 		this.b_image3 = b_image3;
 	}
 
-	public String getPub_date() {
-		return pub_date;
-	}
-
-	public void setPub_date(String pub_date) {
-		this.pub_date = pub_date;
-	}
-
-	public String getSell_date() {
-		return sell_date;
-	}
-
-	public void setSell_date(String sell_date) {
-		this.sell_date = sell_date;
-	}
-
 	public String getSell_content() {
 		return sell_content;
 	}
@@ -171,28 +137,12 @@ public class BookBean {
 		this.sell_content = sell_content;
 	}
 
-	public int getPri_price() {
-		return pri_price;
-	}
-
-	public void setPri_price(int pri_price) {
-		this.pri_price = pri_price;
-	}
-
 	public int getDis_price() {
 		return dis_price;
 	}
 
 	public void setDis_price(int dis_price) {
 		this.dis_price = dis_price;
-	}
-
-	public String getKind() {
-		return kind;
-	}
-
-	public void setKind(String kind) {
-		this.kind = kind;
 	}
 
 	public MultipartFile getUpload1() {
