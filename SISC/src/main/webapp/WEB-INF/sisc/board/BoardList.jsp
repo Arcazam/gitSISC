@@ -21,15 +21,11 @@ Object loginInfo = session.getAttribute("loginInfo");
    }
    
    .QnAImg{
-   background-image: url("<%=request.getContextPath() %>/resources/images/");
+   background-image: url("<%=request.getContextPath() %>/resources/images/Q&A게시판.png"); 
    }
    
    .GradImg{
    background-image: url("<%=request.getContextPath() %>/resources/images/수료생게시판.png");
-   }
-   
-   .QuizImg{
-   background-image: url("<%=request.getContextPath() %>/resources/images/");
    }
    
    .boardTitle{
@@ -181,8 +177,6 @@ Object loginInfo = session.getAttribute("loginInfo");
     	    } else if(boardName == '자유'){
     	    	location.href = "insert.bd?board=Free";
     	    	
-    	    } else if(boardName == '퀴즈'){
-    	    	location.href = "insert.bd?board=Quiz";
     	    }
      }
    </script>
@@ -254,7 +248,7 @@ Object loginInfo = session.getAttribute("loginInfo");
       
       <tr>
          <td colspan=2 style="border-top: none; border-bottom: none; ">
-         <a href="board.bd?board=${FreeB }">자유게시판</a> | <a href="board.bd?board=${QnAB }">Q&A게시판</a> | <a href="board.bd?board=${GradB }">수료생게시판</a> | <a href="board.bd?board=${QuizB }">퀴즈게시판</a>
+         <a href="board.bd?board=${FreeB }">자유게시판</a> | <a href="board.bd?board=${QnAB }">Q&A게시판</a> | <a href="board.bd?board=${GradB }">수료생게시판</a>
          </td>
       </tr>
       
@@ -280,7 +274,7 @@ Object loginInfo = session.getAttribute("loginInfo");
       
       <tr>
          <td colspan=2 style="border-top: none; border-bottom: none; ">
-         <a href="board.bd?board=${FreeB }">자유게시판</a> | <a href="board.bd?board=${KnowB }">지식게시판</a> | <a href="board.bd?board=${GradB }">수료생게시판</a> | <a href="board.bd?board=${QuizB }">퀴즈게시판</a>
+         <a href="board.bd?board=${FreeB }">자유게시판</a> | <a href="board.bd?board=${KnowB }">지식게시판</a> | <a href="board.bd?board=${GradB }">수료생게시판</a>
          </td>
       </tr>
       
@@ -374,7 +368,7 @@ Object loginInfo = session.getAttribute("loginInfo");
 		            </tr>
 		            
 		            <tr>
-		                <td class="boardTableTag" colspan=2>#현재 태그 안나오는중(오류) ${bd.taglist } </td>
+		                <td class="boardTableTag" colspan=2>#${bd.taglist } </td>
 		            </tr>
 			</c:otherwise>
 		</c:choose>

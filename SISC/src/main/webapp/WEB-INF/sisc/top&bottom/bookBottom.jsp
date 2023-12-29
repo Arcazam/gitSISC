@@ -6,6 +6,10 @@ body {
     padding: 0; /* 기본 패딩 초기화 */
 }
 
+
+a {
+  color: #000; /* Change to black (#000) */
+}
 .footer {
     position: sticky;
     bottom: 0;
@@ -38,28 +42,28 @@ body {
         <table style="text-align: center; margin: 0 auto;">
             <tr>
                 <td>
-                    <img src="<%=request.getContextPath()%>/resources/images/책방홈페이지이미지.png" alt="Home Icon" style="display: block; margin: 0 auto;">
+          <a href="list.bk"> <img src="<%=request.getContextPath()%>/resources/images/책방홈페이지이미지.png" alt="Home Icon" style="display: block; margin: 0 auto;"></a>
                 </td>
             </tr>
             <tr>
                 <td>
-                    홈
+         <a href="list.bk"> 홈 </a>
                 </td>
             </tr>
         </table>
     </div>
 </div>
-<div class="footer-item">
+<div class="footer-item">	
     <div>
         <table style="text-align: center;">
             <tr>
                 <td>
-                       <img src="<%=request.getContextPath()%>/resources/images/판매하기.png" alt="Sell Icon" style="display: block; margin: 0 auto;">
+                   <a href="insert.bk">  <img src="<%=request.getContextPath()%>/resources/images/판매하기.png" alt="Sell Icon" style="display: block; margin: 0 auto;"></a>  
                 </td>
             </tr>
             <tr>
                 <td>
-                    판매하기
+                      <a href="insert.bk">판매하기</a>
                 </td>
             </tr>
         </table>

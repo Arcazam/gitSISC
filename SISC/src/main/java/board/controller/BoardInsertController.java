@@ -33,9 +33,9 @@ public class BoardInsertController {
 	private TagDao tdao;
 	
 	public final String command = "/insert.bd";
-	public final String sessionID = "loginInfo";
 	public final String viewPage = "InsertBoard";
 	public final String gotoPage = "redirect:/board.bd";
+	public final String sessionID = "loginInfo";
 	
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String toInsertBoard(

@@ -33,7 +33,7 @@ public class BoardUpdateController {
 	private TagDao tdao;
 	
 	public final String command = "/update.bd";
-	public final String command2 = "/update2.bd";
+	public final String command2 = "/myBoard.bd";    
 	public final String sessionID = "loginInfo";
 	public final String viewPage = "UpdateBoard";
 	public final String viewPage2 = "UpdateMyBoard";
@@ -81,7 +81,7 @@ public class BoardUpdateController {
 			) throws IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		// ObjectMapper : java 객체를 Json 문자열로 변환 또는 Json문자열을 Java객체로 변환
-		
+			
 		String[] tagValues = objectMapper.readValue(tagValuesString, String[].class);
 		String inputBoardTaglist = "";
 		int cnt;
@@ -126,7 +126,7 @@ public class BoardUpdateController {
 	}
 	
 	
-	@RequestMapping(value=command2,method=RequestMethod.GET)
+	@RequestMapping(value=command2,method=RequestMethod.GET) 
 	public String toUpdateMyBoard(
 				Model model,
 				HttpSession session,
@@ -151,18 +151,40 @@ public class BoardUpdateController {
 				@ModelAttribute("bb") BoardBean bb,
 				@RequestParam(value = "b_num", required = false) int b_num,
 				@RequestParam(value = "pageNumber", required = false) int pageNumber,
-				@RequestParam(value = "writer", required = false) String writer,
+				@RequestParam(value = "id", required = false) String writer,
 				@RequestParam(value = "id", required = false) String id,
 				@RequestParam(value = "pro_img", required = false) String pro_img,
+				@RequestParam(value = "tagValues", required = false) String tagValuesString,
+				@RequestParam(value = "taglist", required = false) String taglist,
 				HttpServletResponse response,
 				HttpSession session,
 				Model model
 			) throws IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
 		
+		String[] tagValues = objectMapper.readValue(tagValuesString, String[].class);
+		String inputBoardTaglist = "";
 		int cnt;
 		
+		for(int i=0;i<tagValues.length;i++) {
+			TagBean tb = new TagBean();
+			tb.setTag_val(tagValues[i]);
+			int findtag = tdao.findTag(tb);	// for문을 돌리면서 각 주소값에 저장되어있는 값들을 긁어온다
+			if(findtag != 0) { // 새로입력한 태그가 기존의 태그와 일치할때
+				tdao.plusOneCntTagValues(tb);
+			} else {
+				tdao.plusTagValues(tb); // 새로 입력한 태그가 기존에 없을때
+			}
+			if(i != tagValues.length-1) {
+				inputBoardTaglist += tagValues[i]+"-";
+			} else {
+				inputBoardTaglist += tagValues[i];
+			}
+		}
+		System.out.println("inputBoardTaglist:"+inputBoardTaglist);
 		bb.setB_num(b_num);
 		bb.setReg_date(new Timestamp(System.currentTimeMillis()));
+		bb.setTaglist(inputBoardTaglist);
 		cnt = bor_dao.updateBoardContent(bb);
 		
 		response.setContentType("text/html; charset=UTF-8");

@@ -26,13 +26,13 @@ public class BoardListController {
    
    @RequestMapping(command)
    public String board(@RequestParam("board") String board,
-                  @RequestParam(value="search", required = false) String search,
-                  Model model, HttpServletRequest request,
+                @RequestParam(value="search", required = false) String search,
       			@RequestParam(value="whatColumn", required = false) String whatColumn,
     			@RequestParam(value="keyword", required = false) String keyword,
     			@RequestParam(value="pageNumber", required = false) String pageNumber,
     			@RequestParam(value="id", required = false) String id,
-    			@RequestParam(value="pro_img", required = false) String pro_img
+    			@RequestParam(value="pro_img", required = false) String pro_img,
+    			Model model, HttpServletRequest request
     			) {
       
       //각 게시판의 리스트를 받기 위함
@@ -54,11 +54,9 @@ public class BoardListController {
       Map<String, String> map = new HashMap<String, String>();
       map.put("search", "%" + search + "%");
       map.put("whatColumn", whatColumn);
-      map.put("keyword", "%"+keyword+"%");
+      map.put("keyword", "%"+keyword+"%"); 
 		
       String url = request.getContextPath()+"/"+command;
-		
-      int totalCount = boarddao.getTotalCount(map); 
 		
       String pageSize = "10"; 
       int boarTotaldSize = boarddao.getBoardCount(map,board);

@@ -131,6 +131,7 @@ String pro_img = (String) request.getAttribute("pro_img");
         <a href="mycomment.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내가쓴 댓글</a>
         <a href="myBook.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내 중고책</a>
         <a href="SelectAllStudy.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}">내 메모장</a>
+        
         <a href="delete.mb?id=${loginInfo.id }">회원 탈퇴</a>
     </div>
     

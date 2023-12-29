@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../common/common.jsp" %>
 <%
 Object loginInfo = session.getAttribute("loginInfo");
 	if(loginInfo == null){%>
@@ -293,34 +292,29 @@ Object loginInfo = session.getAttribute("loginInfo");
      
      <div class="menu">
      <%
-     String [] menus = {"공지사항", "랭킹", "설문", "취업정보", "문의"};
-     String [] menuImgs = {"test1.jpg", "test2.jpg", "logo.jpg", "logo.jpg", "logo.jpg"};     
+     String [] menus = {"공지사항", "랭킹", "설문", "퀴즈", "문의"};
+     String [] menuImgs = {"test1.jpg", "test2.jpg", "logo.jpg", "logo.jpg", "logo.jpg"};
+     String [] links = {"fiveMenu.bd?menu=notice", "fiveMenu.bd?menu=rank", "fiveMenu.bd?menu=survey", "cateList.qz", "inquiry.bd?menu=inquiry" };
      %>
      
-     <c:set var="menu" value="<%= menus %>"/>
-     <c:set var="menuImg" value="<%= menuImgs %>"/>
+     <c:set var="fmenu" value="<%= menus %>"/>
+     <c:set var="fmenuImg" value="<%= menuImgs %>"/>
+     <c:set var="link" value="<%= links %>"/>
      
-     <c:forEach var="i" begin="0" end="${fn:length(menu) -1}" step="1">
-     <div class="menu-item">
+     <c:forEach var="i" begin="0" end="${fn:length(fmenu) -1}" step="1">
+     <div>
         <table>
            <tr>
               <td style="text-align: center;">
-              <c:if test="${menu == '공지사항' }">
-              <c:set var="link" value="findMemberID.mb"/>
-              </c:if>
-              
-              <c:if test="${menu == '랭킹' }">
-              <c:set var="link" value="insertMember.mb"/>
-              </c:if>
-                 <a href="${link }"><img src="<%=request.getContextPath()%>/resources/images/${menuImg[i]}" class="menu-image" 
+                 <a href="${link[i] }"><img src="<%=request.getContextPath()%>/resources/images/${fmenuImg[i]}" class="menu-image" 
                  onmouseover="changeTextColor(${i}, true)" onmouseout="changeTextColor(${i}, false)"
                  style="width:60px; height: 60px; border-radius: 100px;"></a>
               </td>
            </tr>
            
            <tr>
-              <td style="text-align: center;">
-                 <span id="menuText${i}" class="menu-text" style="font-size: 17px;">${menu[i]}</span>
+              <td style="text-align: center; padding-top: 5px;">
+                 <span id="menuText${i}" style="font-size: 17px;">${fmenu[i]}</span>
               </td>
            </tr>
         </table>

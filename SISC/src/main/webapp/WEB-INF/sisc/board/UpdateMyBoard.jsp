@@ -29,6 +29,12 @@ if(loginInfo == null){%>
 
 	function insertBoardcheck(){
 		
+		if($('input[name="writer"]').val() == ""){
+			alert('작성자가 누락되었습니다');
+			$('input[name="writer"]').focus();
+			return false;
+		}
+		
 		if ($('select option:selected').val() == "") {
 			alert('게시판 카테고리를 선택하셔야합니다');
 			return false;
@@ -64,17 +70,22 @@ if(loginInfo == null){%>
   <script src="${pageContext.request.contextPath}/resources/summernote/lang/summernote-ko-KR.js"></script>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
 </head>
+ <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resources/css/kfonts2.css" rel="stylesheet">
 <body>
 <br><br>
-<form class="container" method="post" action="update2.bd">
+<form:form commandName="bb" class="container" method="post" action="myBoard.bd">
 	<input type="hidden" name="b_num" value="${ bb.b_num }">
 	<input type="hidden" name="id" value="${ id }">
 	<input type="hidden" name="pro_img" value="${ pro_img }">
-	<input type="hidden" name="writer" value="${ writer }">
 	<input type="hidden" name="pageNumber" value="${ pageNumber }">
 	
-	<input type="text" name="writer" style="width: 40%;" value="${ id }" readonly><br><br>
+	<input type="text" name="writer" style="width: 40%;" value="${ id }" readonly><br>
+	
 <%
 	String[] b_cateList = {"Free","Know","QnA","Grad"};
 %>
@@ -122,10 +133,132 @@ if(loginInfo == null){%>
 		});
     </script>
 	<textarea class="summernote" name="content">${ bb.content }</textarea> 
+	<br>
+	
+	<!-- 태그를 입력할 텍스트 필드 -->
+	<input type="text" name="taginfo" size="30" placeholder="태그를 입력해주세요">
+	
+	<!-- 태그를 입력할수있는 버튼 -->
+	<input type="button" id="tagInsert" value="태그입력"><br>
+	
+	<!-- 태그를 하나라도 입력했을 때 나타나는 메세지 -->
+	<span id="tagMessage"></span>
+	
+	<!-- 어떠한 태그가 입력이 되었는지 나타나는 영역 -->
+	<div id="tagList"></div>
+	
+	<!-- input type hidden 으로 넘길 영역 -->
+	
+	<div id="tagValues">
+    <c:if test="${not empty bb.taglist}">
+        <c:forEach var="tag" items="${bb.taglist}">
+            <div class="removeTag" style="cursor: pointer; color: red;">
+                <font color="blue">#${tag}</font>
+            </div>
+        </c:forEach>
+    </c:if>
+</div>
+	
 	<br><br>
-	<input type="submit" value="저장하기" class="studysave" onClick="return insertBoardcheck()">
-</form>
+	<input type="submit" id="sub" value="저장하기" class="studysave" onClick="return insertBoardcheck()">
+</form:form>
 </body>
+
+<script>
+	
+    // 동적 배열 선언
+	var tagValues = [];
+	
+  $(function() {
+    
+    $(document).on('click', '.removeTag', function() {
+      // 클릭한 태그를 제거
+      $(this).parent().remove();
+      
+      // 클릭한 태그의 값도 배열에서 제거
+      var removedTagValue = $(this).text().substring(1);
+      var index = tagValues.indexOf(removedTagValue);
+      if (index !== -1) {
+        tagValues.splice(index, 1);
+        if(tagValues==0){
+        	$('#tagMessage').hide();
+        }
+      }
+    });
+
+    $('#tagInsert').click(function() {
+    	
+	    if($('input[name="taginfo"]').val() == ""){
+	    	alert('태그입력칸이 누락되었습니다');
+	    	$('input[name="taginfo"]').focus();
+	    	return;
+	    }	
+    	
+      var tagMessage = '<font color="black">태그를 삭제하시려면 클릭하시면 됩니다</font>';	
+    
+      $('#tagMessage').html(tagMessage);
+      $('#tagMessage').show();
+      
+      // 사용자가 입력한 값을 가져오기
+      var tagValue = $('input[name="taginfo"]').val();
+      
+      // 입력한 값 앞,뒤의 공백 없애버리기
+      tagValue = $.trim(tagValue);
+      
+   	  // 중간에 생긴 공백을 언더스코어로 대체
+      tagValue = tagValue.replace(/\s+/g, '_');
+
+      // 기존의 HTML 내용 가져오기
+      var currentHtml = $('#tagList').html();
+
+   		// 이미 존재하는 태그인지 검사
+      if (currentHtml.includes('<div class="removeTag" style="cursor: pointer; color: red;"><font color="blue">#' + tagValue + '</font></div>')) {
+    	alert('이미 입력한 태그입니다.');
+    	$('input[name="taginfo"]').select();
+   		return; // 함수 종료
+   		}
+
+      // 현재 HTML에 포함된 태그의 개수 확인
+      var tagCount = $(currentHtml).find('font[color="blue"]').length;
+
+      // 최대 태그 개수
+      var maxTagCount = 6;
+
+      if (tagCount < maxTagCount) {
+        // 새로운 HTML 내용 추가
+        var newHtml = '<div class="tag">' +
+          '<div class="removeTag" style="cursor: pointer; color: red;"><font color="blue">#' + tagValue + '</font></div>' +
+          '</div>' + currentHtml;
+
+        // 변경된 HTML 내용을 #tagList에 설정
+        $('#tagList').html(newHtml);
+
+        // 입력 필드 비우기
+        $('input[name="taginfo"]').val('');
+
+        // 배열에 tagValue 추가
+        tagValues.push(tagValue);
+//      alert(tagValues .join(', ')); -> 값 성공적으로 들어옴
+      } else {
+        // 경고 메시지 표시
+        alert('최대 ' + maxTagCount + '개의 태그까지만 입력할 수 있습니다.');
+     	// 입력 필드 비우기
+        $('input[name="taginfo"]').val('');
+      }
+    });
+    
+    $('#sub').click(function() {
+        if (tagValues.length > 0) {
+            // JSON 배열 형식으로 변환하여 hidden input에 추가
+            var tagHidden = '<input type="hidden" name="tagValues" value=\'["' + tagValues.join('","') + '"]\'>';
+            $('#tagValues').append(tagHidden);
+        }
+    });
+    
+  });
+  
+</script>
+
 <script>
 $(document).ready(function() {
 	  $('.summernote').summernote({

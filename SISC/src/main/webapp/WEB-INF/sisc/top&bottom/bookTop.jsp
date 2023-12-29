@@ -51,7 +51,7 @@
     <header>
         <div class="top">
    <!--          <span class="top_menu"><a href="list.bk">책방</a></span> -->
-            <a href="SiscMain.view"><img class="logo" src="<%=request.getContextPath()%>/resources/images/logo.jpg"></a>
+            <a href="SiscMain.view"><img class="logo" src="<%=request.getContextPath()%>/resources/images/logo1.jpg"></a>
     <!--         <span class="top_menu"><a href="login.mb">로그인</a></span> -->
         </div>
         <hr>

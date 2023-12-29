@@ -40,7 +40,6 @@ img{
 }
 </style>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,6 +48,12 @@ img{
   <title>Book List</title>
   <!-- 부트스트랩 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resources/css/kfonts2.css" rel="stylesheet">
 </head>
 <body>
 
@@ -66,10 +71,6 @@ img{
     </div>
   </div>
 </div>
-
-
-
-
 
 <div class="container mt-4" style="margin-right: 100px; width: 80%;">
     <div class="row row-cols-1 row-cols-md-4 g-5">
@@ -106,7 +107,7 @@ img{
 
 <br><br><br><br><br>
 
-<div class="text-center" style="font-size: 15px; margin-right: 50px">${pageInfo.pagingHtml }</div>SS
+<div class="text-center" style="font-size: 15px; margin-right: 50px">${pageInfo.pagingHtml }</div>
 
 <!-- 부트스트랩 JS 및 팝퍼 라이브러리 -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

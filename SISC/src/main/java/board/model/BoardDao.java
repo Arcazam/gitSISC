@@ -14,6 +14,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.jdbc.UncategorizedSQLException;
 import utility.BoardCommentsPaging;
 import utility.BoardPaging;
+import utility.InquiryPaging;
 
 @Component("myBoard")
 public class BoardDao {
@@ -119,6 +120,7 @@ public class BoardDao {
 
 	// 게시판 수정 작업
 	public int updateBoardContent(BoardBean bb) {
+		
 		int cnt = 0;
 		try {
 			sqlSessionTemplate.update(namespace+"updateBoardContent",bb);			
@@ -208,5 +210,35 @@ public class BoardDao {
         return cnt;
 	}
 	
+	public int getInquiryCount(Map<String, String> map, String board) {
+		map.put("board", board);
+        int cnt = sqlSessionTemplate.selectOne(namespace + "getInquiryCount", map);
+        
+        return cnt;
+	}
 	
+	public List<BoardBean> getAllInquiry(InquiryPaging pageInfo,Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		List<BoardBean> free_board_list = sqlSessionTemplate.selectList(namespace+"getAllInquiry", map,rowBounds);
+		
+	    return free_board_list;
+	}
+
+	public void insertInquiry(BoardBean bb) {
+		
+		sqlSessionTemplate.insert(namespace+"insertInquiry",bb);
+	}
+
+	public BoardBean getInquiryDetail(int b_num) {
+		BoardBean bd = sqlSessionTemplate.selectOne(namespace+"getInquiryDetail",b_num);
+		return bd;
+	}
+
+	public void deleteInquiry(int b_num) {
+		sqlSessionTemplate.delete(namespace+"deleteInquiry",b_num);
+	}
+
+	public void updateInquiry(BoardBean bb) {
+		sqlSessionTemplate.update(namespace+"updateInquiry",bb);
+	}
 }

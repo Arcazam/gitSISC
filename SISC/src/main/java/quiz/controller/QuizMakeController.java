@@ -32,7 +32,7 @@ public class QuizMakeController {
 	private QuizDao qdao;
 
 	public final String command = "/makeAQ.qz";
-	public final String viewPage = "MakeAQuestion";
+	public final String viewPage = "QuizCateList";
 	public final String sessionID = "loginInfo";
 	public final String gotoPage = "redirect:/cateList.qz";
 
@@ -59,7 +59,8 @@ public class QuizMakeController {
 
 		int start_num = qdao.getStartPoint(qb);
 		int end_num = qdao.getEndPoint(qb);
-
+		List<QuizBean> qlist = qdao.getCateQuizList();
+		
 		calculate_list = range_Question(start_num, end_num);
 		
 		for (int i = 0; i < 5; i++) {
@@ -71,6 +72,7 @@ public class QuizMakeController {
 		model.addAttribute("mb", mb);
 		model.addAttribute("que_cate", que_cate);
 		model.addAttribute("list", list);
+		model.addAttribute("qlist", qlist);
 
 		return viewPage;
 	}

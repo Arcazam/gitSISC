@@ -7,7 +7,6 @@
   	<typeAliases>
   		<typeAlias type="book.model.BookBean" alias="SiscBook"/>
   		<typeAlias type="board.model.BoardBean" alias="SiscBoard"/>
-  		<typeAlias type="community.model.CommunityBean" alias="SiscCommunity"/>
   		<typeAlias type="survey.model.SurveyBean" alias="SiscSurvey"/>
   		<typeAlias type="manager.model.ManagerBean" alias="SiscManager"/>
   		<typeAlias type="quiz.model.QuizBean" alias="SiscQuiz"/>
@@ -19,7 +18,6 @@
   	<mappers>
   		<mapper resource="mybatis/member.xml"/>
   		<mapper resource="mybatis/board.xml"/>
-  		<mapper resource="mybatis/community.xml"/>
   		<mapper resource="mybatis/survey.xml"/>
   		<mapper resource="mybatis/manager.xml"/>
   		<mapper resource="mybatis/quiz.xml"/>

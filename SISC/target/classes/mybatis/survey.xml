@@ -3,5 +3,12 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 	<mapper namespace="survey">
+		<insert id="insertStudy">
+			insert into survey values
+			(su_seq.nextval, #{su_text1},#{su_text2},#{su_text3},#{su_text4},#{su_text5})
+		</insert>
 		
+		<select id="getAllSurvey">
+			select * from survey;
+		</select>
 	</mapper>

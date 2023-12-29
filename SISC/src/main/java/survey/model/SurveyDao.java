@@ -11,5 +11,13 @@ public class SurveyDao {
 	SqlSessionTemplate sqlSessionTemplate;
 	
 	private String namespace="survey.";
+
+	public void insertSurvey(SurveyBean su) {
+		sqlSessionTemplate.insert(namespace+"insertStudy", su);
+	}
+
+	public void getAllSurvey() {
+		sqlSessionTemplate.selectList(namespace+"getAllSurvey");
+	}
 	
 }

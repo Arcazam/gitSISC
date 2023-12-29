@@ -6,11 +6,11 @@
 
 	<select id="getAllFreeBoard" resultType="SiscBoard">
 		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
-		re_level, content
+		re_level, content, taglist
 		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
-		readcount, ref, re_step, re_level, content
+		readcount, ref, re_step, re_level, content, taglist
 		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content
+		re_step, re_level, content, taglist
 		from board where b_cate = 'Free' and re_level = 0 or subject like
 		#{search}
 		order by ref desc, re_step asc ))
@@ -19,11 +19,11 @@
 
 	<select id="getAllKnowBoard" resultType="SiscBoard">
 		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
-		re_level, content
+		re_level, content, taglist
 		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
-		readcount, ref, re_step, re_level, content
+		readcount, ref, re_step, re_level, content, taglist
 		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content
+		re_step, re_level, content, taglist
 		from board where b_cate = 'Know' and re_level = 0 or subject like
 		#{search}
 		order by ref desc, re_step asc ))
@@ -32,11 +32,11 @@
 
 	<select id="getAllQnABoard" resultType="SiscBoard">
 		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
-		re_level, content
+		re_level, content, taglist
 		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
-		readcount, ref, re_step, re_level, content
+		readcount, ref, re_step, re_level, content, taglist
 		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content
+		re_step, re_level, content, taglist
 		from board where b_cate = 'QnA' and re_level = 0 or subject like #{search}
 		order by ref desc, re_step asc ))
 		where rank between 1 and 5
@@ -45,11 +45,11 @@
 
 	<select id="getAllGradBoard" resultType="SiscBoard">
 		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
-		re_level, content
+		re_level, content, taglist
 		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
-		readcount, ref, re_step, re_level, content
+		readcount, ref, re_step, re_level, content, taglist
 		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content
+		re_step, re_level, content, taglist
 		from board where b_cate = 'Grad' and re_level = 0 or subject like
 		#{search}
 		order by ref desc, re_step asc ))
@@ -78,11 +78,11 @@
 
 	<select id="selectFreeDetailCate" resultType="SiscBoard">
 		select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content
+		re_step, re_level, content, taglist
 		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
-		readcount, ref, re_step, re_level, content
+		readcount, ref, re_step, re_level, content, taglist
 		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content
+		re_step, re_level, content, taglist
 		from board where b_cate = 'Free' and re_level = 0
 		<if test="whatColumn=='subjectAndContent'">
 			and subject like #{keyword} or content like #{keyword}
@@ -101,11 +101,11 @@
 
 	<select id="selectKnowDetailCate" resultType="SiscBoard">
 		select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content
+		re_step, re_level, content, taglist
 		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
-		readcount, ref, re_step, re_level, content
+		readcount, ref, re_step, re_level, content, taglist
 		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content
+		re_step, re_level, content, taglist
 		from board where b_cate = 'Know' and re_level = 0
 		<if test="whatColumn=='subjectAndContent'">
 			and subject like #{keyword} or content like #{keyword}
@@ -124,11 +124,11 @@
 
 	<select id="selectQnADetailCate" resultType="SiscBoard">
 		select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content
+		re_step, re_level, content, taglist
 		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
-		readcount, ref, re_step, re_level, content
+		readcount, ref, re_step, re_level, content, taglist
 		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content
+		re_step, re_level, content, taglist
 		from board where b_cate = 'QnA' and re_level = 0
 		<if test="whatColumn=='subjectAndContent'">
 			and subject like #{keyword} or content like #{keyword}
@@ -147,11 +147,11 @@
 
 	<select id="selectGradDetailCate" resultType="SiscBoard">
 		select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content
+		re_step, re_level, content, taglist
 		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
-		readcount, ref, re_step, re_level, content
+		readcount, ref, re_step, re_level, content, taglist
 		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content
+		re_step, re_level, content, taglist
 		from board where b_cate = 'Grad' and re_level = 0
 		<if test="whatColumn=='subjectAndContent'">
 			and subject like #{keyword} or content like #{keyword}
@@ -184,9 +184,9 @@
 
 	<!-- bnum이 (예를들어) 4인 게시물의 댓글 가져오기 -->
       <select id="getAllCommentsLists" resultType="SiscBoard">
-      select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
-      from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
-      from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+      select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+      from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+      from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
       from board where ref = #{ref} and re_level > 0
       order by ref desc, re_step asc ))
       </select>
@@ -245,4 +245,40 @@
 	<select id="getCommentCount" resultType="int">
 		SELECT COUNT(*) FROM board WHERE ref = #{ref} AND subject = 'comments' and re_level > 0
 	</select>
+	
+	<select id="getAllInquiry" resultType="SiscBoard">
+		select * from board where b_cate = 'Inquiry' or b_cate = 'inquiry'
+		<if test="whatColumn=='all'">
+			
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		order by b_num asc
+	</select>
+	
+	<select id="getInquiryCount" resultType="int">
+		SELECT COUNT(*) FROM board WHERE b_cate = #{board}
+	</select>
+	
+	<insert id="insertInquiry" parameterType="SiscBoard">
+		insert into
+		board(b_num,b_cate,writer,subject,reg_date,readcount,ref,re_step,re_level,content)
+		values(bor_seq.nextval,#{b_cate},#{writer},#{subject},sysdate,0,bor_seq.currval,0,0,#{content})
+	</insert>
+	
+	<select id="getInquiryDetail" resultType="SiscBoard">
+		SELECT * FROM board WHERE b_num = #{b_num}
+	</select>
+	
+	<delete id="deleteInquiry">
+		delete from board where b_num = #{b_num}
+	</delete>
+	
+	<update id="updateInquiry" parameterType="SiscBoard">
+		update board set subject = #{subject}, content = #{content}
+	</update>
 </mapper>

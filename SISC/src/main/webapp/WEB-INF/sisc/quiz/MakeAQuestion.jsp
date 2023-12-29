@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../common/common.jsp" %>
 
@@ -84,4 +84,4 @@ function reloadPage() {
 		</c:forEach>
 		
 		<input type="button" id="sub" value="정답확인">
-		<input type="button" value="다른문제풀기" onClick="reloadPage()">
+		<input type="button" value="다른문제풀기" onClick="reloadPage()"> --%>

@@ -13,9 +13,14 @@
 		</select>
 		
 		<insert id="insertMember">
-         insert into member values 
-         (#{id},#{password},#{name},#{pro_img},#{joomin},#{birth},#{gender},#{address},#{division},#{code},#{start_day},#{end_day},#{phone},#{m_class},#{curriculum})
+         insert into member
+         values (#{id},#{password},#{name},#{pro_img},#{joomin},#{birth},#{gender},#{address},#{division},#{code},#{start_day},#{end_day},#{phone},#{m_class},#{curriculum},0)
       </insert>
+		
+		 <update id="updateAdopt_num">
+         update member set adopt=adopt+1 where id=#{writer}
+      </update>
+		
 		
 		<select id="findMemberID" resultType="SiscMember">
 			select * from member where name = #{name} and joomin = #{joomin}

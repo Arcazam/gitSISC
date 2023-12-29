@@ -188,7 +188,7 @@ table {
           <tr>
             <th colspan="2" class="text-center">
    				<a href="update.bk?bk_num=${bk.bk_num}&pageNumber=${pageNumber}">
-    			<button type="button" class="btn btn-secondary" >수정</button>
+    			<button type="button" class="btn btn-primary" >수정</button>
 			</a>
   				<input type="button" value="삭제" class="btn btn-secondary" onclick="location.href='delete.bk?bk_num=${bk.bk_num}&pageNumber=${pageNumber}'">
             </th>

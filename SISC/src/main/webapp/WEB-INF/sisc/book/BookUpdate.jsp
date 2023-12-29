@@ -18,25 +18,22 @@ if (loginInfo == null) {
 
     #BookUpdateForm {
         margin: 0 auto;
-        width: 70%; /* 전체 너비 조절 */
+        width: 65%; /* 전체 너비 조절 */
+        height: 100px;
         display: flex; /* Flexbox 설정 */
     }
 
     #BookUpdateForm img {
         width: 200px;
-        height: 230px;
-        margin: 10px;
+        height: 220px;
+        margin-bottom: 20px;
+        margin-left: 10px;
     }
 
     #BookUpdateForm .updateContainer {
         width: 50%; /* 오른쪽 테이블 영역 너비 조절 */
     }
-
-    #BookUpdateForm th {
-        background-color: #007bff; /* 파란색 */
-        color: #fff; /* 흰색 텍스트 */
-    }
-
+	
     .form-control {
         width: 100%;
     }
@@ -135,7 +132,7 @@ if (loginInfo == null) {
             </th>
           </tr>
           <tr>
-            <th>책 사진</th>
+            <th style="width: 105px;">책 사진</th>
             <td>
               <b>책의 사진은 최대 3장의 사진을 올리실수 있습니다</b><br>
               1)겉표지 <input type="file" name="upload1"><br>
@@ -187,7 +184,7 @@ if (loginInfo == null) {
 <tr>
   <th>판매 코멘트</th>
   <td>
-    <textarea name="sell_content" class="form-control" rows="15" cols="30">${bb.sell_content}</textarea>
+    <textarea name="sell_content" class="form-control" rows="5" cols="20">${bb.sell_content}</textarea>
   </td>
 </tr>
           <tr>
@@ -206,8 +203,8 @@ if (loginInfo == null) {
           </tr>
           <tr>
             <th colspan="2" class="text-center">
-              <input type="submit" value="판매등록" class="btn btn-primary" onClick="return checkBook()">
-              <input type="reset" value="취 소" class="btn btn-secondary">
+              <input type="submit" value="판매등록" class="btn btn-primary" onClick="return checkBook()" style="width: 100px; height: 30px;">
+              <input type="reset" value="취 소" class="btn btn-secondary" style="width: 100px; height: 30px;">
           </th>
           </tr>
         
@@ -215,11 +212,10 @@ if (loginInfo == null) {
           </form:form>
     </div>
 </div>
-
 <!-- 부트스트랩 JS 및 팝퍼 라이브러리 -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>
-<%@ include file="../top&bottom/bookBottom.jsp"%>
+<br><br><br>
