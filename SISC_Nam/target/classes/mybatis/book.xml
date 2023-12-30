@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="book">
+		
+		<select id="selectAllToMainBook" resultType="SiscBook">
+			select * from book order by bk_num desc fetch first 12 rows only
+		</select>
+		
+		<select id="getCountBook" resultType="int">
+			select count(*) from book
+		</select>
+	
+		<select id="getBookList" resultType="SiscBook">
+			select * from book order by bk_num asc
+		</select>
+		
+		<!-- 관리자 -->
+		
+		<select id="bookMagCount" resultType="int">
+			select count(*) from book
+			<if test="whatColumn=='seller'">
+				where seller like #{keyword}
+			</if>
+			<if test="whatColumn=='title'">
+				where title like #{keyword}
+			</if>
+			<if test="whatColumn=='sellstatus'">
+				where sellstatus like #{keyword}
+			</if>
+		</select>
+		
+		<select id="getMagBookList" resultType="SiscBook">
+			select * from book
+			<if test="whatColumn=='seller'">
+				where seller like #{keyword}
+			</if>
+			<if test="whatColumn=='title'">
+				where title like #{keyword}
+			</if>
+			<if test="whatColumn=='sellstatus'">
+				where sellstatus like #{keyword}
+			</if>
+			order by bk_num asc
+		</select>
+		
+		<!-- 관리자 -->
+		
+		<insert id="insertBookMarket">
+			insert into book values(book_seq.nextval,#{seller},#{seller_pnum},#{writer},
+			#{title},#{publisher},#{b_image1},#{b_image2},#{b_image3},#{sell_content},
+			#{dis_price},#{tradeway},#{tradeplace},'Yet')
+		</insert>
+	
+		<select id="getWriterNumDetail" resultType="SiscBook">
+			select * from book where bk_num = #{bk_num}
+		</select>
+		
+		<delete id="deleteBook">
+			delete from book where bk_num = #{bk_num}
+		</delete>
+		
+		<update id="updateBook">
+		    UPDATE book 
+		    SET seller=#{seller}, seller_pnum=#{seller_pnum , jdbcType=VARCHAR}, 
+		        writer=#{writer}, title=#{title}, publisher=#{publisher}, 
+		        b_image1=#{b_image1}, 
+		        b_image2=#{b_image2}, 
+		        b_image3=#{b_image3},
+		        sell_content=#{sell_content},
+		        dis_price=#{dis_price},
+		        tradeway=#{tradeway}, tradeplace=#{tradeplace} 
+		    WHERE bk_num=#{bk_num}
+		</update>
+      <update id="SaleComple">
+			update book set sellstatus = 'Done' where bk_num = #{bk_num}
+		</update>
+	</mapper>
+<!-- selectAllToMainBook : 메인화면에 출력될 5개 레코드만 제한출력 -->
+<!-- getBookList : 책방 페이지에 출력될 책 전체 레코드 -->		

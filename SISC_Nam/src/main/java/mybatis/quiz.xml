@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="quiz">
+		
+		<select id="getCateQuizList" resultType="SiscQuiz">
+			select distinct que_cate from quiz
+		</select>
+		
+		<select id="makeAQuestion" resultType="SiscQuiz">
+			select * from quiz where qz_num=#{qz_num} and que_cate=#{que_cate}
+		</select>
+		
+		<select id="getStartPoint" resultType="int">
+			select min(qz_num) from quiz where que_cate = #{que_cate}
+		</select>
+		
+		<select id="getEndPoint" resultType="int">
+			select max(qz_num) from quiz where que_cate = #{que_cate}
+		</select>
+		
+		<select id="checkAnswer" resultType="int">
+			select count(*) from quiz where qz_num = #{qz_num} and answer=#{answer}
+		</select>
+		
+		<!-- 관리자 -->
+		
+		<select id="getJAVAQuizList" resultType="SiscQuiz">
+			select * from quiz where que_cate = 'JAVA'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+			order by qz_num asc
+		</select>
+		
+		<select id="getJavaScriptQuizList" resultType="SiscQuiz">
+			select * from quiz where que_cate = 'JavaScript'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+			order by qz_num asc
+		</select>
+		
+		<select id="getJAVASPRINGQuizList" resultType="SiscQuiz">
+			select * from quiz where que_cate = 'JAVASPRING'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+			order by qz_num asc
+		</select>
+		
+		<select id="getCSSQuizList" resultType="SiscQuiz">
+			select * from quiz where que_cate = 'CSS'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+			order by qz_num asc
+		</select>
+		
+		<select id="getSQLQuizList" resultType="SiscQuiz">
+			select * from quiz where que_cate = 'SQL'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+			order by qz_num asc
+		</select>
+		
+		<select id="getHTMLQuizList" resultType="SiscQuiz">
+			select * from quiz where que_cate = 'HTML'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+			order by qz_num asc
+		</select>
+		
+		<select id="getjQueryQuizList" resultType="SiscQuiz">
+			select * from quiz where que_cate = 'jQuery'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+			order by qz_num asc
+		</select>
+		
+		<select id="getJAVAQuizCount" resultType="int">
+			select count(*) from quiz where que_cate = 'JAVA'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+		</select>
+		
+		<select id="getJavaScriptQuizCount" resultType="int">
+			select count(*) from quiz where que_cate = 'JavaScript'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+		</select>
+		
+		<select id="getJAVASPRINGQuizCount" resultType="int">
+			select count(*) from quiz where que_cate = 'JAVASPRING'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+		</select>
+		
+		<select id="getCSSQuizCount" resultType="int">
+			select count(*) from quiz where que_cate = 'CSS'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+		</select>
+		
+		<select id="getSQLQuizCount" resultType="int">
+			select count(*) from quiz where que_cate = 'SQL'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+		</select>
+		
+		<select id="getHTMLQuizCount" resultType="int">
+			select count(*) from quiz where que_cate = 'HTML'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+		</select>
+		
+		<select id="getjQueryQuizCount" resultType="int">
+			select count(*) from quiz where que_cate = 'jQuery'
+			<if test="whatColumn=='question'">
+				and question like #{keyword}
+			</if>
+			<if test="whatColumn=='qz_view'">
+				and qz_view like #{keyword}
+			</if>
+			<if test="whatColumn=='interpre'">
+				and interpre like #{keyword}
+			</if>
+		</select>
+		
+		<select id="getDetailQuiz" resultType="SiscQuiz">
+			select * from quiz where qz_num = #{qz_num}
+		</select>
+		
+		<delete id="deleteQuiz">
+			delete from quiz where qz_num = #{qz_num}
+		</delete>
+		
+		<insert id="insertQuiz">
+			insert into quiz values(qz_seq.nextval,#{que_cate},#{question},#{qz_view},#{answer},#{interpre})
+		</insert>
+		
+		<update id="updateQuiz">
+			update quiz set question=#{question}, qz_view=#{qz_view}, answer=#{answer}, interpre=#{interpre} where qz_num = #{qz_num}
+		</update>
+		
+	</mapper>

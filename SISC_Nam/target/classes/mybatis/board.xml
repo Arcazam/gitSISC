@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<select id="getAllFreeBoard" resultType="SiscBoard">
+		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
+		re_level, content
+		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
+		readcount, ref, re_step, re_level, content
+		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content
+		from board where b_cate = 'Free' and re_level = 0 or subject like
+		#{search}
+		order by ref desc, re_step asc ))
+		where rank between 1 and 5
+	</select>
+
+	<select id="getAllKnowBoard" resultType="SiscBoard">
+		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
+		re_level, content
+		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
+		readcount, ref, re_step, re_level, content
+		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content
+		from board where b_cate = 'Know' and re_level = 0 or subject like
+		#{search}
+		order by ref desc, re_step asc ))
+		where rank between 1 and 5
+	</select>
+
+	<select id="getAllQnABoard" resultType="SiscBoard">
+		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
+		re_level, content
+		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
+		readcount, ref, re_step, re_level, content
+		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content
+		from board where b_cate = 'QnA' and re_level = 0 or subject like #{search}
+		order by ref desc, re_step asc ))
+		where rank between 1 and 5
+	</select>
+
+
+	<select id="getAllGradBoard" resultType="SiscBoard">
+		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
+		re_level, content
+		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
+		readcount, ref, re_step, re_level, content
+		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content
+		from board where b_cate = 'Grad' and re_level = 0 or subject like
+		#{search}
+		order by ref desc, re_step asc ))
+		where rank between 1 and 5
+	</select>
+
+	<select id="getTotalCount" resultType="int">
+		select count(*) from board
+	</select>
+
+	<select id="getCountFree" resultType="int">
+		select count(*) from board where b_cate = 'Free' and re_level = 0
+	</select>
+
+	<select id="getCountKnow" resultType="int">
+		select count(*) from board where b_cate = 'Know' and re_level = 0
+	</select>
+
+	<select id="getCountQnA" resultType="int">
+		select count(*) from board where b_cate = 'QnA' and re_level = 0
+	</select>
+
+	<select id="getCountGrad" resultType="int">
+		select count(*) from board where b_cate = 'Grad' and re_level = 0
+	</select>
+
+	<select id="selectFreeDetailCate" resultType="SiscBoard">
+		select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content
+		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
+		readcount, ref, re_step, re_level, content
+		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content
+		from board where b_cate = 'Free' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and subject like #{keyword} or content like #{keyword}
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+		order by ref desc, re_step asc ))
+	</select>
+
+	<select id="selectKnowDetailCate" resultType="SiscBoard">
+		select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content
+		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
+		readcount, ref, re_step, re_level, content
+		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content
+		from board where b_cate = 'Know' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and subject like #{keyword} or content like #{keyword}
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+		order by ref desc, re_step asc ))
+	</select>
+
+	<select id="selectQnADetailCate" resultType="SiscBoard">
+		select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content
+		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
+		readcount, ref, re_step, re_level, content
+		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content
+		from board where b_cate = 'QnA' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and subject like #{keyword} or content like #{keyword}
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+		order by ref desc, re_step asc ))
+	</select>
+
+	<select id="selectGradDetailCate" resultType="SiscBoard">
+		select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content
+		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
+		readcount, ref, re_step, re_level, content
+		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content
+		from board where b_cate = 'Grad' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and subject like #{keyword} or content like #{keyword}
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+		order by ref desc, re_step asc ))
+	</select>
+
+	<!-- 관리자 페이지 구문 -->
+	
+	<select id="selectMagAllFree" resultType="SiscBoard">
+		select * from board where b_cate = 'Free' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+		order by b_num asc
+	</select>
+	
+	<select id="selectMagAllKnow" resultType="SiscBoard">
+		select * from board where b_cate = 'Know' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+		order by b_num asc
+	</select>
+	
+	<select id="selectMagAllQnA" resultType="SiscBoard">
+		select * from board where b_cate = 'QnA' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+		order by b_num asc
+	</select>
+	
+	<select id="selectMagAllGrad" resultType="SiscBoard">
+		select * from board where b_cate = 'Grad' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+		order by b_num asc
+	</select>
+	
+	<select id="getMagCountFree" resultType="int">
+		select count(*) from board where b_cate = 'Free' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+	</select>
+	
+	<select id="getMagCountKnow" resultType="int">
+		select count(*) from board where b_cate = 'Know' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+	</select>
+	
+	<select id="getMagCountQnA" resultType="int">
+		select count(*) from board where b_cate = 'QnA' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+	</select>
+	
+	<select id="getMagCountGrad" resultType="int">
+		select count(*) from board where b_cate = 'Grad' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+	</select>	
+
+	<!-- 관리자 끝 -->
+
+	<select id="getBoardInfoWriter" resultType="SiscBoard">
+		select * from board where b_num = #{b_num}
+	</select>
+
+	<!-- bnum으로 모든 정보 가져오기 -->
+      <select id="getBoardInfoBnum" resultType="SiscBoard">
+      	select * from board where b_num = #{b_num}
+      </select>
+      
+      <!-- bnum이 (예를들어) 4인 게시물의 댓글수 가져오기 -->
+      <select id="getCommentsCount" resultType="int">
+      select count(*) from board where ref=#{ref} and re_level > 0
+      </select>
+
+	<!-- bnum이 (예를들어) 4인 게시물의 댓글 가져오기 -->
+      <select id="getAllCommentsLists" resultType="SiscBoard">
+      select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+      from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+      from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content
+      from board where ref = #{ref} and re_level > 0
+      order by ref desc, re_step asc ))
+      </select>
+
+	<!-- 작성자 상세정보 -->
+      <select id="getWriterNumDetail" resultType="SiscBoard">
+      select * from board where b_num = #{b_num} and writer = #{writer}
+      </select>
+      
+
+	<!-- 글쓰기 -->
+	<!-- <insert id="insertBoardContent">
+		insert into board(b_num, b_cate, writer, subject, reg_date, readcount, ref,
+		re_step, re_level, content)
+		values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,bor_seq.currval,0,0,#{content})
+	</insert>  -->
+	<insert id="insertBoardContent">
+			insert into board(b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist)
+			values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,bor_seq.currval,0,0,#{content},#{taglist})
+		</insert>
+
+	<!-- 수정구문 (Free, Know, QnA, Grad) -->
+
+	 <!--  수정구문 (Free, Know, QnA, Grad)  -->
+      <update id="updateBoardContent">
+      		update board set b_cate=#{b_cate}, subject=#{subject}, reg_date=#{reg_date}, content=#{content}, taglist=#{taglist} 
+      		where b_num = #{b_num} and writer=#{writer} and re_level=#{re_level}
+      </update>
+
+	<insert id="insertComments">
+		insert into
+		board(b_num,b_cate,writer,subject,reg_date,ref,re_step,re_level,content)
+		values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},#{ref},#{re_step}+1,#{re_level}+1,#{content})
+	</insert>
+
+	<update id="updateCommentsProc">
+		update board set re_step=re_step+1 where ref=#{ref} and re_step > #{re_step}
+	</update>
+
+	<delete id="deleteBoardContent">
+		delete from board where b_num = #{b_num}
+	</delete>
+
+	<delete id="deleteCommentsProc">
+		delete from board where b_num = #{b_num} and ref=#{ref}
+	</delete>
+
+	<update id="readcountUpdate">
+		update board SET readcount = readcount + 1 WHERE b_num = #{b_num}
+	</update>
+	
+	<select id="getBoardCount" resultType="int">
+		SELECT COUNT(*) FROM board WHERE b_cate = #{board} AND subject != 'comments'
+	</select>
+	
+	<select id="getCommentCount" resultType="int">
+		SELECT COUNT(*) FROM board WHERE ref = #{ref} AND subject = 'comments' and re_level > 0
+	</select>
+	
+	<select id="getAllInquiry" resultType="SiscBoard">
+      select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
+      re_level, content, taglist
+      from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
+      readcount, ref, re_step, re_level, content, taglist
+      from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
+      re_step, re_level, content, taglist
+      from board where b_cate = 'Inquiry' and re_level = 0 or subject like
+      #{search}
+      order by ref desc, re_step asc ))
+      where rank between 1 and 5
+   </select>
+   
+   <select id="getInquiryCount" resultType="int">
+      SELECT COUNT(*) FROM board WHERE b_cate = #{board}
+   </select>
+   
+   <delete id="selectAndDelteBoard">
+   	  delete from board where b_num = #{b_num} and ref=#{ref} and re_level = 0
+   </delete>
+	
+</mapper>

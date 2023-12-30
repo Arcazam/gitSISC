@@ -27,7 +27,7 @@ public class ManagerBoardListController {
 	@Autowired
 	private BoardDao bor_dao;
 	
-	public final String command = "/bookList.mag";
+	public final String command = "/boardList.mag";
 	public final String viewPage = "MagBoardList";
 	public final String sessionID = "mag_loginInfo";
 	

@@ -21,12 +21,12 @@
 			select * from member where name = #{name} and joomin = #{joomin}
 		</select>
 		
-		<select id="findMemberPW" resultType="SiscMember">
-			select * from member where name = #{name} and joomin = #{joomin} and id=#{id}
-		</select>
-		
 		<update id="updatePW">
 			update member set password=#{password} where id=#{id}
 		</update>
+		
+		<select id="findMPW" resultType="SiscMember">
+			select * from member where name = #{name} and joomin = #{joomin} and id=#{id}
+		</select>
 		
 	</mapper>

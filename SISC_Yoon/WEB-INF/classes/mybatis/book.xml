@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="book">
+		
+		<select id="selectAllToMainBook" resultType="SiscBook">
+			select * from book order by sell_date desc fetch first 5 rows only
+		</select>
+		
+		<select id="getCountBook" resultType="int">
+			select count(*) from book
+		</select>
+	
+	</mapper>
+<!-- selectAllToMainBook : 메인화면에 출력될 5개 레코드만 제한출력 -->
+	

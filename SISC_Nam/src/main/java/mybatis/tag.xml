@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="tag">
+		
+		<select id="findTag" resultType="int">
+			select count(*) from tag where tag_val=#{tag_val}
+		</select>
+		
+		<update id="plusOneCntTagValues">
+			update tag set tag_cnt = tag_cnt + 1 where tag_val=#{tag_val}
+		</update>
+		
+		<insert id="plusTagValues">
+			insert into tag(tag_val) values(#{tag_val})
+		</insert>
+		
+	</mapper>
+	
+	

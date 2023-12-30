@@ -45,7 +45,7 @@ public class MemberFindPWController {
 		// 주민등록번호 앞,뒤 합치기
 		mb.setJoomin(joomin1 + "-" + joomin2);
 		
-		MemberBean findMB = mdao.findMemberPW(mb);
+		MemberBean findMB = mdao.findMPW(mb);
 		
 		if(findMB != null) {
 			model.addAttribute("id",findMB.getId());

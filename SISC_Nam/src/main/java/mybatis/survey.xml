@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper namespace="survey">
+   
+      <insert id="insertStudy">
+         insert into survey values
+         (su_seq.nextval, #{su_text1},#{su_text2},#{su_text3},#{su_text4},#{su_text5})
+      </insert>
+      
+      <select id="getAllSurvey">
+         select * from survey order by su_num asc
+      </select>
+      
+      <select id="getMagSurveyCount" resultType="int">
+      		select * from survey
+      	 <if test="whatColumn=='su_text1'">
+			where su_text1 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text2'">
+			where su_text2 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text3'">
+			where su_text3 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text4'">
+			where su_text4 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text5'">
+			where su_text5 like #{keyword}
+		 </if>
+      </select>
+      
+      <select id="getAllMagSurvey" resultType="SiscSurvey">
+      	 	select * from survey
+      	 <if test="whatColumn=='su_text1'">
+			where su_text1 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text2'">
+			where su_text2 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text3'">
+			where su_text3 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text4'">
+			where su_text4 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text5'">
+			where su_text5 like #{keyword}
+		 </if>
+		 	order by su_num asc
+      </select>
+      
+   </mapper>
