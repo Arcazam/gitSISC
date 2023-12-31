@@ -39,7 +39,7 @@ if(loginInfo == null){%>
 	<input type="submit" class="search-submit" value="검색">
 </form>
 <div>
-<button class="learn-more" type="button" onclick="insert('${id}','<%= pro_img %>')">
+<button class="learn-more" type="button" onclick="insert('${id}','<%= pro_img %>')" style="margin-left: 1100px; margin-bottom: 50px;">
     <span class="circle" aria-hidden="true">
         <span class="icon arrow"></span>
     </span>

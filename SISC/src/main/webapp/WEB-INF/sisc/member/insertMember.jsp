@@ -472,7 +472,7 @@ input{
 				            </div>
 				        </div>
 				        
-				        <div class = "row" id="managerLecturerMenu" style="display: none;">
+				        <div class = "row mb-3" id="managerLecturerMenu" style="display: none;">
 				           <br>
 				           <input type="text" name="code" value="코드 입력" style="width: 150px; height: 35px; margin-left: 20px;">
 				        </div>

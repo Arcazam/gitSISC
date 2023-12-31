@@ -1,5 +1,7 @@
 package book.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import book.model.BookBean;
 import book.model.BookDao;
+import member.model.MemberBean;
 
 @Controller
 public class BookDetailController {
@@ -22,15 +25,23 @@ public class BookDetailController {
 	
 	@RequestMapping(value = command)
 	public String detail(@RequestParam("bk_num") int bk_num, 
-						@RequestParam(value ="pageNumber", required = false) int pageNumber, Model model) {
+						@RequestParam(value ="pageNumber", required = false) int pageNumber, 
+						Model model, HttpSession session) {
 
+		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
+
+	       if (mb == null) {
+	           session.setAttribute("destination", "redirect:/detail.bk?bk_num=" + bk_num);
+	           return "redirect:login.mb";
+	       }
+		
 		BookBean bb = new BookBean();
 		bb.setBk_num(bk_num);
-		
+	
 		BookBean detail = bdao.getWriterNumDetail(bb);
 		 
 		//System.out.println("detail:"+detail.getBk_num());
-		
+		model.addAttribute("mb", mb);
 		model.addAttribute("bb",detail);
 		model.addAttribute("pageNumber",pageNumber);
 		

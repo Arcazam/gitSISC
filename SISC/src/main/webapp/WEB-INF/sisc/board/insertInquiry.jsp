@@ -6,6 +6,11 @@
 <html lang="ko">
 
 <link href="<%=request.getContextPath() %>/resources/css/btn.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/resources/css/style.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/resources/css/main2.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/resources/css/forms.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/resources/css/tabs.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath() %>/resources/css/ui-css.css" rel="stylesheet" type="text/css" />
 
 <%
 Object loginInfo = session.getAttribute("loginInfo");
@@ -23,6 +28,19 @@ if(loginInfo == null){%>
 	margin-top: 8px;
 }	
 
+.input-group-prepend {
+    margin-right: -1px;
+    width: 2000px;
+}
+
+.row {
+    width: 900px;
+}
+
+textarea.form-control {
+    height: auto;
+    width: 730;
+}
 </style>
 
 <script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery.js"></script>
@@ -78,47 +96,31 @@ if(loginInfo == null){%>
 <link href="<%=request.getContextPath() %>/resources/css/kfonts2.css" rel="stylesheet">
 </head>
 
-<body>
-<br><br>
-<div style="margin-left: 200px;">
-	<form:form commandName="bb" class="container" method="post" action="insertInquiry.bd">
-	<input type="hidden" name="board" value="${board }">
-	<input type="text" name="subject" style="width: 80%; height: 40px; margin-top: 20px;" value="${ bb.subject }" placeholder="문의 제목"/>
-	<div id="charCount">(100/0)</div><br><br>
-	 <script>
-	 $(document).ready(function () {
-		    // 텍스트 입력란에 입력이 발생할 때마다 바이트 수 업데이트
-		    $('input[name="subject"]').on('input', function () {
-		        var inputText = $(this).val();
-		        var byteCount = countBytes(inputText);
-
-		        if (byteCount > 100) {
-		            // 100자를 초과하면 메시지를 표시하고 글자를 100자로 제한
-		            $('#charCount').text('글자수 제한을 초과하셨습니다').css('color', 'red');
-//		            $(this).val(inputText.substring(0, 100));
-//		            byteCount = 100;
-		        } else {
-		            // 100자 이하인 경우에는 정상적으로 글자 수를 표시
-		            $('#charCount').text('(100/' + byteCount + ')').css('color', 'black');
-		        }
-		    });
-
-		    // 문자열의 바이트 수를 계산하는 함수
-		    function countBytes(text) {
-		        var totalCount = 0;
-		        for (var i = 0; i < text.length; i++) {
-		            var charCode = text.charCodeAt(i);
-		            totalCount += (charCode < 128) ? 1 : 3; // ASCII 문자는 1바이트, 나머지는 3바이트로 계산
-		        }
-		        return totalCount;
-		    }
-		});
-    </script>
-	<textarea name="content" rows="20" cols="130" placeholder="문의 내용">${ bb.content }</textarea> 
-	<br>
-	<br><br>
-	<input type="submit" id="sub" value="저장하기" class="studysave" onClick="return insertBoardcheck()" style="margin-right: 215px;">
-</form:form>
+<div class="container" style="margin-left: 400px;">
+    <div class="body-container">
+        <strong><h3>문의하기 </h3></strong>
+        <div class="body-main">
+            <form method="post" action="insertInquiry.bd">
+        	<input type="hidden" name="board" value="${board }">
+                <div class="row" style="margin-top: 20px; margin-bottom: 20px; border-top: 2px solid black;">
+                    <div class="input-group-prepend" style="margin-top: 20px;">
+                        <label class="col-sm-2 col-form-label"><span style="color: red;">* </span>제목</label>
+                        <div class="col-sm-3 pe-1">
+                            <input type="text" class="form-control" name="subject" value="${bb.subject }" placeholder="문의 제목" style="width: 730px;"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row" style = "border-top: 1px solid black;">
+                    <div class="input-group-prepend" style="margin-top: 20px;">
+                        <label class="col-sm-2 col-form-label"><span style="color: red;">* </span> 내용</label>
+                        <div class="col-sm-3 pe-1">
+                            <textarea class="form-control" name="content" rows="20" cols="130" placeholder="문의 내용">${ bb.content }</textarea> 
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" id="sub" value="저장하기" class="studysave" onClick="return insertBoardcheck()" style="margin-right: 225px; margin-top: 30px;">
+            </form>
+        </div>
+    </div>
 </div>
-</body>
-</html>

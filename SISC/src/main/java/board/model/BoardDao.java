@@ -15,6 +15,7 @@ import org.springframework.jdbc.UncategorizedSQLException;
 import utility.BoardCommentsPaging;
 import utility.BoardPaging;
 import utility.InquiryPaging;
+import utility.ManagerPaging;
 
 @Component("myBoard")
 public class BoardDao {
@@ -72,7 +73,6 @@ public class BoardDao {
       return gradBoardCount;
    }
 
-
    // 자유게시판 페이징처리 검색
 	public List<BoardBean> selectFreeDetailCate(BoardPaging pageInfo, Map<String, String> map) {
 		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
@@ -101,6 +101,58 @@ public class BoardDao {
 		return board_cateList;	
 	}
 
+	// (관리자)자유게시판 페이징처리 검색
+				public List<BoardBean> selectMagAllFree(ManagerPaging pageInfo, Map<String, String> map) {
+					RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+					List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectMagAllFree",map,rowBounds);
+					return board_cateList;
+				}
+				
+				// (관리자)지식게시판 페이징처리 검색
+				public List<BoardBean> selectMagAllKnow(ManagerPaging pageInfo, Map<String, String> map) {
+					RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+					List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectMagAllKnow",map,rowBounds);
+					return board_cateList;
+				}
+				
+				// (관리자)QnA게시판 페이징처리 검색
+				public List<BoardBean> selectMagAllQnA(ManagerPaging pageInfo, Map<String, String> map) {
+					RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+					List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectMagAllQnA",map,rowBounds);
+					return board_cateList;
+				}
+				
+				// (관리자)수료생게시판 페이징처리 검색
+				public List<BoardBean> selectMagAllGrad(ManagerPaging pageInfo, Map<String, String> map) {
+					RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+					List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectMagAllGrad",map,rowBounds);
+					return board_cateList;
+				}												
+
+				// (관리자)자유게시판 페이징처리 갯수
+				public int getMagCountFree(Map<String, String> map) {
+					int boardMagCateCount = sqlSessionTemplate.selectOne(namespace+"getMagCountFree",map);
+					return boardMagCateCount;
+				}
+				
+				// (관리자)지식게시판 페이징처리 갯수
+				public int getMagCountKnow(Map<String, String> map) {
+					int boardMagCateCount = sqlSessionTemplate.selectOne(namespace+"getMagCountKnow",map);
+					return boardMagCateCount;
+				}
+				
+				// (관리자)QnA게시판 페이징처리 갯수
+				public int getMagCountQnA(Map<String, String> map) {
+					int boardMagCateCount = sqlSessionTemplate.selectOne(namespace+"getMagCountQnA",map);
+					return boardMagCateCount;
+				}
+				
+				// (관리자)수료생게시판 페이징처리 갯수
+				public int getMagCountGrad(Map<String, String> map) {
+					int boardMagCateCount = sqlSessionTemplate.selectOne(namespace+"getMagCountGrad",map);
+					return boardMagCateCount;
+				}
+	
 	// 게시판 삽입 작업
 	public int insertBoardContent(BoardBean bb) {
 		int cnt = 0;
@@ -240,5 +292,10 @@ public class BoardDao {
 
 	public void updateInquiry(BoardBean bb) {
 		sqlSessionTemplate.update(namespace+"updateInquiry",bb);
+	}
+	
+	public int selectAndDelteBoard(BoardBean bb) {
+		int checkDelete = sqlSessionTemplate.delete(namespace+"selectAndDelteBoard",bb);
+		return checkDelete;
 	}
 }

@@ -15,10 +15,14 @@
 			<property name="suffix" value=".jsp"></property>
 		</bean>
 	
-		<context:component-scan base-package="manager" />
-		
-		<!-- 사용자 정보 확인 -->
 		<context:component-scan base-package="member" />
+		<context:component-scan base-package="manager" />
+		<context:component-scan base-package="community" />
+		<context:component-scan base-package="book" />
+		<context:component-scan base-package="board" />
+		<context:component-scan base-package="quiz" />
+		<context:component-scan base-package="study" />
+		<context:component-scan base-package="survey" />
 		
 		<!-- 관리자 사진 수정 및 관리 -->
 		<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

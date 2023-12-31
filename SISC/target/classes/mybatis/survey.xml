@@ -11,4 +11,43 @@
 		<select id="getAllSurvey">
 			select * from survey;
 		</select>
+		
+		<select id="getMagSurveyCount" resultType="int">
+      		select count(*) from survey
+      	 <if test="whatColumn=='su_text1'">
+			where su_text1 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text2'">
+			where su_text2 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text3'">
+			where su_text3 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text4'">
+			where su_text4 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text5'">
+			where su_text5 like #{keyword}
+		 </if>
+      </select>
+      
+      <select id="getAllMagSurvey" resultType="SiscSurvey">
+      	 	select * from survey
+      	 <if test="whatColumn=='su_text1'">
+			where su_text1 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text2'">
+			where su_text2 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text3'">
+			where su_text3 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text4'">
+			where su_text4 like #{keyword}
+		 </if>
+		 <if test="whatColumn=='su_text5'">
+			where su_text5 like #{keyword}
+		 </if>
+		 	order by su_num asc
+      </select>
 	</mapper>

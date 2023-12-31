@@ -4,7 +4,7 @@
 /* css파일에다 따로하면 스타일이 적용이 안되서 이부분에 스타일 적용 */
 .card {
   width: 700px;
-  height: 240px;
+  height: 270px;
   background: #ffff;
   box-shadow: 0 1px 25px rgba(0,0,0,0.2);
   transform: translate(-50%, -50%);
@@ -15,8 +15,8 @@
 }
 
 .card_load {
-    width: 140px;
-    height: 140px;
+    width: 170px;
+    height: 170px;
     border-radius: 50%; /* 둥근 모양을 위해 50%의 값을 사용합니다 */
     overflow: hidden; /* 이미지가 테두리를 벗어나지 않도록 설정합니다 */
     position: relative;
@@ -32,9 +32,9 @@
 
 .card_load_extreme_title {
   width: 260px;
-  height: 25px;
+  height: 50px;
   position: relative;
-  margin-left: 200px;
+  margin-left: 230px;
   text-align: center;
   border-radius: 5px;
   background: linear-gradient(120deg, #e5e5e5 30%, #f0f0f0 38%, #f0f0f0 
@@ -48,7 +48,7 @@
 .card_load_extreme_descripion {
     /* 기존 코드... */
     width: 260px; /* 적절한 너비로 조정 */
-    height: 130px; /* 적절한 높이로 조정 */
+    height: 175px; /* 적절한 높이로 조정 */
     float: left; /* 왼쪽으로 나열되도록 설정 */
     margin-top: 10px;
     margin-left: 50px; /* 여백 설정 */
@@ -93,6 +93,24 @@
     object-fit: cover;
     border-radius: 5px;
 }
+ .additional_content {
+            display: flex;
+            justify-content: flex-end; /* 우측으로 배치 */
+            margin-top: -50px; /* 위쪽으로 위치 조정 */
+            margin-right: 30px;
+        }
+
+        .additional_links {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; /* 우측 정렬 */
+        }
+
+        .additional_links a {
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: black;
+        }
 </style>
 
 
@@ -104,39 +122,40 @@ Object updateImg = (Object)session.getAttribute("updateImg");
 String pro_img = (String) request.getAttribute("pro_img");
 %>
 <div class="card">
-    <div class="card_load">
-    <% if (updateImg != null) { %>
-	    <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/${loginInfo.id}/pro_img/${loginInfo.pro_img}" />
-	<% }else if(updateImg == null && !"defaultImg.png".equals(request.getAttribute("pro_img"))) {%>
-	    <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/${loginInfo.id}/pro_img/${loginInfo.pro_img}" />
-	<% } %> 
-	
-    <% if ("defaultImg.png".equals(request.getAttribute("pro_img"))){ %>
-	   		<img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/defaultImage.png">
-		<% }else if (request.getAttribute("pro_img") == "" && updateImg == null) { %>
-		    <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/defaultImage.png">
-		<% } %> 
-		
-	</div>
-    <div class="card_load_extreme_title">이름 - ${loginInfo.name }</div>
-    <div class="card_load_extreme_descripion">
-    	아이디 - ${loginInfo.id }<br><br>
-	    전화번호 - ${loginInfo.phone }<br><br>
-	    클래스 - ${loginInfo.m_class }반<br>
+        <div class="card_load">
+		    <% if ("defaultImg.png".equals(request.getAttribute("pro_img"))){ %>
+			   		<img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/defaultImage.png">
+				<% }else if (request.getAttribute("pro_img") == "" && updateImg == null) { %>
+				    <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/defaultImage.png">
+				<% } %> 
+				
+		    <% if (updateImg != null) { %>
+			    <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/${loginInfo.id}/pro_img/${loginInfo.pro_img}" />
+			<% } else if(updateImg == null && !"defaultImg.png".equals(request.getAttribute("pro_img"))) { %>
+			    <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/defaultImage.png">
+			<% } %>
+        </div>
+        <div class="card_load_extreme_title">이름 - ${loginInfo.name }</div>
+	    <div class="card_load_extreme_descripion">
+	    	아이디 - ${loginInfo.id }<br><br>
+		    전화번호 - ${loginInfo.phone }<br><br>
+		    클래스 - ${loginInfo.m_class }반<br>
+		    커리큘럼 - ${loginInfo.curriculum }
+	    </div>
+
+        <div class="additional_content">
+            <%-- 추가할 내용 배치 --%>
+            <div class="additional_links">
+		    	<input type="hidden" name="loginInfo" value="${loginInfo }">
+		        <a href="update.mb?id=${loginInfo.id }">내정보 수정</a>
+		        <a href="#" onclick="openProfileUpdate('${loginInfo.id}','${loginInfo.pro_img }')">프로필 수정</a>
+		        <a href="myboard.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내가쓴 게시글</a>
+		        <a href="mycomment.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내가쓴 댓글</a>
+		        <a href="myBook.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내 중고책</a>
+		        <a href="SelectAllStudy.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}">내 메모장</a>
+		        <a href="<%=request.getContextPath() %>/logout.jsp">로그아웃</a>
+		        <a href="delete.mb?id=${loginInfo.id }">회원 탈퇴</a>
+            </div>
+        </div>
     </div>
-    <div class=	"card_links">
-    <input type="hidden" name="loginInfo" value="${loginInfo }">
-        <a href="update.mb?id=${loginInfo.id }">내정보 수정</a>
-        <a href="myboard.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내가쓴 게시글</a>
-        <a href="mycomment.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내가쓴 댓글</a>
-        <a href="myBook.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내 중고책</a>
-        <a href="SelectAllStudy.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}">내 메모장</a>
-        
-        <a href="delete.mb?id=${loginInfo.id }">회원 탈퇴</a>
-    </div>
-    
-    <!-- 프로필 수정 링크 -->
-    <div style="margin-left: 45px; clear: both;">
-	    <a href="#" onclick="openProfileUpdate('${loginInfo.id}','${loginInfo.pro_img }')">프로필 수정</a>
-	</div>
 </div>

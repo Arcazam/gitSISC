@@ -18,6 +18,8 @@ if(loginInfo == null) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Book List</title>
     <style>
+    
+    
         .container {
             max-width: 70%;
             margin-left: 400px;
@@ -110,25 +112,25 @@ if(loginInfo == null) {
               <input type="text" name="title" class="form-control" style="width: 50%" placeholder="제목을 입력하세요" value="${bb.title}">
             </td>
           </tr>
-         <tr>
-  <th>저자/출판사</th>
-  <td class="author-publisher-inputs">
-    <div class="form-group">
+  <tr>
+  <th style="width: 10%;">저자/출판사</th>
+  <td class="author-publisher-inputs" style="width: 50%;">
+    <div class="form-group" style="width: 50%; display: inline-block;">
       <label for="writer">저자</label>
       <input type="text" name="writer" id="writer" class="form-control" placeholder="작가를 입력하세요" value="${bb.writer}">
     </div>
-    <div class="form-group">
+    <div class="form-group" style="width: 50%; display: inline-block;">
       <label for="publisher">출판사</label>
       <input type="text" name="publisher" id="publisher" class="form-control" placeholder="출판사를 입력하세요" value="${bb.publisher}">
     </div>
   </td>
 </tr>
-          <tr>
+<tr>
   <th>중고판매가</th>
-  <td class="price-inputs">
-    <div class="form-group">
+  <td class="price-inputs" style="width: 50%;">
+    <div class="form-group" style="width: 50%; display: inline-block;">
       <label for="dis_price">판매가</label>
-      <input type="text" name="dis_price" id="dis_price" class="form-control" placeholder="판매가를 입력해주세요" value="${bb.dis_price}">
+      <input type="text" name="dis_price" id="dis_price" class="form-control" placeholder="판매가를 입력해주세요" value="${bb.dis_price}" style="width: 70%;">
     </div>
   </td>
 </tr>
@@ -161,7 +163,7 @@ if(loginInfo == null) {
         </table>
       </div>
     </div>
-  </div>
+  
 </form:form>
 
  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -169,3 +171,5 @@ if(loginInfo == null) {
 
 </body>
 </html>
+
+<%@ include file="../top&bottom/bookBottom.jsp"%>

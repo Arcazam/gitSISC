@@ -134,7 +134,7 @@ body {
       </tr>
       
       <tr>
-         <td style="padding-top: 10px;"><font size="6">SISC라는 이름의 나의 든든한 코딩친구!</font></td>
+         <td style="padding-top: 10px;"><font size="6">SISC라는 이름의 나의 든든한 코딩길잡이!</font></td>
       </tr>
       
       <tr>
@@ -151,7 +151,7 @@ body {
       </tr>
       
       <tr>
-         <td >
+         <td> 
          <div class="form__group field">
          	<input type="password" name="password" class="form__field" placeholder="비밀번호" class="textSize" required>
          	<label class="form__label">비밀번호</label>
@@ -167,8 +167,11 @@ body {
          <td style="padding-top: 30px;">
          <a href="findMemberID.mb" id="find">아이디 찾기</a> | 
          <a href="findMemberPW.mb" id="find">비밀번호 찾기</a> | 
-		<a href="insertMember.mb" id="join">회원가입</a>
+		 <a href="insertMember.mb" id="join">회원가입</a>
          </td>
+      </tr>
+      <tr>
+      	<td><a href="manager_login.mag" id="find">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;관리자 로그인</a></td>
       </tr>
    </table>
 

@@ -11,82 +11,6 @@ if (loginInfo == null) {
     <%@ include file="../top&bottom/topLogin.jsp"%>
 <%}%>
 
-<style>
-    body {
-        margin-left: 10px; /* 필요에 따라 여백 조정 */
-    }
-
-    #BookUpdateForm {
-        margin: 0 auto;
-        width: 65%; /* 전체 너비 조절 */
-        height: 100px;
-        display: flex; /* Flexbox 설정 */
-    }
-
-    #BookUpdateForm img {
-        width: 200px;
-        height: 220px;
-        margin-bottom: 20px;
-        margin-left: 10px;
-    }
-
-    #BookUpdateForm .updateContainer {
-        width: 50%; /* 오른쪽 테이블 영역 너비 조절 */
-    }
-	
-    .form-control {
-        width: 100%;
-    }
-
-    .btn-primary {
-        background-color: #007bff; /* 파란색 */
-        color: #fff;
-    }
-
-    .author-publisher-inputs,
-    .price-inputs {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .author-publisher-inputs .form-group,
-    .price-inputs .form-group {
-        flex: 1;
-        margin-right: 10px; /* 입력 필드 간의 간격을 조절하려면 조절하세요 */
-    }
-
-    .author-publisher-inputs .form-group input,
-    #BookUpdateForm input[name="writer"],
-    #BookUpdateForm input[name="publisher"],
-    #BookUpdateForm input[name="dis_price"] {
-        width: 80%;
-    }
-    body {
-        margin-left: 10px;
-    }
-
-    #BookUpdateForm {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    #BookUpdateForm .images-container {
-        display: flex;
-        flex-direction: column;
-        margin-right: 20px;
-    }
-
-    #BookUpdateForm .images-container img {
-        width: 250px;
-        height: 250 	px;
-        margin-bottom: 10px;
-    }
-
-    #BookUpdateForm .updateContainer {
-        width: 70%;
-    }
-</style>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,6 +19,136 @@ if (loginInfo == null) {
     <title>Book Update</title>
     <!-- 부트스트랩 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath() %>/resources/css/kfonts2.css" rel="stylesheet">
+    <style>
+    
+  
+        #BookUpdateForm {
+            margin: 0 auto;
+            width: 90%; /* 전체 너비 조절 */
+            display: flex; /* Flexbox 설정 */
+            flex-direction: row; /* 수평으로 정렬 */
+            justify-content: center; /* 가운데 정렬 추가 */
+            margin-left: 200px;
+        }
+
+        .images-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 이미지를 수직 방향으로 가운데 정렬 */
+            margin-right: 20px; /* 이미지와 폼 사이 여백 조절 */
+        }
+
+        .images-container img {
+            width: 200px;
+            height: 230px;
+            margin-bottom: 10px;
+        }
+
+        .updateContainer {
+            width: 50%; /* 오른쪽 테이블 영역 너비 조절 */
+        }
+
+        table {
+            border: 1px #a39485 solid;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0,0,0,.25);
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        th {
+            text-align: left;
+        }
+
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #73685d;
+        }
+
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+        }
+
+        td {
+            border-bottom: 1px solid rgba(0,0,0,.1);
+            background: #fff;
+        }
+
+        @media all and (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th {
+                text-align: right;
+            }
+
+            table {
+                position: relative;
+                padding-bottom: 0;
+                border: none;
+                box-shadow: 0 0 10px rgba(0,0,0,.2);
+            }
+
+            thead {
+                float: left;
+                white-space: nowrap;
+            }
+
+            tbody {
+                overflow-x: auto;
+                overflow-y: hidden;
+                position: relative;
+                white-space: nowrap;
+            }
+
+            tr {
+                display: inline-block;
+                vertical-align: top;
+            }
+
+            th {
+                border-bottom: 1px solid #a39485;
+            }
+
+            td {
+                border-bottom: 1px solid #e5e5e5;
+            }
+        }
+
+        #BookUpdateForm img {
+            width: 200px;
+            height: 230px;
+            margin: 10px;
+        }
+
+        #BookUpdateForm .updateContainer {
+            width: 60%;
+            margin-left: auto;
+            margin-right: auto;
+             margin-left: 50px; /* 왼쪽 여백 조절 */
+    		margin-right: 10px; /* 오른쪽 여백 조절 */
+        }
+        
+  #BookUpdateForm .container {
+    margin-right: 20px; /* 오른쪽 여백 조절 */
+}
+
+#BookUpdateForm .images-container,
+#BookUpdateForm .updateContainer {
+    margin-right: 20px; /* 오른쪽 여백 조절 */
+}
+    </style>
 </head>
 <body>
 
@@ -121,9 +175,9 @@ if (loginInfo == null) {
         </c:choose>
     </div>
 
-   <div class="updateContainer">
+    <div class="updateContainer">
         <form:form name="BookUpdate" commandName="bookBean" action="update.bk" method="post" enctype="multipart/form-data">
-            <table class="table table-bordered" style="width: 80%;">
+        <table class="table table-bordered" style="width: 70%;">
           <tr>
             <th colspan="2" class="text-center">책 정보 입력
               <input type="hidden" name="seller" value="${mb.id}" readonly>
@@ -132,24 +186,17 @@ if (loginInfo == null) {
             </th>
           </tr>
           <tr>
-            <th style="width: 105px;">책 사진</th>
+            <th>책 사진</th>
             <td>
               <b>책의 사진은 최대 3장의 사진을 올리실수 있습니다</b><br>
               1)겉표지 <input type="file" name="upload1"><br>
               2)내부1 <input type="file" name="upload2"><br>
               3)내부2 <input type="file" name="upload3"><br>
               <font color="red"><b>책의 표지가 잘 나와야하고, 화질이 너무 흐릿한 사진을 올려서는 안됩니다</b></font>
-              <input type="hidden" name="seller_pnum_arr" value="${mb.phone}" readonly>
-              
               <c:set var="seller_pnum" value="${mb.phone}" />
-				<c:set var="seller_pnum_arr" value="${fn:split(seller_pnum, '-')}"/>
-				
-				<c:set var="seller_pnum1" value="${seller_pnum_arr[0]}" />
-				<c:set var="seller_pnum2" value="${seller_pnum_arr[1]}" />
-				<c:set var="seller_pnum3" value="${seller_pnum_arr[2]}" />
-              <input type="hidden" name="seller_pnum1" size="3" maxlength="3" value="${seller_pnum1}">
-              <input type="hidden" name="seller_pnum2" size="4" maxlength="4" value="${seller_pnum2}">
-              <input type="hidden" name="seller_pnum3" size="4" maxlength="4" value="${seller_pnum3}">
+             
+              <input type="text" name="seller_pnum_arr" value="${mb.phone}" readonly>
+              
             </td>
           </tr>
           <!-- 나머지 부분 추가 -->
@@ -159,32 +206,32 @@ if (loginInfo == null) {
               <input type="text" name="title" class="form-control" style="width: 50%" placeholder="제목을 입력하세요" value="${bb.title}">
             </td>
           </tr>
-         <tr>
-  <th>저자/출판사</th>
-  <td class="author-publisher-inputs">
-    <div class="form-group">
+      <tr>
+  <th style="width: 10%;">저자/출판사</th>
+  <td class="author-publisher-inputs" style="width: 50%;">
+    <div class="form-group" style="width: 50%; display: inline-block;">
       <label for="writer">저자</label>
       <input type="text" name="writer" id="writer" class="form-control" placeholder="작가를 입력하세요" value="${bb.writer}">
     </div>
-    <div class="form-group">
+    <div class="form-group" style="width: 50%; display: inline-block;">
       <label for="publisher">출판사</label>
       <input type="text" name="publisher" id="publisher" class="form-control" placeholder="출판사를 입력하세요" value="${bb.publisher}">
     </div>
   </td>
 </tr>
-          <tr>
+<tr>
   <th>중고판매가</th>
-  <td class="price-inputs">
-    <div class="form-group">
+  <td class="price-inputs" style="width: 50%;">
+    <div class="form-group" style="width: 50%; display: inline-block;">
       <label for="dis_price">판매가</label>
-      <input type="text" name="dis_price" id="dis_price" class="form-control" placeholder="판매가를 입력해주세요" value="${bb.dis_price}">
+      <input type="text" name="dis_price" id="dis_price" class="form-control" placeholder="판매가를 입력해주세요" value="${bb.dis_price}" style="width: 70%;">
     </div>
   </td>
 </tr>
 <tr>
   <th>판매 코멘트</th>
   <td>
-    <textarea name="sell_content" class="form-control" rows="5" cols="20">${bb.sell_content}</textarea>
+    <textarea name="sell_content" class="form-control" rows="10" cols="10">${bb.sell_content}</textarea>
   </td>
 </tr>
           <tr>
@@ -203,8 +250,8 @@ if (loginInfo == null) {
           </tr>
           <tr>
             <th colspan="2" class="text-center">
-              <input type="submit" value="판매등록" class="btn btn-primary" onClick="return checkBook()" style="width: 100px; height: 30px;">
-              <input type="reset" value="취 소" class="btn btn-secondary" style="width: 100px; height: 30px;">
+              <input type="submit" value="판매등록" class="btn btn-primary" onClick="return checkBook()">
+              <input type="reset" value="취 소" class="btn btn-secondary">
           </th>
           </tr>
         
@@ -212,10 +259,11 @@ if (loginInfo == null) {
           </form:form>
     </div>
 </div>
+
 <!-- 부트스트랩 JS 및 팝퍼 라이브러리 -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>
-<br><br><br>
+<%@ include file="../top&bottom/bookBottom.jsp"%>

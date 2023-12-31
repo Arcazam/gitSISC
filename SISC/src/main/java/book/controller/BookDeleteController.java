@@ -27,7 +27,8 @@ public class BookDeleteController {
 	@RequestMapping(value = command)
 	public String detail(@RequestParam("bk_num") int bk_num, 
 						@RequestParam("pageNumber") int pageNumber, 
-						Model model, HttpSession session) {
+						Model model, HttpSession session
+						) {
 
 		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
 		

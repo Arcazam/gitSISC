@@ -37,6 +37,7 @@ table {
         width: 100%;
         border-top: 1px solid #444444;
         border-collapse: collapse;
+        margin-top: 50px;
       }
       th, td {
         border-bottom: 1px solid #444444;
@@ -46,6 +47,7 @@ table {
   .imageContainer {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 100px;
   }
 
   .book_img {

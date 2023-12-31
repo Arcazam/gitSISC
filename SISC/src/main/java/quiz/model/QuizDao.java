@@ -1,10 +1,14 @@
 package quiz.model;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import utility.ManagerPaging;
 
 @Component("myQuiz")
 public class QuizDao {
@@ -39,5 +43,43 @@ public class QuizDao {
 		int checkAnswer = sqlSessionTemplate.selectOne(namespace+"checkAnswer",qb);
 		return checkAnswer;
 	}
+	
+	// °ü¸®ÀÚ
+		public int getMagQuizCount(QuizBean qb, Map<String, String> map) {
+			System.out.println("qb.getQue_cate():"+qb.getQue_cate());
+			int quizMagCateCount = sqlSessionTemplate.selectOne(namespace+"get"+qb.getQue_cate()+"QuizCount",map);
+			return quizMagCateCount;
+		}
+
+		public List<QuizBean> getAllMagQuizList(QuizBean qb, ManagerPaging pageInfo, Map<String, String> map) {
+			RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+			List<QuizBean> qlist = sqlSessionTemplate.selectList(namespace+"get"+qb.getQue_cate()+"QuizList",map,rowBounds);
+			return qlist;
+		}
+		
+		public QuizBean getDetailQuiz(QuizBean qb) {
+			QuizBean modelAttBor = sqlSessionTemplate.selectOne(namespace+"getDetailQuiz",qb);
+			return modelAttBor;
+		}
+
+		public void deleteQuiz(QuizBean qb) {
+			sqlSessionTemplate.delete(namespace+"deleteQuiz",qb);
+		}
+
+		public int selectAndDelteQuiz(QuizBean qb) {
+			int checkDelete = sqlSessionTemplate.delete(namespace+"deleteQuiz",qb);
+			return checkDelete;
+		}
+
+		public int insertQuiz(QuizBean qb) {
+			int cnt = sqlSessionTemplate.insert(namespace+"insertQuiz",qb);
+			return cnt;
+		}
+
+		public int updateQuiz(QuizBean qb) {
+			int cnt = sqlSessionTemplate.update(namespace+"updateQuiz",qb);
+			return cnt;
+		}
+
 	
 }

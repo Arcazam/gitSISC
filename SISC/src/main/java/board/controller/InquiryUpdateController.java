@@ -18,6 +18,7 @@ public class InquiryUpdateController {
 	private final String command = "InquiryUpdate.bd";
 	private final String viewPage = "InquiryUpdate";
 	private final String gotoPage = "redirect:inquiryDetail.bd";
+	public final String sessionID = "loginInfo";
 	
 	@Autowired
 	BoardDao bdao;
@@ -25,7 +26,7 @@ public class InquiryUpdateController {
 	@RequestMapping(value = command, method = RequestMethod.GET)
 	public String updateForm(
 			@RequestParam("b_num") int b_num,
-			@RequestParam("menu") String board,
+			@RequestParam("menu") String board, 
 			HttpSession session, Model model) {
 
 		BoardBean bd = bdao.getInquiryDetail(b_num);

@@ -71,7 +71,7 @@ input[type="button"]:hover{
       <span class="top_menu"><a href="board.bd?board=QnA" id="design">QnA</a></span>
       <span class="top_menu"><a href="board.bd?board=Grad" id="design">수료생</a></span>
       <form method="post" action="search.bd">
-         <input class="top_menu" type="text" placeholder="궁금한 게 있을까요?" name="search"> 
+         <input class="top_menu" type="text" placeholder="검색어를 입력하세요" name="search"> 
       </form>
       <span class="top_menu"> | </span>
       

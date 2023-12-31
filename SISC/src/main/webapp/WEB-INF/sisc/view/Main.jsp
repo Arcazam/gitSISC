@@ -294,7 +294,7 @@ Object loginInfo = session.getAttribute("loginInfo");
      <%
      String [] menus = {"공지사항", "랭킹", "설문", "퀴즈", "문의"};
      String [] menuImgs = {"test1.jpg", "test2.jpg", "logo.jpg", "logo.jpg", "logo.jpg"};
-     String [] links = {"fiveMenu.bd?menu=notice", "fiveMenu.bd?menu=rank", "fiveMenu.bd?menu=survey", "cateList.qz", "inquiry.bd?menu=inquiry" };
+     String [] links = {"fiveMenu.bd?menu=notice", "fiveMenu.bd?menu=rank", "fiveMenu.bd?menu=survey", "cateList.qz", "inquiryList.bd?menu=inquiry" };
      %>
      
      <c:set var="fmenu" value="<%= menus %>"/>

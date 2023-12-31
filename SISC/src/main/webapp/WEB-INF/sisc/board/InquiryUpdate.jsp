@@ -86,7 +86,7 @@ if(loginInfo == null){%>
 	<input type="hidden" name="menu" value="${bb.b_cate }">
 	<input type="hidden" name="b_num" value="${bb.b_num}">
 	제목<br>
-	<input type="text" name="subject" style="width: 80%; height: 40px; margin-top: 20px;" value="${ bb.subject }" readonly/>
+	<input type="text" name="subject" style="width: 80%; height: 40px; margin-top: 20px;" value="${ bb.subject }"/>
 	<div id="charCount">(100/0)</div><br>
 	문의 사항<br>
 	 <script>

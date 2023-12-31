@@ -19,6 +19,7 @@ import member.model.MemberBean;
 public class InquiryDetailController {
 	private final String command = "inquiryDetail.bd";
 	private final String gotoPage = "inquiryDetail";
+	public final String sessionID = "loginInfo";
 	
 	@Autowired
 	BoardDao bdao;
@@ -29,9 +30,11 @@ public class InquiryDetailController {
 						@RequestParam("menu") String board,
 						HttpSession session) {
 		
+		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
 		BoardBean bd = bdao.getInquiryDetail(b_num);
-		
+		bdao.readcountUpdate(bd);
 		model.addAttribute("bd", bd);
+		model.addAttribute("mb", mb);
 		model.addAttribute("menu", board);
 		
 		return gotoPage;

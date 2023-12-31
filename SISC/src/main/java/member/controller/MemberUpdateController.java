@@ -48,10 +48,7 @@ public class MemberUpdateController {
 	public String update2(MemberBean mb, @RequestParam(value = "address_main") String address_main,
 	         @RequestParam(value = "address_detail") String address_detail,
 	         @RequestParam(value = "joomin1") String joomin1, 
-			 @RequestParam(value = "joomin2") String joomin2,
-			 @RequestParam(value = "hp1") String hp1, 
-			 @RequestParam(value = "hp2") String hp2,
-			 @RequestParam(value = "hp3") String hp3) {
+			 @RequestParam(value = "joomin2") String joomin2) {
 		
 		// 메인주소와 상세주소 합치기
 		mb.setAddress(address_main + " " + address_detail);
@@ -59,9 +56,6 @@ public class MemberUpdateController {
 		// 주민등록번호 앞,뒤 합치기
 		mb.setJoomin(joomin1 + "-" + joomin2);
 
-		// 핸드폰 번호 합치기
-		mb.setPhone(hp1 + "-" + hp2 + "-" + hp3);
-		
 		mdao.updateMember(mb); 
 		
 		return gotoPage + "?id=" + mb.getId() + "&pro_img=" + mb.getPro_img();

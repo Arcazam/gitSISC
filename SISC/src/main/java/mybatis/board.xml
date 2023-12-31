@@ -75,7 +75,6 @@
 	<select id="getCountGrad" resultType="int">
 		select count(*) from board where b_cate = 'Grad' and re_level = 0
 	</select>
-
 	<select id="selectFreeDetailCate" resultType="SiscBoard">
 		select b_num, b_cate, writer, subject, reg_date, readcount, ref,
 		re_step, re_level, content, taglist
@@ -281,4 +280,140 @@
 	<update id="updateInquiry" parameterType="SiscBoard">
 		update board set subject = #{subject}, content = #{content}
 	</update>
+	
+	<!-- 관리자 페이지 구문 -->
+	
+	<select id="selectMagAllFree" resultType="SiscBoard">
+		select * from board where b_cate = 'Free' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+		order by b_num asc
+	</select>
+	
+	<select id="selectMagAllKnow" resultType="SiscBoard">
+		select * from board where b_cate = 'Know' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+		order by b_num asc
+	</select>
+	
+	<select id="selectMagAllQnA" resultType="SiscBoard">
+		select * from board where b_cate = 'QnA' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+		order by b_num asc
+	</select>
+	
+	<select id="selectMagAllGrad" resultType="SiscBoard">
+		select * from board where b_cate = 'Grad' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+		order by b_num asc
+	</select>
+	
+	<select id="getMagCountFree" resultType="int">
+		select count(*) from board where b_cate = 'Free' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+	</select>
+	
+	<select id="getMagCountKnow" resultType="int">
+		select count(*) from board where b_cate = 'Know' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+	</select>
+	
+	<select id="getMagCountQnA" resultType="int">
+		select count(*) from board where b_cate = 'QnA' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+	</select>
+	
+	<select id="getMagCountGrad" resultType="int">
+		select count(*) from board where b_cate = 'Grad' and re_level = 0
+		<if test="whatColumn=='subjectAndContent'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn=='writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn=='subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn=='content'">
+			and content like #{keyword}
+		</if>
+	</select>	
+
+	<!-- 관리자 끝 -->
 </mapper>

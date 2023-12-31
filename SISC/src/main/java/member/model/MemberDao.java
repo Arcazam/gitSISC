@@ -1,8 +1,14 @@
 package member.model;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import utility.ManagerPaging;
 
 @Component("myMember")
 public class MemberDao {
@@ -40,17 +46,12 @@ public class MemberDao {
 	public void updatePW(MemberBean mb) {
 		sqlSessionTemplate.update(namespace+"updatePW",mb);
 	}	
-	public void deleteMember(String id) {
-		sqlSessionTemplate.delete(namespace+"deleteMember", id);
+	public int deleteMember(String id) {
+		int cnt = sqlSessionTemplate.delete(namespace+"deleteMember", id);
+		return cnt;
 	}
 
 	public int updateMember(MemberBean mb) {
-		System.out.println("id:" + mb.getId());
-		System.out.println("password:" + mb.getPassword());
-		System.out.println("birth:" + mb.getBirth());
-		System.out.println("joomin:" + mb.getJoomin());
-		System.out.println("phone:" + mb.getPhone());
-		System.out.println("address:" + mb.getAddress());
 		
 		int cnt = sqlSessionTemplate.update(namespace+"updateMember", mb);
 		return cnt;
@@ -66,4 +67,16 @@ public class MemberDao {
 		int mb1 = sqlSessionTemplate.update(namespace+"updateProImg", mb); 
 		return mb1;
 	}	
+	
+	public int getCountMagMember(Map<String, String> map) {
+		int memberMagCount = sqlSessionTemplate.selectOne(namespace+"getCountMagMember",map);
+		return memberMagCount;
+	}
+
+	public List<MemberBean> getAllMagMemberList(ManagerPaging pageInfo, Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		List<MemberBean> member_list = sqlSessionTemplate.selectList(namespace+"getAllMagMemberList",map,rowBounds);
+		return member_list;
+	}
+	
 }

@@ -14,7 +14,7 @@ import member.model.MemberBean;
 @Controller
 public class InquiryDeleteController {
 	private final String command = "InquiryDelete.bd";
-	private final String gotoPage = "redirect:inquiry.bd";
+	private final String gotoPage = "redirect:inquiryList.bd";
 	public final String sessionID = "loginInfo";
 	
 	@Autowired

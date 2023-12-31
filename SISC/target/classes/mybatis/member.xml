@@ -39,7 +39,7 @@
 		</delete>
 		
 		<update id="updateMember" parameterType="SiscMember">
-			update member set password = #{password}, birth = #{birth},  joomin = #{joomin}, phone = #{phone},
+			update member set password = #{password},
 			address = #{address} where id = #{id}
 		</update>
 		
@@ -50,4 +50,45 @@
 		<update id="updateProImg">
 			update member set pro_img = #{pro_img} where id = #{id}
 		</update>
+		
+		<!-- 관리자 -->
+
+		<select id="getCountMagMember" resultType="int">
+			select count(*) from member
+			<if test="whatColumn=='id'">
+				where id like #{keyword}
+			</if>
+			<if test="whatColumn=='name'">
+				where name like #{keyword}
+			</if>
+			<if test="whatColumn=='gender'">
+				where gender like #{keyword}
+			</if>
+			<if test="whatColumn=='m_class'">
+				where m_class like #{keyword}
+			</if>
+			<if test="whatColumn=='curriculum'">
+				where curriculum like #{keyword}
+			</if>
+		</select>
+		
+		<select id="getAllMagMemberList" resultType="SiscMember">
+			select * from member
+			<if test="whatColumn=='id'">
+				where id like #{keyword}
+			</if>
+			<if test="whatColumn=='name'">
+				where name like #{keyword}
+			</if>
+			<if test="whatColumn=='gender'">
+				where gender like #{keyword}
+			</if>
+			<if test="whatColumn=='m_class'">
+				where m_class like #{keyword}
+			</if>
+			<if test="whatColumn=='curriculum'">
+				where curriculum like #{keyword}
+			</if>
+			order by start_day asc
+		</select>
 	</mapper>

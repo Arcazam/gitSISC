@@ -29,14 +29,14 @@ public class MemberFindIDController {
 		return viewPage;
 	}
 	
-	@RequestMapping(value=command,method=RequestMethod.POST)
+	@RequestMapping(value=command)
 	public String toFindAndLoginForm(
 				MemberBean mb,
 				HttpServletResponse response,
 				@RequestParam("joomin1") String joomin1, 
 				@RequestParam("joomin2") String joomin2
 			) throws IOException {
-		
+		System.out.println("asdksajdklasjdlsajdsakldasdjklasjdkljaskldjsadjklsajdlsa");
 		response.setContentType("text/html; charset=UTF-8");
 	    PrintWriter out = response.getWriter();
 			    

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import board.model.BoardBean;
 import utility.BookPaging;
+import utility.ManagerPaging;
 
 @Component("myBook")
 public class BookDao {
@@ -78,4 +79,22 @@ public class BookDao {
 		      
 		      return bb;
 		   }
+	   
+	// 관리자 리스트 갯수 출력
+		public int bookMagCount(Map<String, String> map) {
+			int bookMagCount = sqlSessionTemplate.selectOne(namespace+"bookMagCount",map);
+			return bookMagCount;
+		}
+		
+		// 관리자 전체리스트 출력
+		public List<BookBean> getMagBookList(ManagerPaging pageInfo, Map<String, String> map) {
+			RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+			List<BookBean> book_list = sqlSessionTemplate.selectList(namespace+"getMagBookList",map,rowBounds);
+			return book_list;
+		}
+		
+		public int selectAndDelteBook(BookBean bb) {
+			int checkDelete = sqlSessionTemplate.delete(namespace+"deleteBook", bb.getBk_num());
+			return checkDelete;
+		}
 }

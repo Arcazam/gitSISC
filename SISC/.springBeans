@@ -7,19 +7,8 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/book-servlet.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/quiz-servlet.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/manager-servlet.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/study-servlet.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/member-servlet.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/board-servlet.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/community-servlet.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/survey-servlet.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/view-servlet.xml</config>
 	</configs>
 	<autoconfigs>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
-		<config>src/main/webapp/WEB-INF/spring/root-context.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

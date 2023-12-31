@@ -21,13 +21,13 @@ import utility.InquiryPaging;
 
 @Controller
 public class InquiryAllListController {
-	private final String command= "inquiry.bd";
-	private final String gotoPage= "inquiry";
+	private final String command= "inquiryList.bd";
+	private final String gotoPage= "inquiryList";
 	public final String sessionID = "loginInfo";
 	
 	@Autowired
 	BoardDao bdao;
-	
+	 
 	@RequestMapping(command)
 	public String allList(Model model, HttpServletRequest request,
 						@RequestParam("menu") String board,

@@ -60,8 +60,8 @@ if(loginInfo == null){%>
 	function updateProfileImage(imageUrl) {
         $('#profileImage').attr('src', imageUrl); // 프로필 이미지 업데이트
     }
-	function openProfileUpdate(userId) {
-    	window.open("updateImg.mb?id=" + userId, "프로필 수정", "width=500,height=500");
+	function openProfileUpdate(userId,pro_img,pro_img) {
+    	window.open("updateImg.mb?id=" + userId + "&pro_img=" + pro_img, "프로필 수정", "width=500,height=500");
     }
 	window.onload = function() {
         window.opener.location.reload(); // 부모 창 새로고침

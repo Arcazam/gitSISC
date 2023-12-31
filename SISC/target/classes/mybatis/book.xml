@@ -45,6 +45,34 @@
       <update id="SaleComple">
 			update book set sellstatus = 'Done' where bk_num = #{bk_num}
 		</update>
+		
+		<select id="bookMagCount" resultType="int">
+			select count(*) from book
+			<if test="whatColumn=='seller'">
+				where seller like #{keyword}
+			</if>
+			<if test="whatColumn=='title'">
+				where title like #{keyword}
+			</if>
+			<if test="whatColumn=='sellstatus'">
+				where sellstatus like #{keyword}
+			</if>
+		</select>
+		
+		<select id="getMagBookList" resultType="SiscBook">
+			select * from book
+			<if test="whatColumn=='seller'">
+				where seller like #{keyword}
+			</if>
+			<if test="whatColumn=='title'">
+				where title like #{keyword}
+			</if>
+			<if test="whatColumn=='sellstatus'">
+				where sellstatus like #{keyword}
+			</if>
+			order by bk_num asc
+		</select>
+		<!-- 관리자 -->
 	</mapper>
 <!-- selectAllToMainBook : 메인화면에 출력될 5개 레코드만 제한출력 -->
 <!-- getBookList : 책방 페이지에 출력될 책 전체 레코드 -->		

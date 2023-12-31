@@ -44,7 +44,7 @@ public class BookInsertController {
 				Model model,
 				HttpSession session
 			) {
-		// 사용자 세션값 불러와서 BoardList.jsp에 저장해 놓을 객체를 모델로 주입 준비
+	
 		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
 		
 		if(mb == null) {
@@ -80,17 +80,17 @@ public class BookInsertController {
 		int cnt = bok_dao.insertBookMarket(bb);
 		
 		try {
-            // 폴더를 생성할 경로를 나타내는 Path 객체 생성
+          
             Path folder = Paths.get(uploadPath);
 
-            // 폴더가 존재하지 않으면 폴더를 생성
+          
             if (!Files.exists(folder)) {
                 Files.createDirectories(folder);
             } else {
-                System.out.println("폴더가 이미 존재합니다.");
+                System.out.println("dd.");
             }
         } catch (IOException e) {
-            System.err.println("폴더 생성 중 오류 발생: " + e.getMessage());
+            System.err.println("dd: " + e.getMessage());
         }
 		
 		if(cnt == 1) {
@@ -100,18 +100,25 @@ public class BookInsertController {
 			model.addAttribute("mb",mb);
 			return viewPage;
 		}
+		try {
 
-		File destination1 = new File(uploadPath + File.separator + bb.getB_image1());
-		MultipartFile multi1 = bb.getUpload1();
-		multi1.transferTo(destination1);
-		
-		File destination2 = new File(uploadPath + File.separator + bb.getB_image2());
-		MultipartFile multi2 = bb.getUpload2();
-		multi2.transferTo(destination2);
-		
-		File destination3 = new File(uploadPath + File.separator + bb.getB_image3());
-		MultipartFile multi3 = bb.getUpload3();
-		multi3.transferTo(destination3);
+			File destination1 = new File(uploadPath + File.separator + bb.getB_image1());
+			MultipartFile multi1 = bb.getUpload1();
+			multi1.transferTo(destination1);
+			
+			File destination2 = new File(uploadPath + File.separator + bb.getB_image2());
+			MultipartFile multi2 = bb.getUpload2();
+			multi2.transferTo(destination2);
+			
+			File destination3 = new File(uploadPath + File.separator + bb.getB_image3());
+			MultipartFile multi3 = bb.getUpload3();
+			multi3.transferTo(destination3);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 		
 		return gotoPage;
 	}

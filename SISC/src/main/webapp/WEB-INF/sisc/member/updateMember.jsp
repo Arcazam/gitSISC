@@ -82,33 +82,13 @@ function check(){
 		return false;
 	}
 	
-	if($('input[name="birth"]').val() == ""){
-		alert('생일입력이 누락되었습니다');
-		$('input[name="birth"]').focus();
-		return false;
-	}
-	
-	var dbirth = new Date($('input[name="birth"]').val());
-	var dtoday = new Date();
-
-	if(dtoday <= dbirth){
-		alert('올바른 생일을 입력해주세요');
-		$('input[name="birth"]').select();
-		return false;
-	}
-	
 	// 주민등록번호 앞 6자리
 	var joomin1 = $('input[name="joomin1"]').val();
 	// 생년월일 (예: '1998-01-01')
-	var birthStr = $('input[name="birth"]').val();
 	
 	var jooYear = joomin1.substr(0, 2);
 	var jooMon = joomin1.substr(2, 2);
 	var jooDay = joomin1.substr(4, 2);
-	
-	var birthYear = birthStr.substr(2, 2);
-	var birthMon = birthStr.substr(5, 2);
-	var birthDay = birthStr.substr(8, 2);
 	
 	var compareJoomin = jooYear+jooMon+jooDay;
 	var compareBirth = birthYear+birthMon+birthDay;
@@ -154,15 +134,7 @@ function check(){
 		return false;
 	}
 	
-	var hp1Val = $('input[name="hp1"]').val();
-	var hp2Val = $('input[name="hp2"]').val();
-	var hp3Val = $('input[name="hp3"]').val();
 	
-	if(hp1Val==""||hp2Val==""||hp3Val==""){
-		alert('핸드폰번호가 누락되었습니다');
-		$('input[name="hp1"]').focus();
-		return false;
-	}
 }
 </script>
 
@@ -221,12 +193,11 @@ function check(){
 							</div>
 				         </div>
 				         
-				         <div class="row mb-3">
+				         <div class="row mb-3" style = "margin-bottom: 30px;">
 					        <label class="col-sm-2 col-form-label">생년월일</label>
 					        <div class="col-sm-10">
-					            <input type="date" name="birth" id="birth" class="form-control" value="${mb.birth}" placeholder="생년월일">
-					            <!-- 출력 해결법 : bean에서 String을 Date로 수정-->
-					            <small class="form-control-plaintext" style="margin-bottom: 10px;">생년월일은 2000-01-01 형식으로 입력 합니다.</small>
+					        	<fmt:parseDate value='${mb.birth}' pattern="yyyy-MM-dd" var='day' /> 
+								<fmt:formatDate value="${day}" pattern="yyyy-MM-dd" />
 					        </div>
 					    </div>
 				         
@@ -248,27 +219,27 @@ function check(){
 							  </div>
 				         </div>
 				         
-				         <div class="row">
+				         <div class="row" style = "margin-bottom: 30px;">
 				             <label class="col-sm-2 col-form-label">핸드폰번호</label>
 				             <div class="input-group-prepend">
 				                 	<div class="col-sm-3 pe-1">
 				                 		<c:set var="PhoneValues" value="${fn:split(mb.phone, '-')}"/>
 										<c:set var="firstPhone" value="${PhoneValues[0]}"/>
-										<input type="text" name="hp1" value="${firstPhone }" class="form-control" maxlength="3">
+										${firstPhone }
 									</div>
 									<div class="col-sm-1 px-1" style="width: 2%;">
 										<p class="form-control-plaintext text-center">-</p>
 									</div>
 									<div class="col-sm-3 pe-1">
 										<c:set var="secondPhone" value="${PhoneValues[1]}"/>
-										<input type="text" name="hp2" value="${secondPhone }" class="form-control" maxlength="4">
+										${secondPhone }
 									</div>
 									<div class="col-sm-1 px-1" style="width: 2%;">
 										<p class="form-control-plaintext text-center">-</p>
 									</div>
 									<div class="col-sm-3 pe-1">
 										<c:set var="thirdPhone" value="${PhoneValues[2]}"/>
-										<input type="text" name="hp3" value="${thirdPhone }" class="form-control" maxlength="4">
+										${thirdPhone }
 									</div>
 							  </div>
 						 </div>

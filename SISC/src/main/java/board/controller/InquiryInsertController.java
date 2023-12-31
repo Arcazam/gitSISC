@@ -19,7 +19,7 @@ import member.model.MemberBean;
 public class InquiryInsertController {
 	private final String command= "insertInquiry.bd";
 	private final String viewPage= "insertInquiry";
-	private final String gotoPage= "redirect:inquiry.bd";
+	private final String gotoPage= "redirect:inquiryList.bd";
 	public final String sessionID = "loginInfo";
 	
 	@Autowired

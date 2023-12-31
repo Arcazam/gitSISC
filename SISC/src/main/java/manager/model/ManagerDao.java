@@ -12,4 +12,9 @@ public class ManagerDao {
 	
 	private String namespace="manager.";
 	
+	public ManagerBean getCheckManager(ManagerBean magb) {
+		ManagerBean contrastMagB = sqlSessionTemplate.selectOne(namespace+"getCheckManager",magb);
+		return contrastMagB;
+	}
+	
 }

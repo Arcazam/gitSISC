@@ -12,8 +12,6 @@ import study.model.StudyDao;
 public class StudyDeleteController {
 	private final String command = "delete.st";
 	private final String gotoPage = "redirect:SelectAllStudy.st";
-	private final String command2 = "delete2.st";
-	private final String gotoPage2 = "redirect:myboard.st";
 	
 	@Autowired
 	private StudyDao sdao;
