@@ -293,7 +293,7 @@ Object loginInfo = session.getAttribute("loginInfo");
      <div class="menu">
      <%
      String [] menus = {"공지사항", "랭킹", "설문", "퀴즈", "문의"};
-     String [] menuImgs = {"test1.jpg", "test2.jpg", "logo.jpg", "logo.jpg", "logo.jpg"};
+     String [] menuImgs = {"공지사항.png", "랭킹.png", "설문.png", "퀴즈.png", "문의.png"};
      String [] links = {"fiveMenu.bd?menu=notice", "fiveMenu.bd?menu=rank", "fiveMenu.bd?menu=survey", "cateList.qz", "inquiryList.bd?menu=inquiry" };
      %>
      

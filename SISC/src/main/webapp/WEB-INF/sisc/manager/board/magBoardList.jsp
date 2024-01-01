@@ -182,7 +182,8 @@
 									<td>${ bb.writer }</td>
 									<td>${ bb.subject }</td>
 									<td>
-										<fmt:formatDate value="${bb.reg_date}" pattern="yyyy-MM-dd"/>
+										<fmt:parseDate value='${bb.reg_date}' pattern="yyyy-MM-dd" var='day' /> 
+										<fmt:formatDate value="${day}" pattern="yyyy-MM-dd" />
 									</td>
 									<td>${ bb.readcount }</td>
 									<td>${ bb.taglist }</td>

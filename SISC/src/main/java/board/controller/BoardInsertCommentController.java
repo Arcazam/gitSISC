@@ -3,6 +3,7 @@ package board.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,64 +27,70 @@ public class BoardInsertCommentController {
 	private BoardDao bor_dao;
 	
 	public final String command = "/insertComments.bd";
-	public final String command2 = "/insertComments2.bd";
+	public final String command2 = "/insertReply.bd";
 	public final String gotoPage = "redirect:/detailList.bd";
 	public final String sessionID = "loginInfo";
 	
-	//댓글
-	@RequestMapping(value=command,method=RequestMethod.POST)
+	@RequestMapping(value=command)
 	public String toInsertComments(
-				Model model,
 				HttpSession session,
 				@ModelAttribute("bb") BoardBean bb,
-				HttpServletResponse response,
 				@RequestParam("pageNumber") int pageNumber,
-				@RequestParam(value = "board", required = false) String board
+				@RequestParam("board") String board
 			) throws IOException {
-			
+		
+		//날짜 설정
+		LocalDate now = LocalDate.now();
+		
 		MemberBean mb = (MemberBean)session.getAttribute(sessionID);
 		
 		if(mb == null) {
 			session.setAttribute("destination", gotoPage + "?b_num=" + bb.getB_num() + "&ref=" + bb.getRef()  + "&pageNumber=" + pageNumber + "&board=" + board);
-			
 			return "redirect:login.mb";
 		}
-	    bb.setReg_date(new Timestamp(System.currentTimeMillis()));
-	    bor_dao.insertCommentsProc(bb);
 	    
-	    model.addAttribute("b_num",bb.getB_num());
-	    model.addAttribute("step",bb.getRe_step());
-		model.addAttribute("pageNumber",pageNumber);
-		return gotoPage + "?b_num=" + bb.getB_num() + "&ref=" + bb.getRef() + "&board=" + board;
+	    bb.setWriter(mb.getId());
+	    bb.setSubject("comments");
+	    bb.setRe_level(1);
+	    bb.setReg_date(String.valueOf(now));
+	    
+	    bor_dao.insertComments(bb);
+		
+		return gotoPage + "?b_num=" + bb.getB_num() + "&ref=" + bb.getRef() + "&pageNumber=" + pageNumber + "&board=" + board;
 	}
 	
-	//대댓글
-	@RequestMapping(value = "insertComments2.bd")
-	public String reply(Model model,
+	@RequestMapping(value = command2)
+	public String toInsertReply(
 			HttpSession session,
 			@ModelAttribute("bb") BoardBean bb,
-			HttpServletResponse response,
 			@RequestParam("pageNumber") int pageNumber,
 			@RequestParam("re_level") int re_level,
-			@RequestParam(value = "board", required = false) String board
+			@RequestParam("board") String board
 		) throws IOException {
+		
+	//날짜 설정
+	LocalDate now = LocalDate.now();
 		
 	MemberBean mb = (MemberBean)session.getAttribute(sessionID);
 	
 	if(mb == null) {
 		session.setAttribute("destination", gotoPage + "?b_num=" + bb.getB_num() + "&ref=" + bb.getRef()  + "&pageNumber=" + pageNumber + "&board=" + board);
-		
 		return "redirect:login.mb";
 	}
-    bb.setReg_date(new Timestamp(System.currentTimeMillis()));
-    bb.setRe_level(bb.getRe_level());
-    bor_dao.updateCommentsProc(bb);
-    bor_dao.insertCommentsProc(bb);
+	
+	bb.setWriter(mb.getId());
+	bb.setSubject("comments");
+    bb.setReg_date(String.valueOf(now));
     
-    model.addAttribute("b_num",bb.getB_num());
-	model.addAttribute("pageNumber",pageNumber);
+    int last_re_step = bor_dao.getLastRef2_Re_step(bb); //내가 답글 달려는 댓글에 달린 re_step의 마지막 값을 가져온다
+    
+    bb.setRe_step(last_re_step); //그 값을 re_step값으로 설정한다
+    
+    bor_dao.updateReply(bb);
+    bor_dao.insertReply(bb);
 	
-	return gotoPage + "?b_num=" + bb.getB_num() + "&ref=" + bb.getRef() + "&board=" + board;
+	return gotoPage + "?b_num=" + bb.getB_num() + "&ref=" + bb.getRef() + "&pageNumber=" + pageNumber +"&board=" + board;
 }
 	
 }
+

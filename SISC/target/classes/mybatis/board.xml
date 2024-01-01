@@ -190,12 +190,6 @@
       order by ref desc, re_step asc ))
       </select>
 
-	<!-- 작성자 상세정보 -->
-      <select id="getWriterNumDetail" resultType="SiscBoard">
-      select * from board where b_num = #{b_num} and writer = #{writer}
-      </select>
-      
-
 	<!-- 글쓰기 -->
 	<!-- <insert id="insertBoardContent">
 		insert into board(b_num, b_cate, writer, subject, reg_date, readcount, ref,
@@ -206,14 +200,17 @@
 			insert into board(b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist)
 			values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,bor_seq.currval,0,0,#{content},#{taglist})
 		</insert>
-
+<!-- 글수정 -->
+	<update id="updateBoardContent">
+		update board set b_cate=#{b_cate},subject=#{subject}, content=#{content}
+		where b_num = #{b_num} and writer=#{writer}
+	</update>
+	
+	<!-- 글삭제 -->
+	<delete id="deleteBoard">
+		delete from board where b_num = #{b_num} and b_cate=#{b_cate}
+	</delete>
 	<!-- 수정구문 (Free, Know, QnA, Grad) -->
-
-	 <!--  수정구문 (Free, Know, QnA, Grad)  -->
-      <update id="updateBoardContent">
-      		update board set b_cate=#{b_cate}, subject=#{subject}, reg_date=#{reg_date}, content=#{content}, taglist=#{taglist} 
-      		where b_num = #{b_num} and writer=#{writer} and re_level=#{re_level}
-      </update>
 
 	<insert id="insertComments">
 		insert into
@@ -221,17 +218,53 @@
 		values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},#{ref},#{re_step}+1,#{re_level}+1,#{content})
 	</insert>
 
-	<update id="updateCommentsProc">
+	<!-- 답글 달면 원글의 가장 아래로 가게 위한 수정 작업1 -->
+	<select id="getLastRef2_Re_step" resultType="int">
+		select nvl(max(re_step), 0) as cnt from board where ref = #{ref} and ref2=#{ref2}
+	</select>
+	
+	<!-- 답글 달면 원글의 가장 아래로 가게 위한 수정 작업2 -->
+	<update id="updateReply" parameterType="SiscBoard">
 		update board set re_step=re_step+1 where ref=#{ref} and re_step > #{re_step}
 	</update>
 
-	<delete id="deleteBoardContent">
-		delete from board where b_num = #{b_num}
+	<!-- 답글 달기 -->
+	<insert id="insertReply" parameterType="SiscBoard">
+		insert into board(b_num,b_cate,writer,subject,reg_date,readcount,ref,ref2,re_step,re_level,content,comments_num,comments_check,taglist)
+		values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,#{ref},#{ref2},#{re_step}+1,#{re_level}+1,#{content},com_seq.nextval,'X','댓글/답글')
+	</insert>
+	
+	<!-- 추천하기 -->
+	<update id="updateAdopt">
+		update board set comments_check = 'O' where b_num = #{b_num2}
+	</update>
+	
+	<update id="updateComments">
+		update board set content=#{content} where b_num=#{b_num} and ref=#{ref}
+	</update>
+	
+	<!-- "댓글" 삭제 -->
+	<delete id="deleteComments">
+		delete from board
+		where ref=#{ref} and ref2=#{ref2}
+	</delete>
+	
+	<!-- "답글" 삭제 -->
+	<delete id="deleteReply">
+		delete from board
+		where b_num=#{b_num} and ref=#{ref}
 	</delete>
 
-	<delete id="deleteCommentsProc">
-		delete from board where b_num = #{b_num} and ref=#{ref}
-	</delete>
+	<!-- 작성자 상세정보 -->
+	<select id="getWriterNumDetail" resultType="SiscBoard">
+		select * from board
+		where b_num = #{b_num} and writer = #{writer}
+	</select>
+	
+	<!-- 조회수 높은 게시글 7개 가져오기 -->
+	<select id="getHotBoard" resultType="SiscBoard">
+		select * from board order by readcount desc fetch first 7 rows only
+	</select>
 
 	<update id="readcountUpdate">
 		update board SET readcount = readcount + 1 WHERE b_num = #{b_num}
@@ -414,6 +447,10 @@
 			and content like #{keyword}
 		</if>
 	</select>	
-
+	<delete id="deleteBoardContent">
+		delete from board where b_num = #{b_num}
+	</delete>
 	<!-- 관리자 끝 -->
+	
+	
 </mapper>

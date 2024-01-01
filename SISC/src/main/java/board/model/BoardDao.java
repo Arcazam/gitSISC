@@ -1,5 +1,6 @@
 package board.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -7,11 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.UncategorizedSQLException;
+import org.springframework.stereotype.Component;
+
+import member.model.MemberBean;
 import utility.BoardCommentsPaging;
 import utility.BoardPaging;
 import utility.InquiryPaging;
@@ -20,246 +26,168 @@ import utility.ManagerPaging;
 @Component("myBoard")
 public class BoardDao {
 
-   @Autowired
-   SqlSessionTemplate sqlSessionTemplate;
-   
-   private String namespace="board.";
+	@Autowired
+	SqlSessionTemplate sqlSessionTemplate;
 
-// (메인화면)자유게시판
-   public List<BoardBean> getAllFreeBoard(Map<String, String> map) {
-      List<BoardBean> free_board_list = sqlSessionTemplate.selectList(namespace+"getAllFreeBoard", map);
-      return free_board_list;
-   }
+	private String namespace = "board.";
 
-   // (메인화면)qna게시판
-   public List<BoardBean> getAllKnowBoard(Map<String, String> map) {
-      List<BoardBean> know_board_list = sqlSessionTemplate.selectList(namespace+"getAllKnowBoard", map);
-      return know_board_list;
-   }
+	// (메인화면)자유게시판
+	   public List<BoardBean> getAllFreeBoard(Map<String, String> map) {
+	      List<BoardBean> free_board_list = sqlSessionTemplate.selectList(namespace+"getAllFreeBoard", map);
+	      return free_board_list;
+	   }
 
-   // (메인화면)qna게시판
-   public List<BoardBean> getAllQnABoard(Map<String, String> map) {
-      List<BoardBean> qna_board_list = sqlSessionTemplate.selectList(namespace+"getAllQnABoard", map);
-      return qna_board_list;
-   }
+	   // (메인화면)qna게시판
+	   public List<BoardBean> getAllKnowBoard(Map<String, String> map) {
+	      List<BoardBean> know_board_list = sqlSessionTemplate.selectList(namespace+"getAllKnowBoard", map);
+	      return know_board_list;
+	   }
 
-   // (메인화면)수료생게시판
-   public List<BoardBean> getAllGradBoard(Map<String, String> map) {
-      List<BoardBean> grad_board_list = sqlSessionTemplate.selectList(namespace+"getAllGradBoard", map);
-      return grad_board_list;
-   }
+	   // (메인화면)qna게시판
+	   public List<BoardBean> getAllQnABoard(Map<String, String> map) {
+	      List<BoardBean> qna_board_list = sqlSessionTemplate.selectList(namespace+"getAllQnABoard", map);
+	      return qna_board_list;
+	   }
 
-   // 자유게시판 레코드 숫자
-   public int getCountFree() {
-      int freeBoardCount = sqlSessionTemplate.selectOne(namespace+"getCountFree");
-      return freeBoardCount;
-   }
+	   // (메인화면)수료생게시판
+	   public List<BoardBean> getAllGradBoard(Map<String, String> map) {
+	      List<BoardBean> grad_board_list = sqlSessionTemplate.selectList(namespace+"getAllGradBoard", map);
+	      return grad_board_list;
+	   }
 
-   // 지식게시판 레코드 숫자
-   public int getCountKnow() {
-      int knowBoardCount = sqlSessionTemplate.selectOne(namespace+"getCountKnow");
-      return knowBoardCount;
-   }
-
-   // QnA게시판 레코드 숫자
-   public int getCountQnA() {
-      int qnaBoardCount = sqlSessionTemplate.selectOne(namespace+"getCountQnA");
-      return qnaBoardCount;
-   }
-
-   // (메인화면)수료생게시판
-   public int getCountGrad() {
-      int gradBoardCount = sqlSessionTemplate.selectOne(namespace+"getCountGrad");
-      return gradBoardCount;
-   }
-
-   // 자유게시판 페이징처리 검색
-	public List<BoardBean> selectFreeDetailCate(BoardPaging pageInfo, Map<String, String> map) {
-		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
-		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectFreeDetailCate",map,rowBounds);
-		return board_cateList;	
+		// 자유게시판 게시글 수
+		public int getCountFree(Map<String, String> map) {
+			int cnt = sqlSessionTemplate.selectOne(namespace + "getCountFree", map);
+			return cnt;
+		}
+		
+		// 지식게시판 게시글 수
+		public int getCountKnow(Map<String, String> map) {
+			int cnt = sqlSessionTemplate.selectOne(namespace + "getCountKnow", map);
+			return cnt;
+		}
+		
+		// QnA게시판 게시글 수
+		public int getCountQnA(Map<String, String> map) {
+			int cnt = sqlSessionTemplate.selectOne(namespace + "getCountQnA", map);
+			return cnt;
+		}
+	
+	// 수료생자유게시판 게시글 수
+	public int getCountGrad(Map<String, String> map) {
+		int cnt = sqlSessionTemplate.selectOne(namespace + "getCountGrad", map);
+		return cnt;
 	}
 	
-	// 지식게시판 페이징처리 검색
-	public List<BoardBean> selectKnowDetailCate(BoardPaging pageInfo, Map<String, String> map) {
-		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
-		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectKnowDetailCate",map,rowBounds);
-		return board_cateList;	
-	}
 	
-	// QnA게시판 페이징처리 검색
-	public List<BoardBean> selectQnADetailCate(BoardPaging pageInfo, Map<String, String> map) {
-		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
-		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectQnADetailCate",map,rowBounds);
-		return board_cateList;	
-	}
 	
-	// 수료생게시판 페이징처리 검색
-	public List<BoardBean> selectGradDetailCate(BoardPaging pageInfo, Map<String, String> map) {
-		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
-		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectGradDetailCate",map,rowBounds);
-		return board_cateList;	
-	}
+	//////////////////////////////////////////////////////////////////////////////////
 
-	// (관리자)자유게시판 페이징처리 검색
-				public List<BoardBean> selectMagAllFree(ManagerPaging pageInfo, Map<String, String> map) {
-					RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
-					List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectMagAllFree",map,rowBounds);
-					return board_cateList;
-				}
-				
-				// (관리자)지식게시판 페이징처리 검색
-				public List<BoardBean> selectMagAllKnow(ManagerPaging pageInfo, Map<String, String> map) {
-					RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
-					List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectMagAllKnow",map,rowBounds);
-					return board_cateList;
-				}
-				
-				// (관리자)QnA게시판 페이징처리 검색
-				public List<BoardBean> selectMagAllQnA(ManagerPaging pageInfo, Map<String, String> map) {
-					RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
-					List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectMagAllQnA",map,rowBounds);
-					return board_cateList;
-				}
-				
-				// (관리자)수료생게시판 페이징처리 검색
-				public List<BoardBean> selectMagAllGrad(ManagerPaging pageInfo, Map<String, String> map) {
-					RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
-					List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectMagAllGrad",map,rowBounds);
-					return board_cateList;
-				}												
-
-				// (관리자)자유게시판 페이징처리 갯수
-				public int getMagCountFree(Map<String, String> map) {
-					int boardMagCateCount = sqlSessionTemplate.selectOne(namespace+"getMagCountFree",map);
-					return boardMagCateCount;
-				}
-				
-				// (관리자)지식게시판 페이징처리 갯수
-				public int getMagCountKnow(Map<String, String> map) {
-					int boardMagCateCount = sqlSessionTemplate.selectOne(namespace+"getMagCountKnow",map);
-					return boardMagCateCount;
-				}
-				
-				// (관리자)QnA게시판 페이징처리 갯수
-				public int getMagCountQnA(Map<String, String> map) {
-					int boardMagCateCount = sqlSessionTemplate.selectOne(namespace+"getMagCountQnA",map);
-					return boardMagCateCount;
-				}
-				
-				// (관리자)수료생게시판 페이징처리 갯수
-				public int getMagCountGrad(Map<String, String> map) {
-					int boardMagCateCount = sqlSessionTemplate.selectOne(namespace+"getMagCountGrad",map);
-					return boardMagCateCount;
-				}
 	
-	// 게시판 삽입 작업
+	
+	// 게시글 등록
 	public int insertBoardContent(BoardBean bb) {
 		int cnt = 0;
 		try {
-			sqlSessionTemplate.insert(namespace+"insertBoardContent",bb);			
-		} catch(UncategorizedSQLException e) {
+			sqlSessionTemplate.insert(namespace + "insertBoardContent", bb);
+		} catch (UncategorizedSQLException e) {
 			cnt = 1;
 		}
 		return cnt;
 	}
-
-	// 게시판 글쓴이 정보 가져오기
-	public BoardBean getBoardInfoWriter(int b_num) {
-		BoardBean bb = sqlSessionTemplate.selectOne(namespace+"getBoardInfoWriter",b_num);
-		return bb;
-	}
-
-	// 게시판 수정 작업
-	public int updateBoardContent(BoardBean bb) {
-		
+	
+	// 게시글 수정
+	public int updateBoardContent(BoardBean updatebb) {
 		int cnt = 0;
 		try {
-			sqlSessionTemplate.update(namespace+"updateBoardContent",bb);			
-		} catch(UncategorizedSQLException e) {
+			sqlSessionTemplate.update(namespace + "updateBoardContent", updatebb);
+		} catch (UncategorizedSQLException e) {
 			cnt = 1;
 		}
 		return cnt;
 	}
-
-	public BoardBean getBoardInfoBnum(BoardBean bb) {
-		BoardBean modelAttBor = sqlSessionTemplate.selectOne(namespace+"getBoardInfoBnum",bb);
-		return modelAttBor;
+	
+	// 게시글 삭제
+	public void deleteBoard(Map<String, Object> map) {
+		sqlSessionTemplate.delete(namespace + "deleteBoard", map);
 	}
 
-	public void deleteBoardContent(BoardBean bb) {
-		sqlSessionTemplate.delete(namespace+"deleteBoardContent",bb);
+	// 게시글 글쓴이 정보 가져오기
+	public BoardBean getBoardInfoWriter(MemberBean mb) {
+		BoardBean bb = sqlSessionTemplate.selectOne(namespace + "getBoardInfoWriter", mb);
+		return bb;
+	}
+	
+	//b_num으로 모든 정보 가져오기
+	public BoardBean getBoardInfoBnum(BoardBean bb) {
+		BoardBean modelAttBor = sqlSessionTemplate.selectOne(namespace + "getBoardInfoBnum", bb);
+		return modelAttBor;
+	}
+	
+	//조회수 +1
+	public int readcountUpdate(BoardBean bb) {
+		int cnt = sqlSessionTemplate.update(namespace + "readcountUpdate", bb);
+		return cnt;
 	}
 
 	// 원글 밑에달릴 댓글 리스트들
-	public List<BoardBean> getAllCommentsLists(BoardCommentsPaging pageInfo, BoardBean bb) {
-		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
-		Map<String,Integer> map = new HashMap<String,Integer>();
-		map.put("ref", bb.getRef());
-		List<BoardBean> numCommentsList = sqlSessionTemplate.selectList(namespace+"getAllCommentsLists",map,rowBounds);
+	public List<BoardBean> getAllCommentsLists(BoardCommentsPaging pageInfo, Map<String, Integer> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+		List<BoardBean> numCommentsList = sqlSessionTemplate.selectList(namespace + "getAllCommentsLists", map, rowBounds);
 		return numCommentsList;
 	}
-	
+
 	// 원글 밑에달릴 댓글 수
-	public int getCommentsCount(BoardBean bb) {
-		int boardCommentsCount = sqlSessionTemplate.selectOne(namespace+"getCommentsCount",bb);
+	public int getCommentCount(int ref) {
+		int boardCommentsCount = sqlSessionTemplate.selectOne(namespace + "getCommentCount", ref);
 		return boardCommentsCount;
 	}
 
 	// 댓글 달기
-	public int insertCommentsProc(BoardBean bb) {
-
-		int cnt = 0;
-		
-		try {
-			bb.setSubject("comments");
-			sqlSessionTemplate.insert(namespace+"insertComments",bb);
-			
-		} catch (UncategorizedSQLException e) {
-			cnt = 1;
-		}
-		
-		return cnt;
-	}
-
-	public int updateCommentsProc(BoardBean bb) {
-		
-		int cnt = 0;
-		try {
-			sqlSessionTemplate.update(namespace+"updateCommentsProc",bb);
-			
-		} catch (UncategorizedSQLException e) {
-			cnt = 1;
-		}
-		return cnt;
-		
-	}
-
-	public int deleteCommentsProc(BoardBean bb) {
-		int cnt = sqlSessionTemplate.delete(namespace+"deleteBoardContent",bb);
-		return cnt;
-	}
-
-	public int getTotalCount(Map<String, String> map) {
-		int cnt = sqlSessionTemplate.selectOne(namespace+"getTotalCount", map);
-		return cnt;
+	public void insertComments(BoardBean bb) {
+		sqlSessionTemplate.insert(namespace + "insertComments", bb);
 	}
 	
-	public int readcountUpdate(BoardBean bb) {
-		int cnt = sqlSessionTemplate.update(namespace+"readcountUpdate", bb);
+	// 댓글/답글 수정
+	public void updateComments(BoardBean bb) {
+		sqlSessionTemplate.update(namespace + "updateComments", bb);
+	}
+	
+	// 답글 달면 원글의 가장 아래로 가게 위한 수정 작업1
+	public int getLastRef2_Re_step(BoardBean bb) {
+		int cnt = sqlSessionTemplate.selectOne(namespace + "getLastRef2_Re_step", bb);
 		return cnt;
 	}
 
-	public int getBoardCount(Map<String, String> map, String board) {
-		map.put("board", board);
-		System.out.println("board:"+board);
-        int cnt = sqlSessionTemplate.selectOne(namespace + "getBoardCount", map);
-        return cnt;
+	// 답글 달면 원글의 가장 아래로 가게 위한 수정 작업2
+	public void updateReply(BoardBean bb) {
+		sqlSessionTemplate.update(namespace + "updateReply", bb);
 	}
 
-	public int getCommentCount(int ref) {
-        int cnt = sqlSessionTemplate.selectOne(namespace + "getCommentCount", ref);
-        return cnt;
+	// 답글 달기
+	public void insertReply(BoardBean bb) {
+		sqlSessionTemplate.insert(namespace + "insertReply", bb);
+	}
+	
+	// 추천하기
+	public void updateAdopt(String b_num2) {
+		sqlSessionTemplate.update(namespace + "updateAdopt", b_num2);
+	}
+	
+	// 댓글 삭제
+	public void deleteComments(BoardBean bb) {
+		sqlSessionTemplate.delete(namespace + "deleteComments", bb);
+	}
+	
+	// 대댓글 삭제
+	public void deleteReply(BoardBean bb) {
+		sqlSessionTemplate.delete(namespace + "deleteReply", bb);
+	}
+	
+	// 조회수 높은 게시글
+	public List<BoardBean> getHotBoard() {
+		List<BoardBean> list = sqlSessionTemplate.selectList(namespace + "getHotBoard");
+		return list;
 	}
 	
 	public int getInquiryCount(Map<String, String> map, String board) {
@@ -298,4 +226,67 @@ public class BoardDao {
 		int checkDelete = sqlSessionTemplate.delete(namespace+"selectAndDelteBoard",bb);
 		return checkDelete;
 	}
+	
+	public void deleteBoardContent(BoardBean bb) {
+		sqlSessionTemplate.delete(namespace+"deleteBoardContent",bb);
+	}
+	
+	public List<BoardBean> selectMagAllFree(ManagerPaging pageInfo, Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectMagAllFree",map,rowBounds);
+		return board_cateList;
+	}
+	
+	// (관리자)지식게시판 페이징처리 검색
+	public List<BoardBean> selectMagAllKnow(ManagerPaging pageInfo, Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectMagAllKnow",map,rowBounds);
+		return board_cateList;
+	}
+	
+	// (관리자)QnA게시판 페이징처리 검색
+	public List<BoardBean> selectMagAllQnA(ManagerPaging pageInfo, Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectMagAllQnA",map,rowBounds);
+		return board_cateList;
+	}
+	
+	public int getBoardCount(Map<String, String> map, String board) {
+		map.put("board", board);
+		System.out.println("board:"+board);
+        int cnt = sqlSessionTemplate.selectOne(namespace + "getBoardCount", map);
+        return cnt;
+	}
+	
+	// (관리자)수료생게시판 페이징처리 검색
+	public List<BoardBean> selectMagAllGrad(ManagerPaging pageInfo, Map<String, String> map) {
+		RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
+		List<BoardBean> board_cateList = sqlSessionTemplate.selectList(namespace+"selectMagAllGrad",map,rowBounds);
+		return board_cateList;
+	}												
+
+	// (관리자)자유게시판 페이징처리 갯수
+	public int getMagCountFree(Map<String, String> map) {
+		int boardMagCateCount = sqlSessionTemplate.selectOne(namespace+"getMagCountFree",map);
+		return boardMagCateCount;
+	}
+	
+	// (관리자)지식게시판 페이징처리 갯수
+	public int getMagCountKnow(Map<String, String> map) {
+		int boardMagCateCount = sqlSessionTemplate.selectOne(namespace+"getMagCountKnow",map);
+		return boardMagCateCount;
+	}
+	
+	// (관리자)QnA게시판 페이징처리 갯수
+	public int getMagCountQnA(Map<String, String> map) {
+		int boardMagCateCount = sqlSessionTemplate.selectOne(namespace+"getMagCountQnA",map);
+		return boardMagCateCount;
+	}
+	
+	// (관리자)수료생게시판 페이징처리 갯수
+	public int getMagCountGrad(Map<String, String> map) {
+		int boardMagCateCount = sqlSessionTemplate.selectOne(namespace+"getMagCountGrad",map);
+		return boardMagCateCount;
+	}
+
 }

@@ -20,41 +20,36 @@ public class BoardDeleteCommentController {
 	private BoardDao bor_dao;
 	
 	public final String command = "/deleteComments.bd";
-	public final String command2 = "/deleteMyComments.bd";
+	public final String command2 = "/deleteReply.bd";
 	public final String gotoPage = "redirect:/detailList.bd";
-	public final String gotoPage2 = "redirect:/mycomment.st";
 	
 	@RequestMapping(value=command)
 	public String toDeleteComments(
 			Model model,
 			@ModelAttribute("bb") BoardBean bb,
-			HttpServletResponse response,
-			@RequestParam(value = "pageNumber", required = false) int pageNumber,
-			@RequestParam(value = "board", required = false) String board,
-			@RequestParam(value = "b_num", required = false) int b_num,
-			@RequestParam(value = "ref", required = false) int ref,
-			@RequestParam(value = "originalb_num", required = false) int originalb_num
+			@RequestParam("pageNumber") int pageNumber,
+			@RequestParam("orib_num") int orib_num,
+			@RequestParam("board") String board
 			) {
+		//orib_num과 board는 경로 설정을 위해 가져온다
 		
-		int cnt = bor_dao.deleteCommentsProc(bb);
+		bor_dao.deleteComments(bb);
 		
-		return gotoPage + "?b_num=" + originalb_num + "&ref=" + ref + "&pageNumber=" + pageNumber + "&board=" + board;
+		return gotoPage + "?b_num=" + orib_num + "&ref=" + bb.getRef() + "&pageNumber=" + pageNumber +"&board=" + board;
 	}
 	
 	@RequestMapping(value=command2)
-	public String toDeleteMyComments(
+	public String toDeleteReply(
 			Model model,
 			@ModelAttribute("bb") BoardBean bb,
-			HttpServletResponse response,
-			@RequestParam(value = "pageNumber", required = false) int pageNumber,
-			@RequestParam(value = "writer", required = false) String writer,
-			@RequestParam(value = "id", required = false) String id,
-			@RequestParam(value = "pro_img", required = false) String pro_img
+			@RequestParam("pageNumber") int pageNumber,
+			@RequestParam("orib_num") int orib_num,
+			@RequestParam("board") String board
 			) {
 		
-		int cnt = bor_dao.deleteCommentsProc(bb);
-		System.out.println("ASdsadkjashdjkashdasjdajdhkahkjd:" + cnt);
+		bor_dao.deleteReply(bb);
 		
-		return gotoPage2 + "?id=" + id + "&pro_img=" + pro_img + "&writer=" + id;
+		return gotoPage + "?b_num=" + orib_num + "&ref=" + bb.getRef() + "&pageNumber=" + pageNumber +"&board=" + board;
 	}
+	
 }

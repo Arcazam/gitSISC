@@ -1,5 +1,7 @@
 package board.model;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,11 @@ public class TagDao {
  
 	public void plusTagValues(TagBean tb) {
 		sqlSessionTemplate.insert(namespace+"plusTagValues",tb);
+	}
+	
+	public List<TagBean> getRank() {
+		List<TagBean> list = sqlSessionTemplate.selectList(namespace + "getRank");
+		return list;
 	}
 	
 }

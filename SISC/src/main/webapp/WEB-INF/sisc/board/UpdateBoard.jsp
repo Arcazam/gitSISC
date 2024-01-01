@@ -1,59 +1,79 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="../common/common.jsp" %>
-	
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../top&bottom/top.jsp" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 
-<link href="<%=request.getContextPath() %>/resources/css/btn.css" rel="stylesheet" type="text/css" />
-
-<%
-Object loginInfo = session.getAttribute("loginInfo");
-if(loginInfo == null){%>
-	<%@ include file="../top&bottom/top.jsp"%>
-<%}else{%>
-	<%@ include file="../top&bottom/topLogin.jsp"%>
-<%}%>
+<link href="<%=request.getContextPath() %>/resources/css/btn.css" rel="stylesheet" type="text/css" /> 
 
 <style>
-.sbtn{
-	background-color: #3D4C53;
-	color: white; 
-	border: none; 
-	margin-top: 8px;
-}	
+@font-face {
+	font-family: 'TAEBAEKfont';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/TAEBAEKfont.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
 
+.sbtn {
+	background-color: #3D4C53;
+	color: white;
+	border: none;
+	margin-top: 8px;
+}
+
+#tagList {
+	white-space: nowrap;
+}
+
+.tag {
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.tagBtn{
+font-family: 'TAEBAEKfont';
+height: 40px;
+font-size: 20px;
+border-radius: 10px;
+margin-left: 10px;
+background-color : rgb(255,255,255,0.4);
+}
+
+.selectSet{
+float: right;
+width: 140px;
+height: 40px;
+font-size: 20px;
+border-radius: 10px;
+}
 </style>
 
 <script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery.js"></script>
 <script>
 
-	function insertBoardcheck(){
-		
-		if($('input[name="writer"]').val() == ""){
-			alert('작성자가 누락되었습니다');
-			$('input[name="writer"]').focus();
-			return false;
-		}
-		
-		if ($('select option:selected').val() == "") {
-			alert('게시판 카테고리를 선택하셔야합니다');
-			return false;
-		}
-		
-		if($('input[name="subject"]').val() == ""){
-			alert('제목이 누락되었습니다');
-			$('input[name="subject"]').focus();
-			return false;
-		}
-		
-		if($('input[name="content"]').val() == ""){
-			alert('내용이 누락되었습니다');
-			$('input[name="content"]').focus();
-			return false;
-		}
-		
-	}
-
+   function updateBoardcheck(){
+      
+      if ($('select option:selected').val() == "") {
+         alert('게시판 카테고리를 선택하셔야합니다');
+         return false;
+      }
+      
+      if($('input[name="subject"]').val() == ""){
+         alert('제목이 누락되었습니다');
+         $('input[name="subject"]').focus();
+         return false;
+      }
+      
+      if($('input[name="content"]').val() == ""){
+         alert('내용이 누락되었습니다');
+         $('input[name="content"]').focus();
+         return false;
+      }
+      
+   }
 </script>
 
 <head>
@@ -71,94 +91,117 @@ if(loginInfo == null){%>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/summernote/summernote-lite.css">
 </head>
 
+<!-- 다른 페이지와 똑같은 스타일 적용을 위해 추가한 부분 -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="<%=request.getContextPath() %>/resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/resources/css/kfonts2.css" rel="stylesheet">
+
 <body>
 <br><br>
-<form:form commandName="bb" class="container" method="post" action="update.bd">
-	<input type="hidden" name="b_num" value="${ bb.b_num }">
-	<input type="hidden" name="board" value="${ board }">
-	<input type="hidden" name="pageNumber" value="${ pageNumber }">
-	
-	<input type="text" name="writer" style="width: 40%;" value="${ id }" readonly><br><br>${board }
-	
-<%
-	String[] b_cateList = {"Free","Know","QnA","Grad"};
-%>
-	<select name="b_cate" style="float: right;">
-		<option value="">선택하세요</option>
-		<c:forEach var="b_cateList" items="<%= b_cateList %>">
-			<c:if test="${ b_cateList eq bb.b_cate }">
-				<option value="${ b_cateList }" selected>${ b_cateList }</option>
-			</c:if>
-			<c:if test="${ b_cateList ne bb.b_cate }">
-				<option value="${ b_cateList }">${ b_cateList }</option>
-			</c:if>
-		</c:forEach>
-	</select>
-	<br><br>
-	<input type="text" name="subject" style="width: 40%;" value="${ bb.subject }" placeholder="제목"/>
-	<div id="charCount">(100/0)</div><br><br>
-	 <script>
-	 $(document).ready(function () {
-		    // 텍스트 입력란에 입력이 발생할 때마다 바이트 수 업데이트
-		    $('input[name="subject"]').on('input', function () {
-		        var inputText = $(this).val();
-		        var byteCount = countBytes(inputText);
+<form:form commandName="updatebb" class="container" method="post" action="update.bd" enctype="multipart/form-data">
+   <div style="margin-top: -10px; font-family: 'TAEBAEKfont';">
+   <b><font size="6">${updateBoardName }게시판에서 수정 중</font></b>
+   <input type="hidden" name="b_num" value="${updatebb.b_num }">
+   <input type="hidden" name="pageNumber" value="${pageNumber }">
+   <input type="hidden" name="writer" style="width: 40%;" value="${ mb.id }" readonly>
+   <select name="b_cate" class="selectSet">
+       <option value="">게시판 선택</option>
+       <option value="Free" <c:if test="${ board == 'Free'}">selected</c:if>>자유</option>
+       <option value="Know" <c:if test="${ board == 'Know'}">selected</c:if>>지식</option>
+       <option value="QnA" <c:if test="${ board == 'QnA'}">selected</c:if>>QnA</option>
+       <option value="Grad" <c:if test="${ board == 'Grad'}">selected</c:if>>수료생</option>
+   </select>
+   <br>
+   </div>
 
-		        if (byteCount > 100) {
-		            // 100자를 초과하면 메시지를 표시하고 글자를 100자로 제한
-		            $('#charCount').text('글자수 제한을 초과하셨습니다').css('color', 'red');
-		            $(this).val(inputText.substring(0, 100));
-		            byteCount = 100;
-		        } else {
-		            // 100자 이하인 경우에는 정상적으로 글자 수를 표시
-		            $('#charCount').text('(100/' + byteCount + ')').css('color', 'black');
-		        }
-		    });
+   <br><br>
+   <input type="text" name="subject" style="width: 47%; height: 40px; font-size: 20px; border-radius: 10px;" value="${ updatebb.subject }" placeholder="제목"/>
+   <div id="charCount">(100/0)</div><br><br>
+   <script>
+    $(document).ready(function () {
+          $('input[name="subject"]').on('input', function () {
+              var inputText = $(this).val();
+              var byteCount = countBytes(inputText);
 
-		    // 문자열의 바이트 수를 계산하는 함수
-		    function countBytes(text) {
-		        var totalCount = 0;
-		        for (var i = 0; i < text.length; i++) {
-		            var charCode = text.charCodeAt(i);
-		            totalCount += (charCode < 128) ? 1 : 3; // ASCII 문자는 1바이트, 나머지는 3바이트로 계산
-		        }
-		        return totalCount;
-		    }
-		});
-    </script>
-	<textarea class="summernote" name="content">${ bb.content }</textarea> 
-	<br>
-	
-	<!-- 태그를 입력할 텍스트 필드 -->
-	<input type="text" name="taginfo" size="30" placeholder="태그를 입력해주세요">
-	
-	<!-- 태그를 입력할수있는 버튼 -->
-	<input type="button" id="tagInsert" value="태그입력"><br>
-	
-	<!-- 태그를 하나라도 입력했을 때 나타나는 메세지 -->
-	<span id="tagMessage"></span>
-	
-	<!-- 어떠한 태그가 입력이 되었는지 나타나는 영역 -->
-	<div id="tagList"></div>
-	
-	<!-- input type hidden 으로 넘길 영역 -->
-	
-	<div id="tagValues">
-    <c:if test="${not empty bb.taglist}">
-        <c:forEach var="tag" items="${bb.taglist}">
-            <div class="removeTag" style="cursor: pointer; color: red;">
-                <font color="blue">#${tag}</font>
-            </div>
-        </c:forEach>
-    </c:if>
-</div>
-	
-	<br><br>
-	<input type="submit" id="sub" value="저장하기" class="studysave" onClick="return insertBoardcheck()">
+              if (byteCount > 100) {
+                  $('#charCount').text('글자수 제한을 초과하셨습니다').css('color', 'red');
+              } else {
+                  $('#charCount').text('(100/' + byteCount + ')').css('color', 'black');
+              }
+          });
+
+          function countBytes(text) {
+              var totalCount = 0;
+              for (var i = 0; i < text.length; i++) {
+                  var charCode = text.charCodeAt(i);
+                  totalCount += (charCode < 128) ? 1 : 3; // ASCII 문자는 1바이트, 나머지는 3바이트로 계산
+              }
+              return totalCount;
+          }
+      });
+   </script>
+   <textarea class="summernote" name="content">${ updatebb.content }</textarea>
+   <br>
+   
+   <table>
+   
+   <tr>
+   <td>
+   <!-- 태그를 입력할 텍스트 필드 -->
+   <input type="text" name="taginfo" style="height: 40px; font-size: 20px; border-radius: 10px;" placeholder="태그를 입력해주세요">
+   </td>
+   <td>
+   <!-- 태그를 입력할수있는 버튼 -->
+   <input type="button" id="tagInsert" class="tagBtn" value="추가"><br>
+   </td>
+   </tr>
+   
+   <tr>
+   <td colspan=2>
+   <!-- 태그를 하나라도 입력했을 때 나타나는 메세지 -->
+   <span id="tagMessage">
+   </span>
+   </td>
+   </tr>
+   
+   <tr>
+   <td colspan=2>
+   <!-- 어떠한 태그가 입력이 되었는지 나타나는 영역 -->
+   <div id="tagList"></div>
+   </td>
+   </tr>
+   
+   <tr>
+   <td>
+   <!-- input type hidden 으로 넘길 영역 -->
+   <div id="tagValues">
+    	<c:if test="${not empty updatebb.taglist}">
+        	<c:forEach var="tag" items="${updatebb.taglist}">
+            	<div class="removeTag" style="cursor: pointer; color: red;">
+                	<font color="blue">#${tag}</font>
+            	</div>
+	        </c:forEach>
+	    </c:if>
+	</div>
+   </td>
+   </tr>
+   
+   </table>
+   
+   <br><br>
+   <input type="submit" id="sub" value="저장하기" class="studysave" onClick="return updateBoardcheck()">
+   
+   <br><br><br><br>
+   <br><br><br><br>
+   
 </form:form>
 </body>
 
-<script>
+
+   <script>
 	
     // 동적 배열 선언
 	var tagValues = [];
@@ -255,58 +298,57 @@ if(loginInfo == null){%>
 
 <script>
 $(document).ready(function() {
-	  $('.summernote').summernote({
-	    placeholder: '내용',
-	    minHeight: 370,
-	    maxHeight: 1000,
-	    focus: true,
-	    lang: 'ko-KR',
-	    callbacks: {
-	      onImageUpload: function(files) {
-	        // 이미지 업로드 콜백
-	        for (var i = 0; i < files.length; i++) {
-	          uploadImage(files[i]);
-	        }
-	      }
-	    }
-	  });
-	});
+    $('.summernote').summernote({
+      placeholder: '스타일 코드 입력시 줄바꿈은 shift + enter를 누르셔야 합니다.',
+      minHeight: 370,
+      maxHeight: 1000,
+      focus: true,
+      lang: 'ko-KR',
+      callbacks: {
+        onImageUpload: function(files) {
+          // 이미지 업로드 콜백
+          for (var i = 0; i < files.length; i++) {
+            uploadImage(files[i]);
+          }
+        }
+      }
+    });
+  });
 
-	function uploadImage(file) {
-	  var reader = new FileReader();
-	  reader.onloadend = function() {
-	    var img = new Image();
-	    img.src = reader.result;
-	    img.onload = function() {
-	      var maxWidth = 600; // 이미지 최대 폭
-	      var maxHeight = 400; // 이미지 최대 높이
+  function uploadImage(file) {
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      var img = new Image();
+      img.src = reader.result;
+      img.onload = function() {
+        var maxWidth = 600; // 이미지 최대 폭
+        var maxHeight = 400; // 이미지 최대 높이
 
-	      var ratio = 1; // 비율 초기화
-	      if (img.width > maxWidth) {
-	        ratio = maxWidth / img.width; // 너비에 따른 비율 계산
-	      } else if (img.height > maxHeight) {
-	        ratio = maxHeight / img.height; // 높이에 따른 비율 계산
-	      }
+        var ratio = 1; // 비율 초기화
+        if (img.width > maxWidth) {
+          ratio = maxWidth / img.width; // 너비에 따른 비율 계산
+        } else if (img.height > maxHeight) {
+          ratio = maxHeight / img.height; // 높이에 따른 비율 계산
+        }
 
-	      // 새로운 크기 계산
-	      var newWidth = img.width * ratio / 3;
-	      var newHeight = img.height * ratio / 3;
+        // 새로운 크기 계산
+        var newWidth = img.width * ratio / 3;
+        var newHeight = img.height * ratio / 3;
 
-	      var canvas = document.createElement('canvas');
-	      var ctx = canvas.getContext('2d');
-	      canvas.width = newWidth;
-	      canvas.height = newHeight;
-	      ctx.drawImage(img, 0, 0, newWidth, newHeight);
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        ctx.drawImage(img, 0, 0, newWidth, newHeight);
 
-	      var dataURL = canvas.toDataURL('image/jpeg');
+        var dataURL = canvas.toDataURL('image/jpeg');
 
-	      // Summernote에 이미지 삽입
-	      $('.summernote').summernote('editor.insertImage', dataURL);
-	    };
-	  };
-	  reader.readAsDataURL(file);
-	}
-
+        // Summernote에 이미지 삽입
+        $('.summernote').summernote('editor.insertImage', dataURL);
+        
+      };
+    };
+    reader.readAsDataURL(file);
+  }
 </script>
 </html>
-    

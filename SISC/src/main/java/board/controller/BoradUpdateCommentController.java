@@ -26,31 +26,17 @@ public class BoradUpdateCommentController {
 	public final String command = "/updateComments.bd";
 	public final String gotoPage = "redirect:/detailList.bd";
 
-	@RequestMapping(value=command)
-	public String toUpdateComments(
-				Model model,
+	@RequestMapping(command)
+	public String updateComments(
 				@ModelAttribute("bb") BoardBean bb,
-				HttpServletResponse response,
-				@RequestParam("pageNumber") int pageNumber
-			) throws IOException {
+				@RequestParam("orib_num") int orib_num,
+				@RequestParam("pageNumber") int pageNumber,
+				@RequestParam("board") String board
+			) {
 		
-		response.setContentType("text/html; charset=UTF-8");
-	    PrintWriter out = response.getWriter();
+		bor_dao.updateComments(bb);
 		
-	    bb.setReg_date(new Timestamp(System.currentTimeMillis()));
-	    
-	    int cnt = bor_dao.updateCommentsProc(bb);
-	    
-	    if(cnt == 1) {
-	    	out.println("<script>alert('내용 글자수 제한을 초과하였습니다!');</script>");
-			out.flush();
-			model.addAttribute("b_num",bb.getB_num());
-			model.addAttribute("pageNumber",pageNumber);
-			return gotoPage;
-	    }
-	    model.addAttribute("b_num",bb.getB_num());
-		model.addAttribute("pageNumber",pageNumber);
-		return gotoPage;
+		return gotoPage + "?b_num=" + orib_num + "&ref=" + bb.getRef() + "&pageNumber=" + pageNumber +"&board=" + board;
 	}
 	
 }

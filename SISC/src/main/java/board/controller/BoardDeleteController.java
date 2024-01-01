@@ -1,6 +1,7 @@
 package board.controller;
 
-import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,49 +22,22 @@ public class BoardDeleteController {
 	public final String command = "/delete.bd";
 	public final String gotoPage = "redirect:/board.bd";
 	public final String sessionID = "loginInfo";
-	private final String command2 = "delete2.bd";
-	private final String gotoPage2 = "redirect:myboard.st";
 	
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String toDelete(
-				Model model, HttpSession session,
-				@RequestParam(value = "b_num", required = false) int b_num,
-				@RequestParam(value = "pageNumber", required = false) int pageNumber,
-				@RequestParam(value = "board", required = false) String board
+				@RequestParam("b_num") int b_num,
+				@RequestParam("b_cate") String b_cate
 			) {
 		
-		Object loginInfo = session.getAttribute("loginInfo");
-	    if(loginInfo == null) {
-	    	session.setAttribute("destination", "redirect:delete.bd?b_num=" + b_num + "&board=" + board + "&pageNumber=" + pageNumber);
-	        return "redirect:login.mb";
-	    }
-	    
-		BoardBean bb = new BoardBean();
-		bb.setB_num(b_num);
-		bor_dao.deleteBoardContent(bb);
-		model.addAttribute("pageNumber",pageNumber);
-		model.addAttribute("board",board);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("b_num", b_num);
+		map.put("b_cate", b_cate);
 		
-		return gotoPage;
-	}
-	
-	@RequestMapping(value=command2)
-	public String toDeleteMyBoard(
-				Model model, HttpSession session,
-				@RequestParam(value = "b_num", required = false) int b_num,
-				@RequestParam(value = "pageNumber", required = false) int pageNumber,
-				@RequestParam(value = "board", required = false) String board,
-				@RequestParam(value = "id", required = false) String id,
-				@RequestParam(value = "pro_img", required = false) String pro_img
-			) {
+		System.out.println("¿À´Ï?");
 		
-		BoardBean bb = new BoardBean();
-		bb.setB_num(b_num);
-		bor_dao.deleteBoardContent(bb);
-		model.addAttribute("pageNumber",pageNumber);
-		model.addAttribute("board",board);
+		bor_dao.deleteBoard(map);
 		
-		return gotoPage2 + "?id=" + id + "&pro_img=" + pro_img + "&writer=" + id;
+		return gotoPage + "?board=" + b_cate;
 	}
 	
 }

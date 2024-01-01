@@ -17,6 +17,7 @@ import book.model.BookBean;
 import book.model.BookDao;
 import member.model.MemberBean;
 import member.model.MemberDao;
+import utility.BoardPaging;
 
 @Controller
 public class MainViewController {
@@ -51,26 +52,18 @@ public class MainViewController {
 	      map.put("keyword", "%"+keyword+"%");
 		
 	    BoardBean bb = new BoardBean();
-	      
+	    
 		// (메인화면)자유게시판
 		List<BoardBean> free_board_list = bor_dao.getAllFreeBoard(map);
-		// 자유게시판 레코드 숫자
-		int freeBoardCount = bor_dao.getCountFree();
 		
 		// (메인화면)지식게시판
 		List<BoardBean> know_board_list = bor_dao.getAllKnowBoard(map);
-		// 지식게시판 레코드 숫자
-		int knowBoardCount = bor_dao.getCountKnow();
 		
 		// (메인화면)qna게시판
 		List<BoardBean> qna_board_list = bor_dao.getAllQnABoard(map);
-		// QnA게시판 레코드 숫자
-		int qnaBoardCount = bor_dao.getCountQnA();
 		
 		// (메인화면)수료생게시판
 		List<BoardBean> grad_board_list = bor_dao.getAllGradBoard(map);
-		// 수료생게시판 레코드 숫자
-		int gradBoardCount = bor_dao.getCountGrad();
 		
 		// (메인화면)책방
 		List<BookBean> book_list = bok_dao.selectAllToMainBook();
@@ -80,19 +73,15 @@ public class MainViewController {
 		
 		// 자유 게시판
 		model.addAttribute("free_board_list",free_board_list);
-		model.addAttribute("freeBoardCount",freeBoardCount);
 		
 		// 정보 게시판
 		model.addAttribute("know_board_list",know_board_list);
-		model.addAttribute("knowBoardCount",knowBoardCount);
 		
 		// qna 게시판
 		model.addAttribute("qna_board_list",qna_board_list);
-		model.addAttribute("qnaBoardCount",qnaBoardCount);
 		
 		// 수료생 게시판
 		model.addAttribute("grad_board_list",grad_board_list);
-		model.addAttribute("gradBoardCount",gradBoardCount);
 		
 		// 책방
 		model.addAttribute("book_list",book_list);

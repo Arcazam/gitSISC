@@ -13,13 +13,11 @@ public class BoardCommentsPaging {
 	private int endPage = 0 ; //페이징 처리 끝 페이지 번호
 	private int offset = 0 ; // 얼마나 건너뛸것이냐
 	private int limit = 0 ; // 현재페이지에서 얼마나 출력할것이냐
+	private int b_num = 0 ; //보드번호
+	private int ref = 0 ; //원글의 번호 원글의 달린 답글을 다른 원글에 달린 답글과 구분하기 위해
+	private String board = "" ;	//무슨 게시판이지 구분하기 위해
 	private String url = "" ; // 어디 페이지에서 이 객체를 사용할것이냐
 	private String pagingHtml = "";//하단의 숫자 페이지 링크
-	private String whatColumn = "" ; //검색 모드(작성자, 글제목)
-	private String keyword = "" ; //검색할 단어 
-	private int b_num = 0;
-	private int ref = 0;
-	private String board = "";
 
 	public int getTotalCount() {
 		return totalCount;
@@ -153,37 +151,15 @@ public class BoardCommentsPaging {
 		this.pagingHtml = pagingHtml;
 	}
 
-	public String getWhatColumn() {
-		return whatColumn;
-	}
-
-
-	public void setWhatColumn(String whatColumn) {
-		this.whatColumn = whatColumn;
-	}
-
-
-	public String getKeyword() {
-		return keyword;
-	}
-
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-
 
 	public BoardCommentsPaging(
 			String _pageNumber, 
 			String _pageSize,  
 			int totalCount,
-			String url, 
-			String whatColumn, 
-			String keyword, int b_num, int ref, String board) {	
-		
-		this.b_num = b_num;
-		this.ref = ref;
-		this.board = board;
+			String url,
+			int b_num,
+			int ref,
+			String board) {
 
 		if(  _pageNumber == null || _pageNumber.equals("null") || _pageNumber.equals("")  ){
 			System.out.println("_pageNumber:"+_pageNumber); // null
@@ -197,8 +173,12 @@ public class BoardCommentsPaging {
 		this.pageSize = Integer.parseInt( _pageSize ) ;
 		
 		this.limit = pageSize ; // 한 페이지에 보여줄 레코드 갯수
-
-		this.totalCount = totalCount ; 
+		
+		this.b_num = b_num;
+		this.ref = ref;
+		this.board = board;
+		
+		this.totalCount = totalCount ;
 
 		this.totalPage = (int)Math.ceil((double)this.totalCount / this.pageSize) ;
 		// 전체 레코드가 만약 17.0 개면 한페이지에 보여줄 사이즈를 나눠줘서 올린값만큼 페이지를 만든다
@@ -228,14 +208,10 @@ public class BoardCommentsPaging {
 		
 		System.out.println("pageNumber2:"+pageNumber+"/totalPage2:"+totalPage);	
 		this.url = url ; //  /ex/list.ab
-		this.whatColumn = whatColumn ;
-		this.keyword = keyword ;
-		System.out.println("whatColumn:"+whatColumn+"/keyword:"+keyword);
 		
 		//System.out.println("url2:"+url); //url2:/ex/list.ab
 		this.pagingHtml = getPagingHtml(url) ;
 		// 맨처음 이전 1 2 3 다음 맨 끝
-		
 		
 	} // 생성자의 끝
 	
@@ -243,16 +219,14 @@ public class BoardCommentsPaging {
 		System.out.println("getPagingHtml url:"+url); 
 		
 		String result = "" ;
-		String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword ;
 		
 		if (this.beginPage != 1) {
 			result += "&nbsp;<a href='" + url  
-		            + "?pageNumber=" + (1) + "&pageSize=" + this.pageSize 
-		            + added_param + "'>맨 처음</a>&nbsp;";
-
-			result += "&nbsp;<a href='" + url
-	                + "?b_num=" + this.b_num + "&ref=" + this.ref + "&pageNumber=" + (this.beginPage - 1) + "&board=" + this.board + "&pageSize=" + this.pageSize
-	                + added_param + "'>이전</a>&nbsp;";
+					+ "?b_num=" + this.b_num + "&ref=" + this.ref + "&pageNumber=" + ( 1 ) 
+					+ "&board=" + this.board + "'>맨 처음</a>&nbsp;" ;
+			result += "&nbsp;<a href='" + url 
+					+ "?b_num=" + this.b_num + "&ref=" + this.ref + "&pageNumber=" + (this.beginPage - 1 ) 
+					+ "&board=" + this.board + "'>이전</a>&nbsp;" ;
 		}
 		
 		//가운데
@@ -262,8 +236,9 @@ public class BoardCommentsPaging {
 						
 			} else {
 				result += "&nbsp;<a href='" + url   
-						+ "?b_num=" + this.b_num + "&ref=" + this.ref + "&pageNumber=" + i + "&board=" + this.board + "&pageSize=" + this.pageSize 
-						+ added_param + "'>" + i + "</a>&nbsp;" ;
+						+ "?b_num=" + this.b_num + "&ref=" + this.ref 
+						+ "&pageNumber=" + i + "&board=" + this.board
+						+ "'>" + i + "</a>&nbsp;" ;
 				
 			}
 		}
@@ -274,12 +249,12 @@ public class BoardCommentsPaging {
 		if ( this.endPage != this.totalPage) { 
 			
 			result += "&nbsp;<a href='" + url  
-					+ "?pageNumber=" + (this.endPage + 1 ) + "&pageSize=" + this.pageSize 
-					+ added_param + "'>다음</a>&nbsp;" ;
+					+ "?b_num=" + this.b_num + "&ref=" + this.ref + "&pageNumber=" + (this.endPage + 1 ) 
+					+ "&board=" + this.board + "'>다음</a>&nbsp;" ;
 			
-			result += "&nbsp;<a href='" + url  
-					+ "?pageNumber=" + (this.totalPage ) + "&pageSize=" + this.pageSize 
-					+ added_param + "'>맨 끝</a>&nbsp;" ;
+			result += "&nbsp;<a href='" + url 
+					+ "?b_num=" + this.b_num + "&ref=" + this.ref + "&pageNumber=" + (this.totalPage ) 
+					+ "&board=" + this.board + "'>맨 끝</a>&nbsp;" ;
 		}		
 		System.out.println("result2:"+result);
 		

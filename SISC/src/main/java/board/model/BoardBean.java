@@ -1,6 +1,6 @@
 package board.model;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class BoardBean {
 
@@ -9,20 +9,24 @@ public class BoardBean {
 	private String writer;
 	private String subject;
 	private String passwd;
-	private Timestamp reg_date;
+	private String reg_date;
 	private int readcount;
 	private int ref;
+	private int ref2;
 	private int re_step;
 	private int re_level;
 	private String content;
+    private int comments_num;
+    private String comments_check;
 	private String taglist;
 	
 	public BoardBean() {
 		
 	}
 
-	public BoardBean(int b_num, String b_cate, String writer, String subject, String passwd, Timestamp reg_date,
-			int readcount, int ref, int re_step, int re_level, String content, String taglist) {
+	public BoardBean(int b_num, String b_cate, String writer, String subject, String passwd, String reg_date,
+			int readcount, int ref, int ref2, int re_step, int re_level, String content,int comments_num, 
+			String comments_check, String taglist) {
 		super();
 		this.b_num = b_num;
 		this.b_cate = b_cate;
@@ -32,10 +36,13 @@ public class BoardBean {
 		this.reg_date = reg_date;
 		this.readcount = readcount;
 		this.ref = ref;
+		this.ref2 = ref2;
 		this.re_step = re_step;
 		this.re_level = re_level;
 		this.content = content;
-		this.taglist = taglist;	
+		this.comments_num = comments_num;
+		this.comments_check = comments_check;
+		this.taglist = taglist;
 	}
 
 	public int getB_num() {
@@ -78,11 +85,11 @@ public class BoardBean {
 		this.passwd = passwd;
 	}
 
-	public Timestamp getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
 
-	public void setReg_date(Timestamp reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
 
@@ -100,6 +107,14 @@ public class BoardBean {
 
 	public void setRef(int ref) {
 		this.ref = ref;
+	}
+
+	public int getRef2() {
+		return ref2;
+	}
+
+	public void setRef2(int ref2) {
+		this.ref2 = ref2;
 	}
 
 	public int getRe_step() {
@@ -125,6 +140,22 @@ public class BoardBean {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+	public int getComments_num() {
+		return comments_num;
+	}
+
+	public void setComments_num(int comments_num) {
+		this.comments_num = comments_num;
+	}
+	
+	public String getComments_check() {
+		return comments_check;
+	}
+
+	public void setComments_check(String comments_check) {
+		this.comments_check = comments_check;
+	}
 
 	public String getTaglist() {
 		return taglist;
@@ -133,4 +164,5 @@ public class BoardBean {
 	public void setTaglist(String taglist) {
 		this.taglist = taglist;
 	}
+
 }

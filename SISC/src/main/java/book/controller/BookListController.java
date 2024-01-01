@@ -44,7 +44,7 @@ public class BookListController {
 			) {
 		
 	
-				MemberBean mb = (MemberBean)session.getAttribute(sessionID); 
+		MemberBean mb = (MemberBean)session.getAttribute(sessionID); 
 		
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("whatColumn", whatColumn);

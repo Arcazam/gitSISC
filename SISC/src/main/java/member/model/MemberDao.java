@@ -78,5 +78,7 @@ public class MemberDao {
 		List<MemberBean> member_list = sqlSessionTemplate.selectList(namespace+"getAllMagMemberList",map,rowBounds);
 		return member_list;
 	}
-	
+	public void updateAdopt_num(String writer) {
+		sqlSessionTemplate.update(namespace + "updateAdopt_num", writer);
+	}
 }
