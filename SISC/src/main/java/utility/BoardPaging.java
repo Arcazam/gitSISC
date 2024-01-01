@@ -17,9 +17,8 @@ public class BoardPaging {
 	private String pagingHtml = "";//하단의 숫자 페이지 링크
 	private String whatColumn = "" ; //검색 모드(작성자, 글제목)
 	private String keyword = "" ; //검색할 단어 
-	private String id = "";
-	private String pro_img = "";
-	
+	private String board = "";
+
 	public int getTotalCount() {
 		return totalCount;
 	}
@@ -178,11 +177,10 @@ public class BoardPaging {
 			int totalCount,
 			String url, 
 			String whatColumn, 
-			String keyword, String id, String pro_img) {	
-		
-		this.id = id;
-		this.pro_img = pro_img;
-		
+			String keyword, 
+			String board) {		
+
+		this.board = board;
 		if(  _pageNumber == null || _pageNumber.equals("null") || _pageNumber.equals("")  ){
 			System.out.println("_pageNumber:"+_pageNumber); // null
 			_pageNumber = "1" ;
@@ -240,46 +238,47 @@ public class BoardPaging {
 		System.out.println("getPagingHtml url:"+url); 
 		
 		String result = "" ;
-		String added_param = "&id=" + id + "&pro_img=" + pro_img +"&whatColumn=" + whatColumn + "&keyword=" + keyword ;
-		
-		if (this.beginPage != 1) {
-			result += "&nbsp;<a href='" + url  
-					+ "?pageNumber=" + ( 1 ) + "&pageSize=" + this.pageSize 
-					+ added_param + "'>맨 처음</a>&nbsp;" ;
-			result += "&nbsp;<a href='" + url 
-					+ "?pageNumber=" + (this.beginPage - 1 ) + "&pageSize=" + this.pageSize 
-					+ added_param + "'>이전</a>&nbsp;" ;
-		}
-		
-		//가운데
-		for (int i = this.beginPage; i <= this.endPage ; i++) {
-			if ( i == this.pageNumber ) {
-				result += "&nbsp;<font color='red'>" + i + "</font>&nbsp;"	;
-						
-			} else {
-				result += "&nbsp;<a href='" + url   
-						+ "?pageNumber=" + i + "&pageSize=" + this.pageSize 
-						+ added_param + "'>" + i + "</a>&nbsp;" ;
-				
-			}
-		}
-		
-		System.out.println("result:"+result); 
-		System.out.println();
-		
-		if ( this.endPage != this.totalPage) { 
-			
-			result += "&nbsp;<a href='" + url  
-					+ "?pageNumber=" + (this.endPage + 1 ) + "&pageSize=" + this.pageSize 
-					+ added_param + "'>다음</a>&nbsp;" ;
-			
-			result += "&nbsp;<a href='" + url  
-					+ "?pageNumber=" + (this.totalPage ) + "&pageSize=" + this.pageSize 
-					+ added_param + "'>맨 끝</a>&nbsp;" ;
-		}		
-		System.out.println("result2:"+result);
-		
-		return result ;
+	      String added_param = "&whatColumn=" + whatColumn + "&keyword=" + keyword ;
+	      
+	      if (this.beginPage != 1) {
+	         result += "&nbsp;<a href='" + url  
+	               + "?board=" + this.board + "&pageNumber=" + ( 1 ) + "&pageSize=" + this.pageSize 
+	               + added_param + "'>맨 처음</a>&nbsp;" ;
+	         result += "&nbsp;<a href='" + url 
+	               + "?board=" + this.board + "&pageNumber=" + (this.beginPage - 1 ) + "&pageSize=" + this.pageSize 
+	               + added_param + "'>이전</a>&nbsp;" ;
+	      }
+	      
+	      //가운데
+	      for (int i = this.beginPage; i <= this.endPage ; i++) {
+	         if ( i == this.pageNumber ) {
+	            result += "&nbsp;<font color='red'>" + i + "</font>&nbsp;"   ;
+	                  
+	         } else {
+	            result += "&nbsp;<a href='" + url   
+	                  + "?board=" + this.board + "&pageNumber=" + i + "&pageSize=" + this.pageSize 
+	                  + added_param + "'>" + i + "</a>&nbsp;" ;
+	            
+	         }
+	      }
+	      
+	      System.out.println("result:"+result); 
+	      System.out.println();
+	      
+	      if ( this.endPage != this.totalPage) { 
+	         
+	         result += "&nbsp;<a href='" + url  
+	               + "?board=" + this.board + "&pageNumber=" + (this.endPage + 1 ) + "&pageSize=" + this.pageSize 
+	               + added_param + "'>다음</a>&nbsp;" ;
+	         
+	         result += "&nbsp;<a href='" + url  
+	               + "?board=" + this.board + "&pageNumber=" + (this.totalPage ) + "&pageSize=" + this.pageSize 
+	               + added_param + "'>맨 끝</a>&nbsp;" ;
+	      }      
+	      System.out.println("result2:"+result);
+	      
+	      return result ;
 	}	
 	
 }
+

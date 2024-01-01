@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import board.model.BoardBean;
 import board.model.BoardDao;
 import member.model.MemberBean;
-import utility.BoardPaging;
+import utility.MyBoardPaging;
 import utility.InquiryPaging;
 
 @Controller

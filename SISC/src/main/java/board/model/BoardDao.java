@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import member.model.MemberBean;
 import utility.BoardCommentsPaging;
 import utility.BoardPaging;
+import utility.MyBoardPaging;
 import utility.InquiryPaging;
 import utility.ManagerPaging;
 
@@ -32,28 +33,32 @@ public class BoardDao {
 	private String namespace = "board.";
 
 	// (메인화면)자유게시판
-	   public List<BoardBean> getAllFreeBoard(Map<String, String> map) {
-	      List<BoardBean> free_board_list = sqlSessionTemplate.selectList(namespace+"getAllFreeBoard", map);
-	      return free_board_list;
-	   }
+		public List<BoardBean> getAllFreeBoard(BoardPaging pageInfo, Map<String, String> map) {
+			RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+			List<BoardBean> free_board_list = sqlSessionTemplate.selectList(namespace + "getAllFreeBoard", map, rowBounds);
+			return free_board_list;
+		}
 
-	   // (메인화면)qna게시판
-	   public List<BoardBean> getAllKnowBoard(Map<String, String> map) {
-	      List<BoardBean> know_board_list = sqlSessionTemplate.selectList(namespace+"getAllKnowBoard", map);
-	      return know_board_list;
-	   }
+		// (메인화면)qna게시판
+		public List<BoardBean> getAllKnowBoard(BoardPaging pageInfo, Map<String, String> map) {
+			RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+			List<BoardBean> know_board_list = sqlSessionTemplate.selectList(namespace + "getAllKnowBoard", map, rowBounds);
+			return know_board_list;
+		}
 
-	   // (메인화면)qna게시판
-	   public List<BoardBean> getAllQnABoard(Map<String, String> map) {
-	      List<BoardBean> qna_board_list = sqlSessionTemplate.selectList(namespace+"getAllQnABoard", map);
-	      return qna_board_list;
-	   }
+		// (메인화면)qna게시판
+		public List<BoardBean> getAllQnABoard(BoardPaging pageInfo, Map<String, String> map) {
+			RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+			List<BoardBean> qna_board_list = sqlSessionTemplate.selectList(namespace + "getAllQnABoard", map, rowBounds);
+			return qna_board_list;
+		}
 
-	   // (메인화면)수료생게시판
-	   public List<BoardBean> getAllGradBoard(Map<String, String> map) {
-	      List<BoardBean> grad_board_list = sqlSessionTemplate.selectList(namespace+"getAllGradBoard", map);
-	      return grad_board_list;
-	   }
+	// (메인화면)수료생게시판
+		public List<BoardBean> getAllGradBoard(BoardPaging pageInfo, Map<String, String> map) {
+			RowBounds rowBounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
+			List<BoardBean> grad_board_list = sqlSessionTemplate.selectList(namespace + "getAllGradBoard", map, rowBounds);
+			return grad_board_list;
+		}
 
 		// 자유게시판 게시글 수
 		public int getCountFree(Map<String, String> map) {

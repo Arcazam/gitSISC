@@ -10,4 +10,3 @@
 <script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/jquery.js"></script>
 <script type="text/javascript" src="<%= request.getContextPath() %>/resources/js/script.js"></script>
 
-<a href="logout.jsp">로그아웃</a>

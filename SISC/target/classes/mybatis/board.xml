@@ -5,55 +5,91 @@
 <mapper namespace="board">
 
 	<select id="getAllFreeBoard" resultType="SiscBoard">
-		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
-		re_level, content, taglist
-		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
-		readcount, ref, re_step, re_level, content, taglist
-		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content, taglist
-		from board where b_cate = 'Free' and re_level = 0 or subject like
-		#{search}
+		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+		from board where b_cate = 'Free' and re_level = 0
+
+		<if test="whatColumn == 'all'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn == 'writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn == 'subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn == 'content'">
+			and content like #{keyword}
+		</if>
+
 		order by ref desc, re_step asc ))
-		where rank between 1 and 5
 	</select>
 
 	<select id="getAllKnowBoard" resultType="SiscBoard">
-		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
-		re_level, content, taglist
-		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
-		readcount, ref, re_step, re_level, content, taglist
-		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content, taglist
-		from board where b_cate = 'Know' and re_level = 0 or subject like
-		#{search}
+		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+		from board where b_cate = 'Know' and re_level = 0
+
+		<if test="whatColumn == 'all'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn == 'writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn == 'subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn == 'content'">
+			and content like #{keyword}
+		</if>
+
 		order by ref desc, re_step asc ))
-		where rank between 1 and 5
 	</select>
 
 	<select id="getAllQnABoard" resultType="SiscBoard">
-		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
-		re_level, content, taglist
-		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
-		readcount, ref, re_step, re_level, content, taglist
-		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content, taglist
-		from board where b_cate = 'QnA' and re_level = 0 or subject like #{search}
+		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+		from board where b_cate = 'QnA' and re_level = 0
+
+		<if test="whatColumn == 'all'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn == 'writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn == 'subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn == 'content'">
+			and content like #{keyword}
+		</if>
+
 		order by ref desc, re_step asc ))
-		where rank between 1 and 5
 	</select>
 
-
 	<select id="getAllGradBoard" resultType="SiscBoard">
-		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step,
-		re_level, content, taglist
-		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date,
-		readcount, ref, re_step, re_level, content, taglist
-		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content, taglist
-		from board where b_cate = 'Grad' and re_level = 0 or subject like
-		#{search}
+		select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+		from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+		from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+		from board where b_cate = 'Grad' and re_level = 0
+
+		<if test="whatColumn == 'all'">
+			and (subject like #{keyword} or content like #{keyword})
+		</if>
+		<if test="whatColumn == 'writer'">
+			and writer like #{keyword}
+		</if>
+		<if test="whatColumn == 'subject'">
+			and subject like #{keyword}
+		</if>
+		<if test="whatColumn == 'content'">
+			and content like #{keyword}
+		</if>
+
 		order by ref desc, re_step asc ))
-		where rank between 1 and 5
 	</select>
 
 	<select id="getTotalCount" resultType="int">
@@ -171,6 +207,23 @@
 		select * from board where b_num = #{b_num}
 	</select>
 
+	<!-- 글쓰기 -->
+   <insert id="insertBoardContent">
+      insert into board(b_num, b_cate, writer, subject, reg_date, readcount, ref, ref2, re_step, re_level, content, comments_num, comments_check, taglist)
+      values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},1,bor_seq.currval,0,0,0,#{content},0,'원글',#{taglist})
+   </insert>
+   
+   <!-- 글수정 -->
+   <update id="updateBoardContent">
+      update board set b_cate=#{b_cate},subject=#{subject}, content=#{content}, taglist=#{taglist}
+      where b_num = #{b_num} and writer=#{writer}
+   </update>
+   
+   <!-- 글삭제 -->
+   <delete id="deleteBoard">
+      delete from board where b_num = #{b_num} and b_cate=#{b_cate}
+   </delete>
+
 	<!-- bnum으로 모든 정보 가져오기 -->
       <select id="getBoardInfoBnum" resultType="SiscBoard">
       select * from board where b_num = #{b_num}
@@ -182,79 +235,58 @@
       </select>
 
 	<!-- bnum이 (예를들어) 4인 게시물의 댓글 가져오기 -->
-      <select id="getAllCommentsLists" resultType="SiscBoard">
-      select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
-      from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
-      from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist
+   <select id="getAllCommentsLists" resultType="SiscBoard">
+      select b_num, b_cate, writer, subject, reg_date, readcount, ref, ref2, re_step, re_level, content,comments_num,comments_check
+      from (select rownum as rank, b_num, b_cate, writer, subject, reg_date, readcount, ref, ref2, re_step, re_level, content,comments_num,comments_check
+      from (select b_num, b_cate, writer, subject, reg_date, readcount, ref, ref2, re_step, re_level, content,comments_num,comments_check
       from board where ref = #{ref} and re_level > 0
       order by ref desc, re_step asc ))
-      </select>
+   </select>
 
-	<!-- 글쓰기 -->
-	<!-- <insert id="insertBoardContent">
-		insert into board(b_num, b_cate, writer, subject, reg_date, readcount, ref,
-		re_step, re_level, content)
-		values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,bor_seq.currval,0,0,#{content})
-	</insert>  -->
-	<insert id="insertBoardContent">
-			insert into board(b_num, b_cate, writer, subject, reg_date, readcount, ref, re_step, re_level, content, taglist)
-			values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,bor_seq.currval,0,0,#{content},#{taglist})
-		</insert>
-<!-- 글수정 -->
-	<update id="updateBoardContent">
-		update board set b_cate=#{b_cate},subject=#{subject}, content=#{content}
-		where b_num = #{b_num} and writer=#{writer}
-	</update>
-	
-	<!-- 글삭제 -->
-	<delete id="deleteBoard">
-		delete from board where b_num = #{b_num} and b_cate=#{b_cate}
-	</delete>
-	<!-- 수정구문 (Free, Know, QnA, Grad) -->
+   <!-- 댓글 달기 -->
+   <insert id="insertComments">
+      insert into board(b_num,b_cate,writer,subject,reg_date,readcount,ref,ref2,re_step,re_level,content,comments_num,comments_check,taglist)
+      values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,#{ref},bor_seq.currval,(select nvl(max(re_step)+1, 0) from board where ref = #{ref}),#{re_level},#{content},com_seq.nextval,'X','댓글/답글')
+   </insert>
+   
+   <!-- 답글 달면 원글의 가장 아래로 가게 위한 수정 작업1 -->
+   <select id="getLastRef2_Re_step" resultType="int">
+      select nvl(max(re_step), 0) as cnt from board where ref = #{ref} and ref2=#{ref2}
+   </select>
+   
+   <!-- 답글 달면 원글의 가장 아래로 가게 위한 수정 작업2 -->
+   <update id="updateReply" parameterType="SiscBoard">
+      update board set re_step=re_step+1 where ref=#{ref} and re_step > #{re_step}
+   </update>
 
-	<insert id="insertComments">
-		insert into
-		board(b_num,b_cate,writer,subject,reg_date,ref,re_step,re_level,content)
-		values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},#{ref},#{re_step}+1,#{re_level}+1,#{content})
-	</insert>
-
-	<!-- 답글 달면 원글의 가장 아래로 가게 위한 수정 작업1 -->
-	<select id="getLastRef2_Re_step" resultType="int">
-		select nvl(max(re_step), 0) as cnt from board where ref = #{ref} and ref2=#{ref2}
-	</select>
+   <!-- 답글 달기 -->
+   <insert id="insertReply" parameterType="SiscBoard">
+      insert into board(b_num,b_cate,writer,subject,reg_date,readcount,ref,ref2,re_step,re_level,content,comments_num,comments_check,taglist)
+      values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,#{ref},#{ref2},#{re_step}+1,#{re_level}+1,#{content},com_seq.nextval,'X','댓글/답글')
+   </insert>
+   
+   <!-- 추천하기 -->
+   <update id="updateAdopt">
+      update board set comments_check = 'O' where b_num = #{b_num2}
+   </update>
+   
+   <!-- 댓글/답글 수정 -->
+   <update id="updateComments">
+      update board set content=#{content} where b_num=#{b_num} and ref=#{ref}
+   </update>
+   
+   <!-- "댓글" 삭제 -->
+   <delete id="deleteComments">
+      delete from board
+      where ref=#{ref} and ref2=#{ref2}
+   </delete>
+   
+   <!-- "답글" 삭제 -->
+   <delete id="deleteReply">
+      delete from board
+      where b_num=#{b_num} and ref=#{ref}
+   </delete>
 	
-	<!-- 답글 달면 원글의 가장 아래로 가게 위한 수정 작업2 -->
-	<update id="updateReply" parameterType="SiscBoard">
-		update board set re_step=re_step+1 where ref=#{ref} and re_step > #{re_step}
-	</update>
-
-	<!-- 답글 달기 -->
-	<insert id="insertReply" parameterType="SiscBoard">
-		insert into board(b_num,b_cate,writer,subject,reg_date,readcount,ref,ref2,re_step,re_level,content,comments_num,comments_check,taglist)
-		values(bor_seq.nextval,#{b_cate},#{writer},#{subject},#{reg_date},0,#{ref},#{ref2},#{re_step}+1,#{re_level}+1,#{content},com_seq.nextval,'X','댓글/답글')
-	</insert>
-	
-	<!-- 추천하기 -->
-	<update id="updateAdopt">
-		update board set comments_check = 'O' where b_num = #{b_num2}
-	</update>
-	
-	<update id="updateComments">
-		update board set content=#{content} where b_num=#{b_num} and ref=#{ref}
-	</update>
-	
-	<!-- "댓글" 삭제 -->
-	<delete id="deleteComments">
-		delete from board
-		where ref=#{ref} and ref2=#{ref2}
-	</delete>
-	
-	<!-- "답글" 삭제 -->
-	<delete id="deleteReply">
-		delete from board
-		where b_num=#{b_num} and ref=#{ref}
-	</delete>
-
 	<!-- 작성자 상세정보 -->
 	<select id="getWriterNumDetail" resultType="SiscBoard">
 		select * from board

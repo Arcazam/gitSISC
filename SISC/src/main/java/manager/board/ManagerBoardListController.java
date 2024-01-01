@@ -18,7 +18,7 @@ import board.model.BoardBean;
 import board.model.BoardDao;
 import manager.model.ManagerBean;
 import member.model.MemberBean;
-import utility.BoardPaging;
+import utility.MyBoardPaging;
 import utility.ManagerPaging;
 
 @Controller

@@ -16,6 +16,10 @@
 			insert into tag(tag_val) values(#{tag_val})
 		</insert>
 		
+		<select id="getRank" resultType="SiscTag">
+			select * from tag order by tag_cnt desc fetch first 5 rows only
+		</select>
+		
 	</mapper>
 	
 	

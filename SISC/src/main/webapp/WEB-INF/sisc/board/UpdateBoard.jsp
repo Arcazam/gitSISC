@@ -285,9 +285,13 @@ border-radius: 10px;
     });
     
     $('#sub').click(function() {
-        if (tagValues.length > 0) {
+    	if (tagValues.length > 0) {
             // JSON 배열 형식으로 변환하여 hidden input에 추가
             var tagHidden = '<input type="hidden" name="tagValues" value=\'["' + tagValues.join('","') + '"]\'>';
+            $('#tagValues').append(tagHidden);
+        }
+        if(tagValues.length == 0){
+           var tagHidden = '<input type="hidden" name="tagValues" value="noTag">';
             $('#tagValues').append(tagHidden);
         }
     });

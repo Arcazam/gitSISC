@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import board.model.BoardBean;
 import book.model.BookBean;
-import utility.BoardPaging;
+import utility.MyBoardPaging;
 import utility.BookPaging;
 import utility.StudyPaging;
 
@@ -64,7 +64,7 @@ public class StudyDao {
         return cnt;
     }
 
-	public List<BoardBean> getMyBoard(BoardPaging pageInfo, Map<String, String> map, String writer) {
+	public List<BoardBean> getMyBoard(MyBoardPaging pageInfo, Map<String, String> map, String writer) {
 		List<BoardBean> list = new ArrayList<BoardBean>();
 		
 		RowBounds rowbounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());
@@ -74,7 +74,7 @@ public class StudyDao {
 		return list;
 	}
 	
-	public List<BoardBean> getMyComment(BoardPaging pageInfo, Map<String, String> map, String writer) {
+	public List<BoardBean> getMyComment(MyBoardPaging pageInfo, Map<String, String> map, String writer) {
 		List<BoardBean> list = new ArrayList<BoardBean>();
 		
 		RowBounds rowbounds = new RowBounds(pageInfo.getOffset(), pageInfo.getLimit());

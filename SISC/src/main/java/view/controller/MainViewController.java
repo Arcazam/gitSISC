@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import book.model.BookDao;
 import member.model.MemberBean;
 import member.model.MemberDao;
 import utility.BoardPaging;
+import utility.MyBoardPaging;
 
 @Controller
 public class MainViewController {
@@ -39,11 +42,13 @@ public class MainViewController {
 
 	@RequestMapping(value=command,method=RequestMethod.GET)
 	public String siscMainjsp(
+				@RequestParam(value="board", required = false) String board,
 				@RequestParam(value="userId",required = false) String userId,
-				Model model, @RequestParam(value="search", required = false) String search,
+				@RequestParam(value="search", required = false) String search,
 				@RequestParam(value="whatColumn", required = false) String whatColumn,
     			@RequestParam(value="keyword", required = false) String keyword,
-    			@RequestParam(value="pageNumber", required = false) String pageNumber
+    			@RequestParam(value="pageNumber", required = false) String pageNumber,
+    			HttpServletRequest request, Model model
 			) {
 	
 		Map<String, String> map = new HashMap<String, String>();
@@ -53,17 +58,22 @@ public class MainViewController {
 		
 	    BoardBean bb = new BoardBean();
 	    
+	    String url = request.getContextPath()+"/board.bd";
+	      
+	    int totalCount = 0;
+	       
+	    BoardPaging pageInfo = new BoardPaging(pageNumber,null,totalCount,url,whatColumn,keyword,board);
 		// (메인화면)자유게시판
-		List<BoardBean> free_board_list = bor_dao.getAllFreeBoard(map);
+		List<BoardBean> free_board_list = bor_dao.getAllFreeBoard(pageInfo, map);
 		
 		// (메인화면)지식게시판
-		List<BoardBean> know_board_list = bor_dao.getAllKnowBoard(map);
+		List<BoardBean> know_board_list = bor_dao.getAllKnowBoard(pageInfo, map);
 		
 		// (메인화면)qna게시판
-		List<BoardBean> qna_board_list = bor_dao.getAllQnABoard(map);
+		List<BoardBean> qna_board_list = bor_dao.getAllQnABoard(pageInfo, map);
 		
 		// (메인화면)수료생게시판
-		List<BoardBean> grad_board_list = bor_dao.getAllGradBoard(map);
+		List<BoardBean> grad_board_list = bor_dao.getAllGradBoard(pageInfo, map);
 		
 		// (메인화면)책방
 		List<BookBean> book_list = bok_dao.selectAllToMainBook();
