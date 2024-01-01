@@ -126,7 +126,7 @@ height: 35px;
 	
 	  <tr>
          <td>
-         <div class="form__group field" >
+         <div class="form__group field">
          	<input type="text" name="name" class="form__field" placeholder="이름" class="textSize" required>
          	<label class="form__label">이름</label>
          </div>

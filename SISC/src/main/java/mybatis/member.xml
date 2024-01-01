@@ -92,6 +92,9 @@
 			order by start_day asc
 		</select>
 		
+		<select id="findMPW" resultType="SiscMember">
+			select * from member where name = #{name} and joomin = #{joomin} and id=#{id}
+		</select>
 		
 		<!-- 메인페이지 추천랭크 -->
 		<select id="getRank">

@@ -18,45 +18,44 @@ import member.model.MemberDao;
 @Controller
 public class MemberFindPWController {
 
-	@Autowired
-	private MemberDao mdao;
-	
-	public final String command = "/findMemberPW.mb";
-	public final String viewPage = "findMemberPW";
-	public final String gotoPage = "redirect:/changePW.mb";
-	
-	@RequestMapping(value=command,method=RequestMethod.GET)
-	public String toFindIDform() {
-		return viewPage;
-	}
-	
-	@RequestMapping(value=command,method=RequestMethod.POST)
-	public String toFindAndLoginForm(
-				Model model,
-				MemberBean mb,
-				HttpServletResponse response,
-				@RequestParam("joomin1") String joomin1, 
-				@RequestParam("joomin2") String joomin2
-			) throws IOException {
-		
-		response.setContentType("text/html; charset=UTF-8");
-	    PrintWriter out = response.getWriter();
-		
-		// 주민등록번호 앞,뒤 합치기
-		mb.setJoomin(joomin1 + "-" + joomin2);
-		
-		MemberBean findMB = mdao.findMemberPW(mb);
-		
-		if(findMB != null) {
-			out.println("<script>alert('비밀번호는 "+findMB.getPassword()+"입니다');</script>");
-		    out.flush();
-		    return gotoPage;
-		} else {
-			out.println("<script>alert('가입 정보가 없습니다');</script>");
-		    out.flush();
-		    return viewPage;
-		}
-	
-	}
-	
+   @Autowired
+   private MemberDao mdao;
+   
+   public final String command = "/findMemberPW.mb";
+   public final String viewPage = "findMemberPW";
+   public final String gotoPage = "redirect:/changePW.mb";
+   
+   @RequestMapping(value=command,method=RequestMethod.GET)
+   public String toFindIDform() {
+      return viewPage;
+   }
+   
+   @RequestMapping(value=command,method=RequestMethod.POST)
+   public String toFindAndLoginForm(
+            Model model,
+            MemberBean mb,
+            HttpServletResponse response,
+            @RequestParam("joomin1") String joomin1, 
+            @RequestParam("joomin2") String joomin2
+         ) throws IOException {
+      
+      response.setContentType("text/html; charset=UTF-8");
+       PrintWriter out = response.getWriter();
+      
+      // 주민등록번호 앞,뒤 합치기
+      mb.setJoomin(joomin1 + "-" + joomin2);
+      
+      MemberBean findMB = mdao.findMPW(mb);
+      
+      if(findMB != null) {
+          model.addAttribute("id",findMB.getId());
+          return gotoPage;
+      } else {
+         out.println("<script>alert('가입 정보가 없습니다');history.go(-1);</script>");
+          out.flush();
+          return viewPage;
+      }
+   
+   }
+   
 }

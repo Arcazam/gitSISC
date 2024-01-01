@@ -53,7 +53,7 @@ Object loginInfo = session.getAttribute("loginInfo");
       width: 500px;
       height: 450px;
       border-collapse : collapse;
-      border-radius : 30px;
+      border-radius : 10px;
       border-style : hidden;
       box-shadow : 0 0 0 1px #666;
       font-family: 'TAEBAEKfont';
@@ -65,7 +65,7 @@ Object loginInfo = session.getAttribute("loginInfo");
       margin-left: 100px;
       width: 500px;
       border-collapse : collapse;
-      border-radius : 30px;
+      border-radius : 10px;
       border-style : hidden;
       box-shadow : 0 0 0 1px #666;
       font-family: 'TAEBAEKfont';
@@ -77,6 +77,7 @@ Object loginInfo = session.getAttribute("loginInfo");
       height: 50px;
       padding-left: 20px;
       font-size: 1.5em;
+      border-bottom: none;
       }
    
       /* "작성자 프로필 이미지" 설정 */
@@ -224,6 +225,13 @@ Object loginInfo = session.getAttribute("loginInfo");
 	a:hover {
 		color: #BDBDBD;
 	}
+	
+	/* 게시판 텍스트 설정 */
+    .boardText{
+    margin-left: 300px;
+    font-size: 2.5em;
+    font-family: 'TAEBAEKfont';
+    }
 </style>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -245,46 +253,13 @@ Object loginInfo = session.getAttribute("loginInfo");
     
   </head>
     
-    <!-- 이 위부터는 style과 script 설정입니다 -->
-    <input type="hidden" name="loginInfo" value="${loginInfo }">
-     <div class="container" style="padding-left: 0px; padding-right: 0px;">
+    <div class="container" style="padding-left: 0px; padding-right: 0px;">
         <div id="carousel-example-generic" class="carousel slide">
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="4"></li>
-            </ol>
             <div class="carousel-inner">
                 <div class="item active">
                     <img src="<%=request.getContextPath() %>/resources/images/test1.jpg" class="slideImg" alt="First slide">
                 </div>
-
-                <div class="item">
-                    <img src="<%=request.getContextPath() %>/resources/images/test2.jpg" alt="Second slide">
-                </div>
-
-                <div class="item">
-                    <img src="<%=request.getContextPath() %>/resources/images/test1.jpg" alt="Third slide">
-                </div>
-
-                <div class="item">
-                    <img src="<%=request.getContextPath() %>/resources/images/test2.jpg" alt="Fourth slide">
-                </div>
-
-                <div class="item">
-                    <img src="<%=request.getContextPath() %>/resources/images/test1.jpg" alt="Fifth slide">
-                </div>
             </div>
-
-            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                <span class="icon-prev"></span>
-            </a>
-
-            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                <span class="icon-next"></span>
-            </a>
         </div>
     </div> <!-- 캐러쉘 슬라이드 끝 -->
      
@@ -323,49 +298,11 @@ Object loginInfo = session.getAttribute("loginInfo");
      </div> <!-- 메뉴 설정 끝 -->
      
      <br><br>
-     
-     <div class="popStar">
-     <center>
-     <span style="font-size: 2.5em;">작성자 <font style="color: yellowgreen;">TOP</font>21</span>
-     
-     <hr style="width: 500px; size: 10px; color: green;">
-     
-     <table border=1 style="width: 1100px; height: 300px;">
-        <tr>
-           <td style="text-align:center;" colspan=2>1위</td>
-           <td style="text-align:center;" colspan=2>2위</td>
-           <td style="text-align:center;" colspan=2>3위</td>
-        </tr>
-        
-        <tr>
-           <td style="text-align:center;">4</td>
-           <td style="text-align:center;">5</td>
-           <td style="text-align:center;">6</td>
-           <td style="text-align:center;">7</td>
-           <td style="text-align:center;">8</td>
-           <td style="text-align:center;">9</td>
-        </tr>
-        
-        <tr>
-           <td style="text-align:center;">10</td>
-           <td style="text-align:center;">11</td>
-           <td style="text-align:center;">12</td>
-           <td style="text-align:center;">13</td>
-           <td style="text-align:center;">14</td>
-           <td style="text-align:center;">15</td>
-        </tr>
-        
-        <tr>
-           <td style="text-align:center;">16</td>
-           <td style="text-align:center;">17</td>
-           <td style="text-align:center;">18</td>
-           <td style="text-align:center;">19</td>
-           <td style="text-align:center;">20</td>
-           <td style="text-align:center;">21</td>
-        </tr>
-     </table>
-     </center>
-     </div> <!-- 인기태그 끝 -->
+     <br><br>
+    
+    <span class="boardText">게시판</span>
+    
+    <hr style="width: 1100px;">>
      
      <br><br>
     <div class="middle">
@@ -385,7 +322,7 @@ Object loginInfo = session.getAttribute("loginInfo");
                 <c:forEach var="free" items="${free_board_list}" varStatus="loop">
                     <c:if test="${loop.index < 5}">
                         <tr>
-                            <td style="border-bottom: none;">
+                            <td style="border-top: none; border-bottom: none;">
                                 <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
                                 <span style="padding-top: 5px;"><a href="" id="more">작성자 :${free.writer}</a></span>
                                 <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">${free.readcount}
@@ -422,11 +359,10 @@ Object loginInfo = session.getAttribute("loginInfo");
                 <c:forEach var="know" items="${know_board_list}" varStatus="loop">
                     <c:if test="${loop.index < 5}">
                         <tr>
-                            <td style="border-bottom: none;">
-                                <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
-                                <span style="padding-top: 5px;"><a href="" id="more">작성자 :${know.writer}</a></span>
-                                <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">${know.readcount}
-                            </td>
+                            <td style="border-top: none; border-bottom: none;">
+					            <span style="padding-left: 10px;"><a href="" id="more">작성자</a></span>
+					            <img src="<%=request.getContextPath()%>/resources/images/댓글이미지.png" class="tableImg2">7
+				            </td>
                         </tr>
                         <tr>
                             <td class="tableTitle">
@@ -481,8 +417,6 @@ Object loginInfo = session.getAttribute("loginInfo");
             <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
          </tr>
       </table>
-
-         
       
       <table class="board_table2" border=1>
          <tr>
@@ -523,10 +457,12 @@ Object loginInfo = session.getAttribute("loginInfo");
 	</div> <!-- Q&A 수료생 게시글 끝 -->
     
     <br><br>
-    
-    <span class="usedBook1">중고책방</span>
-    <span class="usedBook2"><a href="list.bk?id=${loginInfo.id}&pro_img=${loginInfo.pro_img}" id="more">더보기</a></span>
     <br><br>
+    
+    <span class="usedBook1">중고책방</span>    
+    <span class="usedBook2"><a href="list.bk?id=${loginInfo.id}&pro_img=${loginInfo.pro_img}" id="more">더보기</a></span>
+    <hr style="width: 1100px;">
+    <br>
     
     <div class="bottom word">
     <c:forEach var="book" items="${book_list}" varStatus="loop">
