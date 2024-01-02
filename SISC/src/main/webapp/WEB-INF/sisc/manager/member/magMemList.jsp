@@ -144,7 +144,8 @@
                     </ul>
                 </nav>
                 <center style="margin-top: 10px; margin-bottom: 30px;"><h1>회원 리스트(${pageInfo.totalCount}개)</h1></center>
-			<form name="magMemberSearchForm" method="get" action="memberList.mag">
+			<form name="magMemberListForm" action="delSelMember.mag">
+			<input type="hidden" name="pageNumber" value="${ pageInfo.pageNumber }">
 				<div class="container-fluid">
                     <div class="row">
                     	<table class="table">

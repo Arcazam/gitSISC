@@ -72,6 +72,17 @@ Object loginInfo = session.getAttribute("loginInfo");
 
 <script>
 
+//다른문제풀기 버튼 클릭 시 동작
+function reloadPage() {
+    if (confirm("다른 문제를 불러오시겠습니까?")) {
+        location.reload();	
+        sessionStorage.setItem('showButton', 'true');
+    } else {
+        return;
+    }
+}
+
+
 $(function () {
 
 	var questNumListString = '${calculate_list}';
@@ -79,6 +90,7 @@ $(function () {
     var questNumList = questNumListString.split(',').map(Number);
     var questNumLength = questNumList.length;
     
+ 
     $('#sub').click(function () {
 
         for (var i = 0; i < questNumLength; i++) {
@@ -147,14 +159,5 @@ $(function () {
         // 정답 확인 로직 구현
     });
 
-    // 다른문제풀기 버튼 클릭 시 동작
-    function reloadPage() {
-        if (confirm("다른 문제를 불러오시겠습니까?")) {
-            sessionStorage.setItem('showButton', 'true');
-            location.reload();
-        } else {
-            return;
-        }
-    }
 });
 </script>

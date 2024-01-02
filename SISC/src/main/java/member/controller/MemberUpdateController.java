@@ -78,9 +78,12 @@ public class MemberUpdateController {
 	public String updateImg2(MemberBean mb, HttpSession session,
 			@RequestParam("id") String id,
 			@RequestParam("pro_img") String pro_img) {
-		mdao.updateProImg(mb);
 		
 		String uploadPath = servletContext.getRealPath("/resources/member/"+mb.getId()+"/pro_img/");
+		
+		String newProImg = mb.getPro_img();
+		
+		mdao.updateProImg(mb);
 		
 		MultipartFile multi = mb.getUpload();
 		
@@ -108,8 +111,8 @@ public class MemberUpdateController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} // 파일업로드
-		session.setAttribute("updateImg", mb.getPro_img());
+		 session.setAttribute("updateImg", newProImg);
 		
-		return gotoPage2 + "?id=" + id + "&pro_img=" + pro_img;
+		return gotoPage2 + "?id=" + id + "&pro_img=" + newProImg;
 	}
 }

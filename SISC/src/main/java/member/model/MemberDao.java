@@ -29,6 +29,22 @@ public class MemberDao {
 	}
 
 	public void insertMember(MemberBean mb) {
+		System.out.println("id:"+mb.getId());
+		System.out.println("getPassword"+mb.getPassword());
+		System.out.println("getName:"+mb.getName());
+		System.out.println("getPro_img:"+mb.getPro_img());
+		System.out.println("getJoomin:"+mb.getJoomin());
+		System.out.println("getAddress:"+mb.getAddress());
+		System.out.println("getPhone:"+mb.getPhone());
+		System.out.println("getDivision:"+mb.getDivision());
+		System.out.println("getCode:"+mb.getCode());
+		System.out.println("getStart_day:"+mb.getStart_day());
+		System.out.println("getEnd_day:"+mb.getEnd_day());
+		System.out.println("getM_class:"+mb.getM_class());
+		System.out.println("getCurriculum:"+mb.getCurriculum());
+		System.out.println("getAdopt:"+mb.getAdopt());
+		System.out.println("getGender:"+mb.getGender());
+		System.out.println("getBirth:"+mb.getBirth());
 		sqlSessionTemplate.insert(namespace+"insertMember",mb);
 	}
 

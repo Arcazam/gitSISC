@@ -47,6 +47,7 @@ Object loginInfo = session.getAttribute("loginInfo");
    button.learn-more {
        width: 220px;
        height: auto;
+       margin-left: 1165px;
    }
    
    button.learn-more .circle {
@@ -57,7 +58,7 @@ Object loginInfo = session.getAttribute("loginInfo");
        width: 3rem;
        height: 3rem;
        background: #282936;
-       border-radius: 1.625rem;
+       border-radius: 1.625rem; 
    }
    
    button.learn-more .circle .icon {
@@ -308,7 +309,7 @@ Object loginInfo = session.getAttribute("loginInfo");
        var scrollPosition = window.scrollY;
 
        // Adjust the top position based on scroll position
-       if (scrollPosition > 200) {
+       if (scrollPosition > 250) {
          leftElement.style.top = scrollPosition + 100 + 'px';
          rightElement.style.top = scrollPosition + 100 + 'px';
        } else {

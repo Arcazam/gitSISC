@@ -20,6 +20,7 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: space-around; /* 수정: 아이템 간격을 조절하여 가운데로 모이게 함 */
+    margin-top: 100px;
 }
 
 .footer-item {

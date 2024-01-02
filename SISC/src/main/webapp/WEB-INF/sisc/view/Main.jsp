@@ -31,7 +31,7 @@ Object loginInfo = session.getAttribute("loginInfo");
     .menu{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
     font-family: 'TAEBAEKfont';
     }
     
@@ -51,25 +51,24 @@ Object loginInfo = session.getAttribute("loginInfo");
     .board_table {
       margin-left: 300px;
       width: 500px;
-      height: 450px;
+      height: 460px;
       border-collapse : collapse;
       border-radius : 10px;
       border-style : hidden;
       box-shadow : 0 0 0 1px #666;
       font-family: 'TAEBAEKfont';
-      height: 10px;
       }
    
       /* "지식, 수료생 게시판" 설정 */
     .board_table2 {
       margin-left: 100px;
       width: 500px;
+      height: 450px;
       border-collapse : collapse;
       border-radius : 10px;
       border-style : hidden;
       box-shadow : 0 0 0 1px #666;
       font-family: 'TAEBAEKfont';
-      height: 10px;
       }
    
       /* "게시판 이름" 설정 */
@@ -257,7 +256,7 @@ Object loginInfo = session.getAttribute("loginInfo");
         <div id="carousel-example-generic" class="carousel slide">
             <div class="carousel-inner">
                 <div class="item active">
-                    <img src="<%=request.getContextPath() %>/resources/images/test1.jpg" class="slideImg" alt="First slide">
+                    <img src="<%=request.getContextPath() %>/resources/images/test10.png" class="slideImg" alt="First slide">
                 </div>
             </div>
         </div>
@@ -267,9 +266,9 @@ Object loginInfo = session.getAttribute("loginInfo");
      
      <div class="menu">
      <%
-     String [] menus = {"공지사항", "랭킹", "설문", "퀴즈", "문의"};
-     String [] menuImgs = {"공지사항.png", "랭킹.png", "설문.png", "퀴즈.png", "문의.png"};
-     String [] links = {"fiveMenu.bd?menu=notice", "fiveMenu.bd?menu=rank", "fiveMenu.bd?menu=survey", "cateList.qz", "inquiryList.bd?menu=inquiry" };
+     String [] menus = {"설문", "퀴즈", "문의"};
+     String [] menuImgs = {"설문.png", "퀴즈.png", "문의.png"};
+     String [] links = {"fiveMenu.bd?menu=survey", "cateList.qz", "inquiryList.bd?menu=inquiry" };
      %>
      
      <c:set var="fmenu" value="<%= menus %>"/>
@@ -302,13 +301,13 @@ Object loginInfo = session.getAttribute("loginInfo");
     
     <span class="boardText">게시판</span>
     
-    <hr style="width: 1100px;">>
+    <hr style="width: 1100px;">
      
      <br><br>
     <div class="middle">
       <table class="board_table" border="1">
 	    <tr>
-	        <td colspan="4" class="tableBoard">자유</td>
+	        <td style="background-color: #CFCFCF;" colspan="4" class="tableBoard">자유</td>
 	    </tr>
 	   <c:choose>
             <c:when test="${fn:length(free_board_list) == 0}">
@@ -323,14 +322,13 @@ Object loginInfo = session.getAttribute("loginInfo");
                     <c:if test="${loop.index < 5}">
                         <tr>
                             <td style="border-top: none; border-bottom: none;">
-                                <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
-                                <span style="padding-top: 5px;"><a href="" id="more">작성자 :${free.writer}</a></span>
-                                <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">${free.readcount}
+				            	<span style="padding-left: 10px;">작성자 ${free.writer}</span>
+                                <span style="float: right;"><img src="<%=request.getContextPath()%>/resources/images/댓글이미지.png" class="tableImg2">${free.readcount}</span>
                             </td>
                         </tr>
                         <tr>
                             <td class="tableTitle">
-                                <a href="" id="more">${free.subject}</a>
+                                <a href="detailList.bd?b_num=${free.b_num }&ref=${free.ref }&pageNumber=1&board=Free" id="more">${free.subject}</a>
                             </td>
                         </tr>
                     </c:if>
@@ -338,13 +336,13 @@ Object loginInfo = session.getAttribute("loginInfo");
             </c:otherwise>
         </c:choose>
     	<tr>
-            <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
+            <td style="height: 30px; text-align: center;"><a href="board.bd?board=Free" id="more">더보기</a></td>
          </tr>
       </table>
 
       <table class="board_table2" border=1>
          <tr>
-            <td colspan=4 class="tableBoard">지식</td>
+            <td style="background-color: #CFCFCF;" colspan=4 class="tableBoard">지식</td>
          </tr>
          
          <c:choose>
@@ -360,13 +358,13 @@ Object loginInfo = session.getAttribute("loginInfo");
                     <c:if test="${loop.index < 5}">
                         <tr>
                             <td style="border-top: none; border-bottom: none;">
-					            <span style="padding-left: 10px;"><a href="" id="more">작성자</a></span>
-					            <img src="<%=request.getContextPath()%>/resources/images/댓글이미지.png" class="tableImg2">7
-				            </td>
+				            <span style="padding-left: 10px;">작성자 ${know.writer}</span>
+				            <span style="float: right;"><img src="<%=request.getContextPath()%>/resources/images/댓글이미지.png" class="tableImg2">${know.readcount}</span>
+			            </td>
                         </tr>
                         <tr>
                             <td class="tableTitle">
-                                <a href="" id="more">${know.subject}</a>
+                                <a href="detailList.bd?b_num=${know.b_num }&ref=${know.ref }&pageNumber=1&board=Know" id="more">${know.subject}</a>
                             </td>
                         </tr>
                     </c:if>
@@ -374,7 +372,7 @@ Object loginInfo = session.getAttribute("loginInfo");
             </c:otherwise>
         </c:choose>
     	<tr>
-            <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
+            <td style="height: 30px; text-align: center;"><a href="board.bd?board=Know" id="more">더보기</a></td>
          </tr>
       </table>
 </div>
@@ -384,7 +382,7 @@ Object loginInfo = session.getAttribute("loginInfo");
     <div class="middle">
     <table class="board_table" border="1">
         <tr>
-            <td colspan="4" class="tableBoard">Q&A</td>
+            <td style="background-color: #CFCFCF;" colspan="4" class="tableBoard">Q&A</td>
         </tr>
         <c:choose>
             <c:when test="${fn:length(qna_board_list) == 0}">
@@ -398,15 +396,14 @@ Object loginInfo = session.getAttribute("loginInfo");
                 <c:forEach var="qa" items="${qna_board_list}" varStatus="loop">
                     <c:if test="${loop.index < 5}">
                         <tr>
-                            <td style="border-bottom: none;">
-                                <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
-                                <span style="padding-top: 5px;"><a href="" id="more">작성자 :${qa.writer}</a></span>
-                                <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">${qa.readcount}
+                            <td style="border-top: none; border-bottom: none;">
+				            	<span style="padding-left: 10px;">작성자 ${qa.writer}</span>
+                                <span style="float: right;"><img src="<%=request.getContextPath()%>/resources/images/댓글이미지.png" class="tableImg2">${qa.readcount}</span>
                             </td>
                         </tr>
                         <tr>
                             <td class="tableTitle">
-                                <a href="" id="more">${qa.subject}</a>
+                                <a href="detailList.bd?b_num=${qa.b_num }&ref=${qa.ref }&pageNumber=1&board=QnA" id="more">${qa.subject}</a>
                             </td>
                         </tr>
                     </c:if>
@@ -414,13 +411,13 @@ Object loginInfo = session.getAttribute("loginInfo");
             </c:otherwise>
         </c:choose>
     	<tr>
-            <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
+            <td style="height: 30px; text-align: center;"><a href="board.bd?board=QnA" id="more">더보기</a></td>
          </tr>
       </table>
       
       <table class="board_table2" border=1>
          <tr>
-            <td colspan=4 class="tableBoard">수료생</td>
+            <td style="background-color: #CFCFCF;" colspan=4 class="tableBoard">수료생</td>
          </tr>
          
         <c:choose>
@@ -435,15 +432,14 @@ Object loginInfo = session.getAttribute("loginInfo");
                 <c:forEach var="grad" items="${grad_board_list}" varStatus="loop">
                     <c:if test="${loop.index < 5}">
                         <tr>
-                            <td style="border-bottom: none;">
-                                <a href=""><img src="<%=request.getContextPath()%>/resources/images/logo.jpg" class="tableImg"></a>
-                                <span style="padding-top: 5px;"><a href="" id="more">작성자 :${grad.writer}</a></span>
-                                <img src="<%=request.getContextPath()%>/resources/images/댓글.png" class="tableImg2">${grad.readcount}
+                            <td style="border-top: none; border-bottom: none;">
+				            	<span style="padding-left: 10px;">작성자 ${grad.writer}</span>
+                                <span style="float: right;"><img src="<%=request.getContextPath()%>/resources/images/댓글이미지.png" class="tableImg2">${grad.readcount}</span>
                             </td>
                         </tr>
                         <tr>
                             <td class="tableTitle">
-                                <a href="" id="more">${grad.subject}</a>
+                                <a href="detailList.bd?b_num=${grad.b_num }&ref=${grad.ref }&pageNumber=1&board=Grad" id="more">${grad.subject}</a>
                             </td>
                         </tr>
                     </c:if>
@@ -451,7 +447,7 @@ Object loginInfo = session.getAttribute("loginInfo");
             </c:otherwise>
         </c:choose>
     	<tr>
-            <td style="height: 30px; text-align: center;"><a href="" id="more">더보기</a></td>
+            <td style="height: 30px; text-align: center;"><a href="board.bd?board=Grad" id="more">더보기</a></td>
          </tr>
       </table>
 	</div> <!-- Q&A 수료생 게시글 끝 -->

@@ -27,7 +27,6 @@ if (loginInfo == null) {
     <link href="<%=request.getContextPath() %>/resources/css/kfonts2.css" rel="stylesheet">
     <style>
     
-  
         #BookUpdateForm {
             margin: 0 auto;
             width: 90%; /* 전체 너비 조절 */
@@ -35,6 +34,7 @@ if (loginInfo == null) {
             flex-direction: row; /* 수평으로 정렬 */
             justify-content: center; /* 가운데 정렬 추가 */
             margin-left: 200px;
+            margin-top: 100px;
         }
 
         .images-container {
@@ -127,9 +127,9 @@ if (loginInfo == null) {
         }
 
         #BookUpdateForm img {
-            width: 200px;
-            height: 230px;
-            margin: 10px;
+            width: 270px;
+            height: 300px;
+            margin: 14px;
         }
 
         #BookUpdateForm .updateContainer {
@@ -195,7 +195,7 @@ if (loginInfo == null) {
               <font color="red"><b>책의 표지가 잘 나와야하고, 화질이 너무 흐릿한 사진을 올려서는 안됩니다</b></font>
               <c:set var="seller_pnum" value="${mb.phone}" />
              
-              <input type="text" name="seller_pnum_arr" value="${mb.phone}" readonly>
+              <input type="text" name="seller_pnum" value="${mb.phone}" readonly>
               
             </td>
           </tr>

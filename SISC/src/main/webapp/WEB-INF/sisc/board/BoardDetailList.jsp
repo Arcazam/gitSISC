@@ -9,14 +9,14 @@
 
 <style>
 .detailTable {
-   width: 60%;
+   width: 47%;
    margin: auto;
-   margin-left: 300px;
+   margin-left: 400px;
    font-family: 'Pretendard-Regular';
 }
 
 .commentsCount {
-   width: 60%;
+   width: 54%;
    margin: auto;
    margin-top: 40px;
    border-collapse: collapse;
@@ -141,7 +141,7 @@
     </tr>
 </table>
 
-<hr style="width: 500px; margin-left: 300px;">
+<hr style="width: 800px; margin-left: 400px;">
 
 <!-- 원글 내용 -->
 <table class="detailTable">
@@ -165,7 +165,7 @@
    <!-- 원글 수정 | 삭제 -->
    <c:if test="${bd.writer eq mb.id or mb.id eq 'admin'}">
    <tr>
-      <td style="border-right: solid 0.5px; text-align: center; width:860px;">
+      <td style="border-right: solid 0.5px; text-align: center; width:750px;">
       <span style="font-size: 1.5em; float: right; margin-right: 10px;">
       <a style="text-decoration: none; color: black;" href="updateForm.bd?b_num=${bd.b_num}&pageNumber=${pageNumber}&board=${bd.b_cate}">수정</a>
       </span>

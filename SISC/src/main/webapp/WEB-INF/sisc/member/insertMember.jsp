@@ -225,7 +225,7 @@ input{
 		}
 		
 		 if($('input[name="division"]').val() == ""){
-	         alert('학생, 매니저, 강사 중 반드시 하나를 선택해야 합니다');
+	         alert('학생을 선택해야 합니다');
 	         $('input[name="division"]').focus();
 	         return false;
 	      }
@@ -251,13 +251,6 @@ input{
 	          return false;
 	      }
 
-	      if($('input[name="code"]').val() == ""){
-	         alert('코드가 누락되었습니다');
-	         $('input[name="code"]').focus();
-	         return false;
-	      }
-
-		
 	}
 
 	 function showMenu(division) {
@@ -425,14 +418,6 @@ input{
 						            <input class="form-check-input" type="radio" name="division" value="student" onclick="showMenu(division.value)">
 						            <label class="form-check-label">학생</label>
 						        </div>
-						        <div class="col-sm-3 pe-1">
-						            <input class="form-check-input" type="radio" name="division" value="manager" onclick="showMenu(division.value)">
-						            <label class="form-check-label">매니저</label>
-						        </div>
-						        <div class="col-sm-3 pe-1">
-						            <input class="form-check-input" type="radio" name="division" value="lecturer" onclick="showMenu(division.value)">
-						            <label class="form-check-label">강사</label>
-						        </div>
 						    </div>
 						</div>
 				         
@@ -474,7 +459,7 @@ input{
 				        
 				        <div class = "row mb-3" id="managerLecturerMenu" style="display: none;">
 				           <br>
-				           <input type="text" name="code" value="코드 입력" style="width: 150px; height: 35px; margin-left: 20px;">
+				           <input type="hideen" name="code" style="width: 150px; height: 35px; margin-left: 20px;">
 				        </div>
 				          <div class="text-center">
 				             <input class="btn btn-primary" type="submit" value="회원가입" onClick="return check()">

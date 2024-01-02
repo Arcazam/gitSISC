@@ -29,7 +29,7 @@ public class ManagerMemberSelDelController {
 			Model model
 			,HttpServletResponse response
 			,String[] rowcheck
-			,@RequestParam("pageNumber") int pageNumber
+			,@RequestParam(value = "pageNumber", required = false) int pageNumber
 			) throws IOException {
 		
 		int checkDelete = 0;

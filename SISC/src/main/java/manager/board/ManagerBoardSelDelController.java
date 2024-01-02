@@ -31,8 +31,8 @@ public class ManagerBoardSelDelController {
 			,HttpServletResponse response
 			,BoardBean bb
 			,String[] rowcheck
-			,@RequestParam("pageNumber") int pageNumber
-			,@RequestParam("b_cate") String b_cate
+			,@RequestParam(value="pageNumber",required = false) String pageNumber
+			,@RequestParam(value="b_cate",required = false) String b_cate
 			) throws IOException {
 		
 		int checkDelete = 0;

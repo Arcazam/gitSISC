@@ -3,19 +3,21 @@
 
 <style>
     img {
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 200px;
     }
 </style>
-
-<body>
+<%
+Object updateImg = (Object)session.getAttribute("updateImg");
+%>
+<body style="margin-top: 100px; margin-left: 150px;">
     <form id="updateForm" action="updateImg.mb" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="${mb.id}">
         <c:if test="${loginInfo.pro_img eq 'defaultImg.png' }">
 			<img id="preview" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/defaultImage.png">
 		</c:if>
 		<c:if test="${loginInfo.pro_img ne 'defaultImg.png' }">
-			<img id="preview" id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/${loginInfo.id }/pro_img/${loginInfo.pro_img}" />
+			<img id="preview" id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${updateImg}" />
 		</c:if>
         <br>
         <input type="file" name="upload" value="${mb.pro_img}" onchange="previewImage(this);">
@@ -38,7 +40,7 @@
             }
         }
 
-        function saveAndClose(id,pro_img) {
+        function saveAndClose(id, pro_img) {
             var formData = new FormData(document.getElementById("updateForm"));
 
             $.ajax({
@@ -47,13 +49,19 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function(response) {
+                success: function (response) {
                     var updatedImageUrl = $('#preview').attr('src');
                     window.opener.updateProfileImage(updatedImageUrl);
+
+                    // 현재 URL을 가져온 뒤 새로운 pro_img 값을 URL에 추가하여 업데이트합니다.
+                    var currentUrl = window.location.href.split('?')[0]; // 현재 URL에서 쿼리 파라미터 제거
+                    var newUrl = currentUrl + "?id=" + id + "&pro_img=" + pro_img; // 새로운 URL 생성
+                    history.replaceState(null, '', newUrl); // URL 업데이트
+
                     self.close();
                 },
-                error: function(xhr, status, error) {
-                    console.error(error); // 콘솔에 오류 메시지 출력
+                error: function (xhr, status, error) {
+                    console.error(error);
                     alert("데이터를 업데이트하는 중 오류가 발생했습니다.");
                 }
             });

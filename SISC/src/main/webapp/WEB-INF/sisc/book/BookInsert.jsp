@@ -18,11 +18,10 @@ if(loginInfo == null) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Book List</title>
     <style>
-    
-    
         .container {
             max-width: 70%;
-            margin-left: 400px;
+            margin-left: 470px;
+            margin-top: 100px;
         }
 
         body {
@@ -137,7 +136,7 @@ if(loginInfo == null) {
 <tr>
   <th>판매 코멘트</th>
   <td>
-    <textarea name="sell_content" class="form-control" rows="10" cols="10">${bb.sell_content}</textarea>
+    <textarea name="sell_content" class="form-control" rows="10" cols="10" placeholder="거래 가능한 일자, 시간을 기입해주세요">${bb.sell_content}</textarea>
   </td>
 </tr>
           <tr>

@@ -139,7 +139,10 @@
 							</tr>
 							<tr align="left">
 								<th>작성자 ${ bd.writer }</th>
-								<th align="right">작성일 <fmt:formatDate value="${bd.reg_date}" pattern="yyyy-MM-dd"/></th>
+								<th align="right">작성일 
+									<fmt:parseDate value='${bd.reg_date}' pattern="yyyy-MM-dd" var='day' /> 
+									<fmt:formatDate value="${day}" pattern="yyyy-MM-dd" />
+								</th>
 							</tr>
 							<tr>
 								<th>글 제목</th>

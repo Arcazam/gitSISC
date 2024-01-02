@@ -142,6 +142,7 @@
                 </nav>
                 <center style="margin-top: 10px; margin-bottom: 30px;"><h1>책방 리스트(${pageInfo.totalCount}개)</h1></center>
 			<form name="magBookListForm" action="delSelBook.mag">
+			<input type="hidden" name="pageNumber" value="${ pageInfo.pageNumber }">
 				<div class="container-fluid">
                     <div class="row">
                     	<table class="table">
@@ -297,7 +298,7 @@
 
 	}
 	
-	function deleteBook(b_num,pageNumber){
+	function deleteBook(bk_num,pageNumber){
 		location.href="bookDelete.mag?bk_num="+bk_num+"&pageNumber="+pageNumber;
 	}
 	

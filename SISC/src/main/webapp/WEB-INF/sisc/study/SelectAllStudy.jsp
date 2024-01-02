@@ -40,7 +40,7 @@ if(loginInfo == null){%>
 </form>
 <div>
 <button class="learn-more" type="button" onclick="insert('${id}','<%= pro_img %>')" style="margin-left: 1100px; margin-bottom: 50px;">
-    <span class="circle" aria-hidden="true">
+    <span class="circle" aria-hidden="true"> 
         <span class="icon arrow"></span>
     </span>
     <span class="button-text">추가하기</span>

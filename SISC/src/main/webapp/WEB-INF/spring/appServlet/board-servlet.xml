@@ -17,6 +17,7 @@
 		</bean>
 	
 		<context:component-scan base-package="board" />
+		<context:component-scan base-package="notice" />
 		
 		<!-- 사용자 정보 확인 -->
 		<context:component-scan base-package="member" />

@@ -12,10 +12,17 @@
 			select count(*) from book
 		</select>
 	
-		<select id="getBookList" resultType="SiscBook">
-			select * from book order by bk_num asc
-		</select>
-		
+		   <select id="getBookList" resultType="SiscBook">
+             select * from book where sellstatus = 'Yet'
+	         <if test="whatColumn == 'title'">
+	        and title like #{keyword} 
+	       </if>
+	       <if test="whatColumn == 'writer'">
+	        and title like #{keyword} 
+	       </if>
+	             order by bk_num asc
+	      </select>
+			
 		<insert id="insertBookMarket">
 			insert into book values(book_seq.nextval,#{seller},#{seller_pnum},#{writer},
 			#{title},#{publisher},#{b_image1},#{b_image2},#{b_image3},#{sell_content},

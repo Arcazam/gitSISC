@@ -139,7 +139,9 @@ function check(){
 </script>
 
 <script src="https://kit.fontawesome.com/3a115195d8.js" crossorigin="anonymous"></script>
-
+<%
+Object updateImg = (Object)session.getAttribute("updateImg");
+%>
 <div class = "container">
 	<div class="body-container">
 		<div class="body-title">
@@ -150,7 +152,12 @@ function check(){
 				<form name="insertMemberForm" method="post" action="update.mb" enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${mb.id }">
 				         <div class="row" style="margin-left: 3px;">
-				         	<img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/${loginInfo.id}/pro_img/${loginInfo.pro_img}" /><br>
+				         	<c:if test="${updateImg eq null }">
+								<img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${loginInfo.pro_img}">
+							</c:if>
+							<c:if test="${updateImg ne null }">
+								<img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${updateImg}">
+							</c:if>
 					         &nbsp;&nbsp;<strong>[프로필 사진]</strong>
 				         </div>
 				      

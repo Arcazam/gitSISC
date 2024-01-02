@@ -75,7 +75,7 @@ public class BookInsertController {
 		
 		bb.setSeller_pnum(seller_pnum1+"-"+seller_pnum2+"-"+seller_pnum3);
 		
-		String uploadPath = servletContext.getRealPath("/resources/member/"+ bb.getSeller() +"/book/");
+		String uploadPath = servletContext.getRealPath("/resources/book/");
 		System.out.println("uploadPath:"+uploadPath);
 		int cnt = bok_dao.insertBookMarket(bb);
 		

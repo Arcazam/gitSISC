@@ -31,14 +31,14 @@ if(loginInfo == null){%>
 				<tr>
 					<th style="width: 40%; text-align: center;">책 제목</th>
 					<th style="width: 10%;">판매 상태</th>
-					<th style="width: 30%;">&nbsp;&nbsp;  판매 종료 하기</th>
-					<th style="white-space: nowrap;">수정</th>
-					<th style="white-space: nowrap;">삭제</th>
+					<th style="width: 30%; text-align: center;">&nbsp;&nbsp;  판매 종료 하기</th>
+					<th style="white-space: nowrap;">수정</th> |
+					<th style="white-space: nowrap;"> 삭제</th>
 				</tr>
 				<c:forEach var="st" items="${sb }">
 					<tr>
 						<td style="width: 40%; height: 50px; text-align: center;">${st.title }</td>
-						<td style="width: 20%;">
+						<td style="width: 20%; ">
 							<c:if test="${st.sellstatus == 'Yet' }">
 								<span style="color: red;">판매중</span>
 							</c:if>
@@ -46,11 +46,11 @@ if(loginInfo == null){%>
 								<span style="color: green;">판매완료</span>
 							</c:if>
 						</td>
-						<td style="width: 70px;">
+						<td style="width: 70px; text-align: center;">
 							<a href="endsell.bk?bk_num=${st.bk_num}&pageNumber=1&id=${id}&pro_img=${loginInfo.pro_img}">판매 종료</a>
 						</td>
-						<td style="width: 50px;">
-							<a href="updateMyBook.bk?bk_num=${st.bk_num}&pageNumber=1&writer=${st.seller}&id=${id}&pro_img=${loginInfo.pro_img}">수정</a>
+						<td style="width: 6%;">
+							<a href="updateMyBook.bk?bk_num=${st.bk_num}&pageNumber=1&writer=${st.seller}&id=${id}&pro_img=${loginInfo.pro_img}">수정</a> | 
 						</td>
 						<td style="width: 10%;">
 							<a href="deleteMyBook.bk?bk_num=${st.bk_num}&pageNumber=1&id=${id}&pro_img=${loginInfo.pro_img}" style="text-decoration: none; color: black;">삭제</a>

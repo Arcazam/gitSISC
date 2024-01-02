@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice">
+	<insert id="insertNotice">
+		insert into notice 
+		values(insertNotice.nextval, #{writer}, #{subject}, #{reg_date}, #{readcount}, #{content})
+	</insert>
+	
+	<update id="updateCount">
+		update notice set
+		readcount = readcount + 1 where n_num = #{n_num}
+	</update>
+</mapper>

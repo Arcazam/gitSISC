@@ -11,12 +11,14 @@ Object loginInfo = session.getAttribute("loginInfo");
 <style>
  .card-title {
     font-size: 20px; /* 원하는 폰트 크기로 조정하세요 */
+    white-space: nowrap; /* 줄 바꿈 방지 */
+    text-overflow: ellipsis; /* 초과 텍스트에 대한 "..." 표시 */
+    overflow: hidden; /* 넘치는 텍스트 감춤 */
+    max-width: 1px; /* 텍스트가 나타날 최대 너비 */
   }
   .card-text{
   	font-size: 16px;
   }
-
-
 
   .price-line {
     display: inline-block;
@@ -38,6 +40,7 @@ img{
 	width: 200px;
 	height: 300px;;
 }
+
 </style>
 
 <!DOCTYPE html>
@@ -56,7 +59,7 @@ img{
     <link href="<%=request.getContextPath() %>/resources/css/kfonts2.css" rel="stylesheet">
 </head>
 <body>
-
+<br><br>
 <div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-md-6 text-center">
@@ -72,7 +75,7 @@ img{
   </div>
 </div>
 
-<div class="container mt-4" style="margin-right: 100px; width: 80%;">
+<div class="container mt-4" style="margin: auto; width: 60%;">
     <div class="row row-cols-1 row-cols-md-4 g-5">
         <!-- 책 아이템 시작 -->
         <c:forEach var="bk" items="${book_list }">
@@ -93,10 +96,12 @@ img{
                                 </div>
                             </td>
                         </tr>
-
-   <tr class="card-body">
-    <td class="card-title"><b>${bk.title }</b></td>
-</tr>
+					   <tr class="card-body">
+					    	<td class="card-title"><b>${bk.title }</b></td>
+						</tr>
+						<tr class="card-body">
+							<td class="card-title"><b>${bk.dis_price }원</b></td>
+						</tr>
                     </c:otherwise>
                 </c:choose>
             </table>
@@ -105,17 +110,14 @@ img{
 </div>
 
 
-<br><br><br><br><br>
+<br><br>
 
-<div class="text-center" style="font-size: 15px; margin-right: 50px">${pageInfo.pagingHtml }</div>
+<div class="text-center" style="font-size: 15px;">${pageInfo.pagingHtml }</div>
 
 <!-- 부트스트랩 JS 및 팝퍼 라이브러리 -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
-<br><br><br><br><br>
-
-
 
 <%@ include file="../top&bottom/bookBottom.jsp"%>

@@ -160,7 +160,7 @@ body {
       </tr>
       
       <tr>
-         <td style="padding-top: 30px;"><input type="submit" value="로그인" class="textSize" style="background: white;"></td>
+         <td style="padding-top: 30px;"><input type="submit" value="로그인" class="textSize" style="background: #0D6EFD; color: white; border: none;"></td>
       </tr>
       
       <tr>

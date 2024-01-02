@@ -18,6 +18,7 @@ import board.model.BoardBean;
 import manager.model.ManagerBean;
 import quiz.model.QuizBean;
 import quiz.model.QuizDao;
+import utility.MagQuizPaging;
 import utility.ManagerPaging;
 
 @Controller
@@ -61,7 +62,7 @@ public class ManagerQuizListController {
 		
 		int quizMagCateCount = qdao.getMagQuizCount(qb,map);
 		
-		ManagerPaging pageInfo = new ManagerPaging(pageNumber,null,quizMagCateCount,url,whatColumn,keyword);
+		MagQuizPaging pageInfo = new MagQuizPaging(pageNumber,null,quizMagCateCount,url,whatColumn,keyword,que_cate);
 		
 		List<QuizBean> qlist = qdao.getAllMagQuizList(qb,pageInfo,map);
 			

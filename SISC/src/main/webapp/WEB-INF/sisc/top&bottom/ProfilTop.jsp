@@ -124,17 +124,12 @@ String pro_img = (String) request.getAttribute("pro_img");
 %>
 <div class="card">
         <div class="card_load">
-		    <% if ("defaultImg.png".equals(request.getAttribute("pro_img"))){ %>
-			   		<img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/defaultImage.png">
-				<% }else if (request.getAttribute("pro_img") == "" && updateImg == null) { %>
-				    <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/defaultImage.png">
-				<% } %> 
-				
-		    <% if (updateImg != null) { %>
-			    <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/${loginInfo.id}/pro_img/${loginInfo.pro_img}" />
-			<% } else if(updateImg == null && !"defaultImg.png".equals(request.getAttribute("pro_img"))) { %>
-			    <img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/defaultImage.png">
-			<% } %>
+			<c:if test="${updateImg eq null }">
+				<img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${loginInfo.pro_img}">
+			</c:if>
+			<c:if test="${updateImg ne null }">
+				<img id="profileImage" class="img-option" src="<%= request.getContextPath() %>/resources/member/pro_img/${updateImg}">
+			</c:if>
         </div>
         <div class="card_load_extreme_title"><b>이름</b> ${loginInfo.name }</div>
 	    <div class="card_load_extreme_descripion">
@@ -151,17 +146,32 @@ String pro_img = (String) request.getAttribute("pro_img");
 
         <div class="additional_content">
             <%-- 추가할 내용 배치 --%>
-            <div class="additional_links">
-		    	<input type="hidden" name="loginInfo" value="${loginInfo }">
-		        <a href="update.mb?id=${loginInfo.id }">내정보 수정</a>
-		        <a href="#" onclick="openProfileUpdate('${loginInfo.id}','${loginInfo.pro_img }')">프로필 수정</a>
-		        <a href="myboard.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내가쓴 게시글</a>
-		        <a href="mycomment.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내가쓴 댓글</a>
-		        <a href="myBook.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내 중고책</a>
-		        <a href="SelectAllStudy.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}">내 메모장</a>
-		        <a href="<%=request.getContextPath() %>/logout.jsp">로그아웃</a>
-		        <a href="delete.mb?id=${loginInfo.id }">회원 탈퇴</a>
-            </div>
+            <c:if test="${updateImg eq null }">
+            	<div class="additional_links">
+			    	<input type="hidden" name="loginInfo" value="${loginInfo }">
+			        <a href="update.mb?id=${loginInfo.id }">내정보 수정</a>
+			        <a href="#" onclick="openProfileUpdate('${loginInfo.id}','${loginInfo.pro_img }')">프로필 수정</a>
+			        <a href="myboard.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내가쓴 게시글</a>
+			        <a href="mycomment.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내가쓴 댓글</a>
+			        <a href="myBook.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}&writer=${loginInfo.id}">내 중고책</a>
+			        <a href="SelectAllStudy.st?id=${loginInfo.id }&pro_img=${loginInfo.pro_img}">내 메모장</a>
+			        <a href="<%=request.getContextPath() %>/logout.jsp">로그아웃</a>
+			        <a href="delete.mb?id=${loginInfo.id }">회원 탈퇴</a>
+	            </div>
+            </c:if>
+            <c:if test="${updateImg ne null }">
+            	<div class="additional_links">
+			    	<input type="hidden" name="loginInfo" value="${loginInfo }">
+			        <a href="update.mb?id=${loginInfo.id }">내정보 수정</a>
+			        <a href="#" onclick="openProfileUpdate('${loginInfo.id}','${loginInfo.pro_img }')">프로필 수정</a>
+			        <a href="myboard.st?id=${loginInfo.id }&pro_img=${updateImg}&writer=${loginInfo.id}">내가쓴 게시글</a>
+			        <a href="mycomment.st?id=${loginInfo.id }&pro_img=${updateImg}&writer=${loginInfo.id}">내가쓴 댓글</a>
+			        <a href="myBook.st?id=${loginInfo.id }&pro_img=${updateImg}&writer=${loginInfo.id}">내 중고책</a>
+			        <a href="SelectAllStudy.st?id=${loginInfo.id }&pro_img=${updateImg}">내 메모장</a>
+			        <a href="<%=request.getContextPath() %>/logout.jsp">로그아웃</a>
+			        <a href="delete.mb?id=${loginInfo.id }">회원 탈퇴</a>
+	            </div>
+            </c:if>
         </div>
     </div>
 </div>

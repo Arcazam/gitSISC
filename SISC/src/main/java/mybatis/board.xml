@@ -484,5 +484,7 @@
 	</delete>
 	<!-- 관리자 끝 -->
 	
-	
+	<delete id="selectAndDelteBoard">
+   	  delete from board where b_num = #{b_num} and ref=#{ref} and re_level = 0
+   </delete>	
 </mapper>

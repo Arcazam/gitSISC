@@ -147,7 +147,9 @@
                     </ul>
                 </nav>
                 <center style="margin-top: 10px; margin-bottom: 30px;"><h1>게시판 리스트(${pageInfo.totalCount}개)</h1></center>
+                <!-- <input type="button" value="공지사항 추가" class="btn btn-primary" style="float: right;" onClick="insertNotice()"><br><br> -->
 			<form name="magBoardListForm" action="delSelBoard.mag">
+				<input type="hidden" name="b_cate" value="${ bb.b_cate }">
 				<div class="container-fluid">
                     <div class="row">
                     	<table class="table">
@@ -288,6 +290,7 @@
 		rcheck = document.getElementsByName("rowcheck");
 		for (var i = 0; i < rcheck.length; i++) {
 			if (rcheck[i].checked) {
+				alert(1)
 				flag = true;
 			}
 		}
@@ -308,4 +311,7 @@
 		location.href="boardDelete.mag?b_num="+b_num+"&b_cate="+b_cate+"&pageNumber="+pageNumber;
 	}
 	
+	function insertNotice(){
+		location.href="insertNotice.bd";
+	}
 </script>

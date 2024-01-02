@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import utility.MagQuizPaging;
 import utility.ManagerPaging;
 
 @Component("myQuiz")
@@ -51,7 +52,7 @@ public class QuizDao {
 			return quizMagCateCount;
 		}
 
-		public List<QuizBean> getAllMagQuizList(QuizBean qb, ManagerPaging pageInfo, Map<String, String> map) {
+		public List<QuizBean> getAllMagQuizList(QuizBean qb, MagQuizPaging pageInfo, Map<String, String> map) {
 			RowBounds rowBounds = new RowBounds(pageInfo.getOffset(),pageInfo.getLimit());
 			List<QuizBean> qlist = sqlSessionTemplate.selectList(namespace+"get"+qb.getQue_cate()+"QuizList",map,rowBounds);
 			return qlist;

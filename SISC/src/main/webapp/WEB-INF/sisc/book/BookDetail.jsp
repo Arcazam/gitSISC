@@ -29,7 +29,6 @@ if(loginInfo == null){%>
 
 
 <style>
-
 #BookDetailForm th {
   width: 130px;
 }
@@ -54,7 +53,7 @@ table {
     width: 170px;
     height:180px;
     margin-bottom: 20px;
-    margin-left : 290px;
+    margin-left : 260px;
     #bookInsertTable th {
 }
 

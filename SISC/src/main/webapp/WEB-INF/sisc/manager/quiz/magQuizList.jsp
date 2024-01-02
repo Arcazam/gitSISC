@@ -151,6 +151,8 @@
                 </nav>
                 <center style="margin-top: 10px; margin-bottom: 30px;"><h1>퀴즈 리스트(${pageInfo.totalCount}개)</h1></center>
 			<form name="magQuizListForm" action="delSelQuiz.mag">
+				<input type="hidden" name="pageNumber" value="${ pageInfo.pageNumber }">
+   				<input type="hidden" name="que_cate" value="${ quizCate }">
 				<div class="container-fluid">
                     <div class="row">
                     	<table class="table">

@@ -27,7 +27,7 @@ public class MainViewController {
 
 	// 게시판 리스트형식 출력
 	@Autowired
-	private BoardDao bor_dao;
+	private BoardDao bor_dao; 
 
 	// 회원 빈 형식 출력
 	@Autowired
